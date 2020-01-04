@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'screens/HomeScreen/HomeScreen.dart';
-import 'screens/ActivityCreateScreen/ActivityCreateScreen.dart';
+import 'package:whatup/screens/HomeScreen/LocationSearchPopupWidget.dart';
+import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
+import 'package:whatup/screens/ActivityCreateScreen/ActivityCreateScreen.dart';
 
-// import 'package:example/screens/example2/examplescreen2.dart';
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/": (BuildContext context) => HomeScreen(),
+  "/search_location": (BuildContext context) => LocationSearchPopupWidget(),
   "/create": (BuildContext context) => ActivityCreateScreen(),
 };
