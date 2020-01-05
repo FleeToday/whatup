@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:whatup/resources/Repository.dart';
 
 class Activity {
   final title;
@@ -22,9 +23,11 @@ class ActivitiesListView extends StatefulWidget {
 }
 
 class _ActivitiesListViewState extends State<ActivitiesListView> {
+  final _repository = Repository();
+
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('activities').snapshots(),
+      stream: _repository.getActivities(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
