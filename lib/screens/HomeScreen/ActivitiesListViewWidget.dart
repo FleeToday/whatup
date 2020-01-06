@@ -1,21 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:whatup/models/Activity.dart';
 import 'package:whatup/resources/Repository.dart';
-
-class Activity {
-  final title;
-  final description;
-  final DocumentReference reference;
-
-  Activity.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['title'] != null),
-        assert(map['description'] != null),
-        title = map['title'],
-        description = map['description'];
-
-  Activity.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-}
 
 class ActivitiesListView extends StatefulWidget {
   @override
