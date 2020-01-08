@@ -34,7 +34,6 @@ class LocationSearchInputWidget extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10.0),
       child: TextField(
         onTap: () {
-          debugPrint("tap jor");
           // Todo: Custom Animated transition with named route?
           Navigator.push(context, FadeRoute(page: LocationSearchPopupWidget()));
         },
