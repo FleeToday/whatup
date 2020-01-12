@@ -94,7 +94,7 @@ class _LoginModuleState extends State<LoginModule> {
           passwordController: _passwordController,
           state: state,
           onSignInButtonPress: _onSignInButtonPress,
-          errMsg: (state is LoginFailure) ? "Login Failure" : "",
+          errMsg: (state is LoginFailure) ? state.errMsg : "",
         );
       },
     ));
@@ -188,9 +188,11 @@ class LoginForm extends StatelessWidget {
             },
           ),
           Container(
-            height: 30,
+            height: 50,
             child: Center(
-              child: Text(_errMsg,),
+              child: Text(
+                _errMsg,
+              ),
             ),
           ),
           FlatButton(

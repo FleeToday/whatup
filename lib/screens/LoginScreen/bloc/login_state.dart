@@ -32,5 +32,7 @@ class LoginSuccess extends LoginState {
 }
 
 class LoginFailure extends LoginState {
-  const LoginFailure() : super(true, true, true, false, true);
+  final String errMsg;
+
+  const LoginFailure(this.errMsg) : super(true, true, true, false, true);
 }

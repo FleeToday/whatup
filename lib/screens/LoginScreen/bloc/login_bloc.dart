@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whatup/resources/Repository.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_event.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
@@ -33,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await repo.signIn(email, password);
       yield LoginSuccess();
     } catch (_) {
-      yield LoginFailure();
+      yield LoginFailure(_.message);
     }
   }
 }
