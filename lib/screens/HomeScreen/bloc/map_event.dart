@@ -9,6 +9,10 @@ abstract class MapEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class UpdateMapToCurrentLocation extends MapEvent {
+  const UpdateMapToCurrentLocation();
+}
+
 class UpdateMap extends MapEvent {
   final LatLng center;
 

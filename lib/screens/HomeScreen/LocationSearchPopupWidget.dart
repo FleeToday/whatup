@@ -18,7 +18,8 @@ class LocationSearchPopupWidget extends PlacesAutocompleteWidget {
           apiKey: kGoogleApiKey,
           sessionToken: "123",
           language: "en",
-          components: [Component(Component.country, "uk")],
+          radius: 10000000,
+          components: [Component(Component.country, "hk")],
         );
 
   @override
