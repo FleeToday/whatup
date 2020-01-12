@@ -26,3 +26,11 @@ class LoginUpdate extends LoginState {
   const LoginUpdate(isEmailValid, isPasswordValid)
       : super(isEmailValid, isPasswordValid, true, false, false);
 }
+
+class LoginSuccess extends LoginState {
+  const LoginSuccess() : super(true, true, true, true, false);
+}
+
+class LoginFailure extends LoginState {
+  const LoginFailure() : super(true, true, true, false, true);
+}

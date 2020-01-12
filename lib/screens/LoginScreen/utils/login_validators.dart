@@ -9,7 +9,7 @@ class Validators {
   static isValidEmail(String email) {
     return _emailRegExp.hasMatch(email);
   }
-
+                                                                                                                                                                                         
   static isValidPassword(String password) {
     return _passwordRegExp.hasMatch(password);
   }
