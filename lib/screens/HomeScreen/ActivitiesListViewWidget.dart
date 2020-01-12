@@ -24,6 +24,7 @@ class _ActivitiesListViewState extends State<ActivitiesListView> {
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
     return ListView(
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       children: snapshot.map((data) => _buildListItem(context, data)).toList(),
     );

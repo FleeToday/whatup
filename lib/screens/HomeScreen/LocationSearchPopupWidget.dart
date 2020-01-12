@@ -16,7 +16,6 @@ class LocationSearchPopupWidget extends PlacesAutocompleteWidget {
   LocationSearchPopupWidget()
       : super(
           apiKey: kGoogleApiKey,
-          sessionToken: "123",
           language: "en",
           radius: 10000000,
           components: [Component(Component.country, "hk")],
@@ -40,12 +39,7 @@ Future<Null> displayPrediction(Prediction p, BuildContext context) async {
     final double lng = detail.result.geometry.location.lng;
     final LatLng _center = LatLng(lat, lng);
     updateLocation(context, _center);
-    Navigator.of(context).pop();
-    // scaffold.showSnackBar(
-    //   SnackBar(content: Text("${p.description} - $lat/$lng")),
-    // );
-    // print("get place");
-    // print("pop nav");
+    Navigator.pop(context);
   }
 }
 
