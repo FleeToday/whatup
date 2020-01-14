@@ -7,10 +7,12 @@ class Validators {
   );
 
   static isValidEmail(String email) {
+    if (email.length <= 0) return true;
     return _emailRegExp.hasMatch(email);
   }
 
   static isValidPassword(String password) {
+    if (password.length <= 0) return true;
     return _passwordRegExp.hasMatch(password);
   }
 }

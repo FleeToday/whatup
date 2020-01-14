@@ -8,12 +8,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'WhatUp',
-      initialRoute: '/login',
       routes: routes,
       // theme: new ThemeData(
       //   brightness: Brightness.light,
-      //   primaryColor: Colors.white,
-      //   accentColor: Colors.orange[200],
+      //   primaryColor: Colors.orange[200],
+      //   accentColor: Colors.white,
       //   backgroundColor: Colors.orange[200],
       //   buttonColor: Colors.orange[200],
       //   primaryTextTheme: TextTheme(),
