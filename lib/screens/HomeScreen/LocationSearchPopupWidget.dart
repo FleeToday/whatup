@@ -1,27 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:whatup/screens/HomeScreen/LocationSearchInputWidget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
+import 'package:whatup/screens/HomeScreen/bloc/map_event.dart';
 
-class LocationSearchPopupWidget extends StatefulWidget {
+import 'bloc/map_bloc.dart';
+
+const kGoogleApiKey = "AIzaSyA5feactDV3qCiw1W5a0DdkCqgnCBazxCs";
+GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+final searchScaffoldKey = GlobalKey<ScaffoldState>();
+
+class LocationSearchPopupWidget extends PlacesAutocompleteWidget {
+  LocationSearchPopupWidget()
+      : super(
+          apiKey: kGoogleApiKey,
+          language: "en",
+          radius: 10000000,
+          components: [Component(Component.country, "hk")],
+        );
+
   @override
   _LocationSearchPopupWidgetState createState() =>
       _LocationSearchPopupWidgetState();
 }
 
-class _LocationSearchPopupWidgetState extends State<LocationSearchPopupWidget> {
+void updateLocation(BuildContext context, String locationName, LatLng center) {
+  final mapBloc = BlocProvider.of<MapBloc>(context);
+  mapBloc.add(UpdateMap(locationName, center));
+}
+
+Future<Null> displayPrediction(Prediction p, BuildContext context) async {
+  if (p != null) {
+    // get detail (lat/lng)
+    PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+    final double lat = detail.result.geometry.location.lat;
+    final double lng = detail.result.geometry.location.lng;
+    final LatLng _center = LatLng(lat, lng);
+    updateLocation(context, detail.result.name, _center);
+    Navigator.pop(context);
+  }
+}
+
+class _LocationSearchPopupWidgetState extends PlacesAutocompleteState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+        key: searchScaffoldKey,
+        appBar: AppBar(
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          title: AppBarPlacesAutoCompleteTextField(),
+          backgroundColor: Colors.white,
         ),
-        title: TextField(
-          decoration: InputDecoration(
-              border: InputBorder.none, hintText: "Where are you?"),
-        ),
-        backgroundColor: Colors.white,
-      ),
-    );
+        body: PlacesAutocompleteResult(
+          onTap: (p) {
+            displayPrediction(p, context);
+          },
+        ));
   }
 }

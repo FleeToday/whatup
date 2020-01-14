@@ -8,19 +8,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 230),
-            child: ActivitiesCreateButtonWidget()),
-        body: Stack(children: [
-          ActivitiesMapViewWidget(),
-          new SafeArea(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              LocationSearchInputWidget(),
-              ActivitiesListView()
-            ],
-          )),
-        ]));
+      floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 230),
+          child: ActivitiesCreateButtonWidget()),
+      body: Stack(children: [
+        ActivitiesMapViewWidget(),
+        new SafeArea(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[LocationSearchInputWidget(), ActivitiesListView()],
+        )),
+      ]),
+    );
   }
 }
