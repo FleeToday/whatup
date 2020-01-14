@@ -6,8 +6,8 @@ import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
 import 'package:whatup/screens/ActivityCreateScreen/ActivityCreateScreen.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
-  "/login": (BuildContext context) => LoginScreen(),
-  "/": (BuildContext context) => HomeScreen(),
+  "/": (BuildContext context) => LoginScreen(),
+  "/home": (BuildContext context) => HomeScreen(),
   "/search_location": (BuildContext context) => LocationSearchPopupWidget(),
   "/create": (BuildContext context) => ActivityCreateScreen(),
 };

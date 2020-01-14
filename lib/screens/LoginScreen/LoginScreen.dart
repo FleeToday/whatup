@@ -11,42 +11,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<LoginBloc>(
       create: (context) => LoginBloc(Repository()),
-      child: buildLoginForm(context),
-    );
-  }
-
-  Widget buildLoginForm(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Text(
-              'Welcome to Whatup',
-              style: TextStyle(
-                fontWeight: FontWeight.w200,
-                fontSize: 36,
-                color: Colors.black87,
-              ),
-            ),
-            Text(
-              'Sign in to continue',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 18,
-                color: Colors.black87,
-              ),
-            ),
-            Container(
-              height: 36,
-            ),
-            LoginModule(),
-          ],
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-        ),
-        decoration: BoxDecoration(color: Colors.white),
-        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-      ),
+      child: LoginModule(),
     );
   }
 }
@@ -82,13 +47,10 @@ class _LoginModuleState extends State<LoginModule> {
     // TODO: implement build
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
       if (state is LoginSuccess) {
-        Navigator.pushNamed(context, '/');
+        Navigator.popAndPushNamed(context, '/home');
       }
     }, child: BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        if (state is LoginLoading) {
-          return LoginLoadingView();
-        }
         return LoginForm(
           emailController: _emailController,
           passwordController: _passwordController,
@@ -131,8 +93,17 @@ class LoginLoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(),
-    );
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        CircularProgressIndicator(),
+        Container(
+          child: Text('Loading'),
+          margin: EdgeInsets.all(16),
+        )
+      ],
+    ));
   }
 }
 
@@ -158,66 +129,110 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-          child: Column(
-        children: <Widget>[
-          TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Username',
-              ),
-              autovalidate: true,
-              validator: (String value) {
-                return _state.isEmailValid ? null : "Invalid Email";
-              }),
-          Container(
-            height: 12,
-          ),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-            autovalidate: true,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Password',
-            ),
-            validator: (String value) {
-              return _state.isPasswordValid ? null : "Invalid Password";
-            },
-          ),
-          Container(
-            height: 50,
-            child: Center(
-              child: Text(
-                _errMsg,
-              ),
-            ),
-          ),
-          FlatButton(
-            onPressed: _onSignInButtonPress,
-            textColor: Colors.white,
-            padding: const EdgeInsets.all(0.0),
-            color: Colors.transparent,
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
-                  ],
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(
+                  'Welcome to Whatup',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w200,
+                    fontSize: 36,
+                    color: Colors.black87,
+                  ),
                 ),
-              ),
-              padding: const EdgeInsets.all(10.0),
-              child: const Text('Sign In',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200)),
-              alignment: Alignment.center,
+                Text(
+                  'Sign in to continue',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                    color: Colors.black87,
+                  ),
+                )
+              ],
             ),
-          ),
-        ],
-      )),
+            Container(
+              height: 300,
+              child: (_state is LoginLoading)
+                  ? LoginLoadingView()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextFormField(
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Username',
+                            ),
+                            autovalidate: true,
+                            validator: (String value) {
+                              return _state.isEmailValid
+                                  ? null
+                                  : "Invalid Email";
+                            }),
+                        Container(
+                          height: 20,
+                          child: Center(
+                            child: Text(
+                              _errMsg,
+                            ),
+                          ),
+                        ),
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          autovalidate: true,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Password',
+                          ),
+                          validator: (String value) {
+                            return _state.isPasswordValid
+                                ? null
+                                : "Invalid Password";
+                          },
+                        ),
+                        Container(
+                          height: 50,
+                          child: Center(
+                            child: Text(
+                              _errMsg,
+                            ),
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: _onSignInButtonPress,
+                          textColor: Colors.white,
+                          padding: const EdgeInsets.all(0.0),
+                          color: Colors.transparent,
+                          child: AnimatedContainer(
+                            color: _state.isEmailValid &&
+                                    _state.isPasswordValid &&
+                                    _emailController.text.isNotEmpty &&
+                                    _passwordController.text.isNotEmpty
+                                ? Colors.blue[800]
+                                : Colors.blue[300],
+                            duration: Duration(milliseconds: 1000),
+                            padding: const EdgeInsets.all(10.0),
+                            child: const Text('Sign In',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w200)),
+                            alignment: Alignment.center,
+                          ),
+                        ),
+                      ],
+                    ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
