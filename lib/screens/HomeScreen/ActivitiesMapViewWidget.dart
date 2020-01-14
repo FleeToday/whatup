@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
-import 'package:whatup/screens/HomeScreen/bloc/map_event.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_state.dart';
 
 class ActivitiesMapViewWidget extends StatefulWidget {
@@ -15,22 +14,19 @@ class ActivitiesMapViewWidget extends StatefulWidget {
 }
 
 class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
-  static LatLng _initialPosition;
+  Future<LatLng> _initialPosition;
   Completer<GoogleMapController> _controller = Completer();
+
   @override
   void initState() {
     super.initState();
-    print("init state");
-    _getUserLocation();
+    _initialPosition = _getUserLocation();
   }
 
-  _getUserLocation() async {
+  Future<LatLng> _getUserLocation() async {
     var _location = Location();
     var _currentLocation = await _location.getLocation();
-    setState(() {
-      _initialPosition =
-          LatLng(_currentLocation.latitude, _currentLocation.longitude);
-    });
+    return LatLng(_currentLocation.latitude, _currentLocation.longitude);
   }
 
   void _onMapCreated(BuildContext context, GoogleMapController controller) {
@@ -50,12 +46,22 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
             )));
           }
         },
-        child: GoogleMap(
-          onMapCreated: (controller) => _onMapCreated(context, controller),
-          initialCameraPosition: CameraPosition(
-            target: _initialPosition,
-            zoom: 11.0,
-          ),
-        ));
+        child: FutureBuilder(
+            future: _initialPosition,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return GoogleMap(
+                  onMapCreated: (controller) =>
+                      _onMapCreated(context, controller),
+                  myLocationEnabled: true,
+                  initialCameraPosition: CameraPosition(
+                    target: snapshot.data,
+                    zoom: 18.0,
+                  ),
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            }));
   }
 }
