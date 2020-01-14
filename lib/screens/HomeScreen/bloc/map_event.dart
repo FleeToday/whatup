@@ -14,10 +14,11 @@ class UpdateMapToCurrentLocation extends MapEvent {
 }
 
 class UpdateMap extends MapEvent {
+  final String locationName;
   final LatLng center;
 
-  const UpdateMap(this.center);
+  const UpdateMap(this.locationName, this.center);
 
   @override
-  List<Object> get props => [center];
+  List<Object> get props => [this.locationName, center];
 }

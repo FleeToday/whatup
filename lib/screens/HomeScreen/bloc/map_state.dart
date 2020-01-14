@@ -20,10 +20,11 @@ class InitialMapState extends MapState {
 }
 
 class LocationSelected extends MapState {
+  final String locationName;
   final LatLng center;
 
-  const LocationSelected([this.center]);
+  const LocationSelected([this.locationName, this.center]);
 
   @override
-  List<Object> get props => [center];
+  List<Object> get props => [this.locationName, this.center];
 }
