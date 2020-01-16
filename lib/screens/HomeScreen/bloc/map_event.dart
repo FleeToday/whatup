@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/semantics.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 
@@ -20,5 +21,5 @@ class UpdateMap extends MapEvent {
   const UpdateMap(this.locationName, this.center);
 
   @override
-  List<Object> get props => [this.locationName, center];
+  List<Object> get props => [this.locationName, this.center];
 }

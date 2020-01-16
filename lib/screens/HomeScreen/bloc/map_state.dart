@@ -22,9 +22,10 @@ class InitialMapState extends MapState {
 class LocationSelected extends MapState {
   final String locationName;
   final LatLng center;
+  final Map<MarkerId, Marker> markers;
 
-  const LocationSelected([this.locationName, this.center]);
+  const LocationSelected([this.locationName, this.center, this.markers]);
 
   @override
-  List<Object> get props => [this.locationName, this.center];
+  List<Object> get props => [this.locationName, this.center, this.markers];
 }
