@@ -179,11 +179,6 @@ class LoginForm extends StatelessWidget {
                             }),
                         Container(
                           height: 20,
-                          child: Center(
-                            child: Text(
-                              _errMsg,
-                            ),
-                          ),
                         ),
                         TextFormField(
                           controller: _passwordController,

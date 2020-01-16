@@ -9,11 +9,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-      //   buttonColor: Colors.orange[200],
-      //   backgroundColor: Colors.orange[200],
-      //   primaryTextTheme: TextTheme(),
-      //   indicatorColor: Colors.orange[200],
-      // ),
     return BlocProvider<MapBloc>(
         create: (context) => MapBloc(),
         child: MaterialApp(
@@ -23,3 +18,4 @@ class MyApp extends StatelessWidget {
         ));
   }
 }
+ 
