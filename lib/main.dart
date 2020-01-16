@@ -24,6 +24,14 @@ class MyApp extends StatelessWidget {
           title: 'WhatUp',
           initialRoute: '/login',
           routes: routes,
+          theme: new ThemeData(
+              // brightness: Brightness.light,
+              // primaryColor: Colors.orange[200],
+              // accentColor: Colors.white,
+              // backgroundColor: Colors.orange[200],
+              // buttonColor: Colors.orange[200],
+              // primaryTextTheme: TextTheme(),
+              appBarTheme: AppBarTheme(brightness: Brightness.light)),
         ));
   }
 }
