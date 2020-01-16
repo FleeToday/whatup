@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:whatup/models/Activity.dart';
 import 'package:whatup/resources/Repository.dart';
 
@@ -17,21 +18,20 @@ class _ActivitiesListViewState extends State<ActivitiesListView> {
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
-        return _buildList(context, snapshot.data.documents);
+        return Swiper(
+          itemBuilder: (context, i) {
+            return _buildListItem(context, snapshot.data.documents, i);
+          },
+          itemCount: snapshot.data.documents.length,
+          viewportFraction: 0.8,
+          scale: 0.95,
+        );
       },
     );
   }
 
-  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-    return ListView(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
-    );
-  }
-
-  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
-    final activity = Activity.fromSnapshot(data);
+  Widget _buildListItem(BuildContext context, List<DocumentSnapshot> data, i) {
+    final activity = Activity.fromSnapshot(data[i]);
 
     return SizedBox(
       width: 300,
