@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatup/screens/ProfileScreen/ProfileScreen.dart';
 
 class AppBarProfileButtonWidget extends StatelessWidget {
   @override
@@ -15,7 +16,10 @@ class AppBarProfileButtonWidget extends StatelessWidget {
           size: 30,
         ),
         color: Colors.lightBlue,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ProfileScreen()));
+        },
       ),
     );
   }

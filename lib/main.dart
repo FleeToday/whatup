@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'WhatUp',
-          initialRoute: '/login',
+          initialRoute: '/',
           routes: routes,
           theme: new ThemeData(
               // brightness: Brightness.light,
