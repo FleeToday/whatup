@@ -3,27 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_event.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_state.dart';
 
-class ActivitiesMapViewWidget extends StatefulWidget {
-  @override
-  _ActivitiesMapViewWidgetState createState() =>
-      _ActivitiesMapViewWidgetState();
-}
-
-class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
-  Future<LatLng> _initialPosition;
+class ActivitiesMapViewWidget extends StatelessWidget {
   Completer<GoogleMapController> _controller = Completer();
-
-  @override
-  void initState() {
-    super.initState();
-    final mapBloc = BlocProvider.of<MapBloc>(context);
-    mapBloc.add(UpdateMapToCurrentLocation());
-  }
 
   void _onMapCreated(BuildContext context, GoogleMapController controller) {
     _controller.complete(controller);
@@ -32,7 +17,7 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<MapBloc, MapState>(listener: (context, state) async {
-      if (state is LocationSelected) {
+      if (state is LoadedMap) {
         final GoogleMapController controller = await _controller.future;
         await controller
             .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
@@ -41,11 +26,11 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
         )));
       }
     }, child: BlocBuilder<MapBloc, MapState>(builder: (context, state) {
-      if (state is LocationSelected) {
+      if (state is LoadedMap) {
         return GoogleMap(
           onMapCreated: (controller) => _onMapCreated(context, controller),
           myLocationEnabled: true,
-          markers: Set<Marker>.of(state.markers.values),
+          markers: Set<Marker>.of(state.activityList.getMarkers().values),
           initialCameraPosition: CameraPosition(
             target: state.center,
             zoom: 18.0,

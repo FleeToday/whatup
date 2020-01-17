@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:whatup/models/Activity.dart';
+import 'package:whatup/models/ActivityList.dart';
 import 'package:whatup/resources/FirestoreProvider.dart';
 import 'package:whatup/resources/UserProvider.dart';
 
@@ -28,6 +28,9 @@ class Repository {
 
   Future<AuthResult> signUp(String email, String password) =>
       _userProvider.signUp(email: email, password: password);
-  Future<QuerySnapshot> getActivitiesByCenter() =>
-      _firestoreProvider.getActivitiesByCenter();
+
+  Future<ActivityList> getActivitiesByCenter() async {
+    QuerySnapshot _snapshot = await _firestoreProvider.getActivitiesByCenter();
+    return ActivityList.fromSnapshot(_snapshot);
+  }
 }

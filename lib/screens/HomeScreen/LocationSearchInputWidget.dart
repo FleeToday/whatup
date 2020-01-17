@@ -35,7 +35,7 @@ class LocationSearchInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<MapBloc, MapState>(
         listener: (context, state) async {
-          if (state is LocationSelected) {
+          if (state is LoadedMap) {
             _locationController.value =
                 _locationController.value.copyWith(text: state.locationName);
           }
