@@ -12,7 +12,6 @@ class Repository {
   final _userProvider = UserProvider(firebaseAuth: FirebaseAuth.instance);
 
   Stream<QuerySnapshot> getActivities() => _firestoreProvider.getActivities();
-
   Future<void> addActivity(Activity _activity) =>
       _firestoreProvider.addActivity(_activity);
 
