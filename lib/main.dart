@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         create: (context) => MapBloc(),
         child: MaterialApp(
           title: 'WhatUp',
-          initialRoute: '/login',
+          initialRoute: '/',
           routes: routes,
           theme: new ThemeData(
               // brightness: Brightness.light,
