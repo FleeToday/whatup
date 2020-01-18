@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:whatup/screens/HomeScreen/LocationSearchPopupWidget.dart';
 
-import 'bloc/map_bloc.dart';
-import 'bloc/map_state.dart';
+import 'bloc/bloc.dart';
 
 class FadeRoute extends PageRouteBuilder {
   final Widget page;
@@ -31,6 +31,7 @@ class FadeRoute extends PageRouteBuilder {
 
 class LocationSearchInputWidget extends StatelessWidget {
   final _locationController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<MapBloc, MapState>(

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:whatup/models/Activity.dart';
-import 'package:whatup/resources/Repository.dart';
-import 'package:whatup/screens/HomeScreen/LocationSearchPopupWidget.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:whatup/screens/HomeScreen/bloc/bloc.dart';
+
+const kGoogleApiKey = "AIzaSyA5feactDV3qCiw1W5a0DdkCqgnCBazxCs";
+GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class ActivityCreateScreen extends StatefulWidget {
   @override
@@ -14,21 +18,27 @@ class ActivityCreateScreen extends StatefulWidget {
 class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
   final _activity = Activity();
   final _formKey = GlobalKey<FormState>();
-  double _formLat;
-  double _formLng;
-  Repository _repository = Repository();
-
-  void _updateFormLocation(double lat, double lng) {
-    setState(() {
-      _activity.location = LatLng(lat, lng);
-    });
-  }
+  final _locationController = TextEditingController();
 
   void _formSubmit() {
     _formKey.currentState.save();
-    _updateFormLocation(_formLat, _formLng);
-    _repository.addActivity(_activity);
+    BlocProvider.of<ActivityBloc>(context).add(CreateActivity(_activity));
     Navigator.of(context).pop();
+  }
+
+  Future<Null> displayPrediction(Prediction p) async {
+    if (p != null) {
+      // get detail (lat/lng)
+      PlacesDetailsResponse detail =
+          await _places.getDetailsByPlaceId(p.placeId);
+      final lat = detail.result.geometry.location.lat;
+      final lng = detail.result.geometry.location.lng;
+      _locationController.text = detail.result.name;
+
+      setState(() {
+        _activity.location = LatLng(lat, lng);
+      });
+    }
   }
 
   @override
@@ -41,54 +51,52 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
         ),
       ),
       body: Container(
+          margin: EdgeInsets.all(20),
           child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextFormField(
-              decoration: InputDecoration(hintText: "Title"),
-              onSaved: (String val) {
-                setState(() {
-                  _activity.title = val;
-                });
-              },
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(hintText: "Title"),
+                  onSaved: (String val) {
+                    setState(() {
+                      _activity.title = val;
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: "Description"),
+                  maxLines: 5,
+                  onSaved: (String val) {
+                    setState(() {
+                      _activity.description = val;
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: "Location"),
+                  controller: _locationController,
+                  onTap: () async {
+                    Prediction p = await PlacesAutocomplete.show(
+                      context: context,
+                      apiKey: kGoogleApiKey,
+                      mode: Mode.overlay,
+                      radius: 100000,
+                      components: [Component(Component.country, "hk")],
+                    );
+                    displayPrediction(p);
+                  },
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: RaisedButton(
+                      onPressed: _formSubmit,
+                      child: Text("submit"),
+                    ))
+              ],
             ),
-            TextFormField(
-              decoration: InputDecoration(hintText: "Description"),
-              onSaved: (String val) {
-                setState(() {
-                  _activity.description = val;
-                });
-              },
-            ),
-            TextFormField(
-              decoration: InputDecoration(hintText: "Lat"),
-              onSaved: (String val) {
-                final double lat = num.tryParse(val);
-                setState(() {
-                  _formLat = lat;
-                });
-              },
-            ),
-            TextFormField(
-              decoration: InputDecoration(hintText: "Lng"),
-              onSaved: (String val) {
-                final double lng = num.tryParse(val);
-                setState(() {
-                  _formLng = lng;
-                });
-              },
-            ),
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: RaisedButton(
-                  onPressed: _formSubmit,
-                  child: Text("submit"),
-                ))
-          ],
-        ),
-      )),
+          )),
     );
   }
 }
