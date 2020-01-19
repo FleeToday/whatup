@@ -17,6 +17,7 @@ class Repository {
 
   Future<LatLng> getCurrentLocation() async {
     var _location = Location();
+    var isLocationPermitted = await _location.requestPermission();
     var _currentLocation = await _location.getLocation();
     return LatLng(_currentLocation.latitude, _currentLocation.longitude);
   }
