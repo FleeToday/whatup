@@ -13,7 +13,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ActivityBloc activityBloc = ActivityBloc()..add(FetchActivity());
+    final ActivityBloc activityBloc = ActivityBloc();
     final MapBloc mapBloc = MapBloc(activityBloc: activityBloc)
       ..add(UpdateMapToCurrentLocation());
     final AuthBloc authBloc = AuthBloc(Repository());

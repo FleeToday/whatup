@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:whatup/models/ActivityList.dart';
 
 abstract class MapState extends Equatable {
   const MapState();
@@ -20,23 +19,12 @@ class InitialMapState extends MapState {
 
 class LoadingMap extends MapState {}
 
-class LoadingActivityMap extends MapState {
-  final String locationName;
-  final LatLng center;
-
-  const LoadingActivityMap([this.locationName, this.center]);
-
-  @override
-  List<Object> get props => [this.locationName, this.center];
-}
-
 class LoadedMap extends MapState {
   final String locationName;
   final LatLng center;
-  final ActivityList activityList;
 
-  const LoadedMap([this.locationName, this.center, this.activityList]);
+  const LoadedMap([this.locationName, this.center]);
 
   @override
-  List<Object> get props => [this.locationName, this.center, this.activityList];
+  List<Object> get props => [this.locationName, this.center];
 }

@@ -6,6 +6,7 @@ class Activity {
   String description;
   LatLng location;
   DocumentReference reference;
+  GeoPoint _;
 
   Activity() {}
   Activity.fromMap(Map<String, dynamic> map, {this.reference})
@@ -14,7 +15,8 @@ class Activity {
         assert(map['location'] != null),
         title = map['title'],
         description = map['description'],
-        location = LatLng(map['location']['lat'], map['location']['lng']);
+        location = LatLng((map['location']['geopoint'] as GeoPoint).latitude,
+            (map['location']['geopoint'] as GeoPoint).longitude);
 
   Activity.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);

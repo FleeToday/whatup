@@ -11,6 +11,7 @@ class ActivitiesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MapBloc mapBloc = BlocProvider.of<MapBloc>(context);
+    final ActivityBloc activityBloc = BlocProvider.of<ActivityBloc>(context);
 
     return Container(
         alignment: Alignment.bottomCenter,
