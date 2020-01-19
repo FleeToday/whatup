@@ -26,7 +26,7 @@ class LoginFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -67,7 +67,6 @@ class LoginFormWidget extends StatelessWidget {
                           },
                         ),
                         Container(
-                          height: 50,
                           child: Center(
                             child: Text(
                               _errMsg,

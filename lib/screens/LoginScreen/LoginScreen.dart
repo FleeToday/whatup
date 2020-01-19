@@ -34,7 +34,12 @@ class LoginModule extends StatefulWidget {
 class _LoginModuleState extends State<LoginModule> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String _errMsg = "";
+  final PageController _pageController = PageController(
+    viewportFraction: 1,
+    keepPage: true,
+  );
+  int _currentIndex = 0;
+
   LoginBloc _loginBloc;
 
   @override
@@ -45,19 +50,16 @@ class _LoginModuleState extends State<LoginModule> {
     _passwordController.addListener(_onPasswordChanged);
   }
 
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
-      if (state is LoginFailure) {
-        setState(() {
-          _errMsg = state.errMsg;
-        });
-      } else {
-        setState(() {
-          _errMsg = "";
-        });
-      }
       if (state is LoginSuccess) {
         Route route = MaterialPageRoute(builder: (context) => HomeScreen());
         Navigator.pushReplacement(context, route);
@@ -69,42 +71,72 @@ class _LoginModuleState extends State<LoginModule> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Welcome to Whatup',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w200,
-                    fontSize: 36,
-                    color: Colors.black87,
+            Flexible(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Welcome to Whatup',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w200,
+                      fontSize: 36,
+                      color: Colors.black87,
+                    ),
                   ),
-                ),
-                Text(
-                  'Sign in to continue',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    color: Colors.black87,
+                  Text(
+                    'Sign in to continue',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: Colors.black87,
+                    ),
                   ),
-                ),
-              ],
+                  ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FlatButton(
+                        child: Text("Sign In"),
+                        onPressed: (_currentIndex != 0)
+                            ? () => {
+                                  _pageController.animateToPage(
+                                    0,
+                                    duration: const Duration(milliseconds: 400),
+                                    curve: Curves.easeInOutCirc,
+                                  )
+                                }
+                            : null,
+                      ),
+                      FlatButton(
+                        child: Text("Sign Up"),
+                        onPressed: (_currentIndex != 1)
+                            ? () => {
+                                  _pageController.animateToPage(
+                                    1,
+                                    duration: const Duration(milliseconds: 400),
+                                    curve: Curves.easeInOutCirc,
+                                  )
+                                }
+                            : null,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
-            ButtonBar(
-              alignment: MainAxisAlignment.center,
-              children: <Widget>[],
-            ),
-            SizedBox(
-              height: 300,
+            Flexible(
+              flex: 3,
               child: PageView(
+                onPageChanged: _onPageChanged,
+                controller: _pageController,
                 children: <Widget>[
                   LoginFormWidget(
                     emailController: _emailController,
                     passwordController: _passwordController,
                     state: state,
                     onSignInButtonPress: _onSignInButtonPress,
-                    errMsg: _errMsg,
+                    errMsg: (state is LoginFailure) ? state.errMsg : '',
                   ),
                   RegisterFormWidget()
                 ],
@@ -120,6 +152,7 @@ class _LoginModuleState extends State<LoginModule> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
