@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/resources/Repository.dart';
+import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_event.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
@@ -31,7 +32,7 @@ class LoginModule extends StatefulWidget {
 class _LoginModuleState extends State<LoginModule> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  String _errMsg = "";
   LoginBloc _loginBloc;
 
   @override
@@ -46,8 +47,18 @@ class _LoginModuleState extends State<LoginModule> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
+      if (state is LoginFailure) {
+        setState(() {
+          _errMsg = state.errMsg;
+        });
+      } else {
+        setState(() {
+          _errMsg = "";
+        });
+      }
       if (state is LoginSuccess) {
-        Navigator.popAndPushNamed(context, '/home');
+        Route route = MaterialPageRoute(builder: (context) => HomeScreen());
+        Navigator.pushReplacement(context, route);
       }
     }, child: BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
@@ -56,7 +67,7 @@ class _LoginModuleState extends State<LoginModule> {
           passwordController: _passwordController,
           state: state,
           onSignInButtonPress: _onSignInButtonPress,
-          errMsg: (state is LoginFailure) ? state.errMsg : "",
+          errMsg: _errMsg,
         );
       },
     ));
@@ -214,7 +225,7 @@ class LoginForm extends StatelessWidget {
                                     _passwordController.text.isNotEmpty
                                 ? Colors.blue[800]
                                 : Colors.blue[300],
-                            duration: Duration(milliseconds: 1000),
+                            duration: Duration(milliseconds: 500),
                             padding: const EdgeInsets.all(10.0),
                             child: const Text('Sign In',
                                 style: TextStyle(
