@@ -138,7 +138,13 @@ class _LoginModuleState extends State<LoginModule> {
                     onSignInButtonPress: _onSignInButtonPress,
                     errMsg: (state is LoginFailure) ? state.errMsg : '',
                   ),
-                  RegisterFormWidget()
+                  RegisterFormWidget(
+                    emailController: _emailController,
+                    passwordController: _passwordController,
+                    state: state,
+                    onSignUpButtonPress: _onSignUpButtonPress,
+                    errMsg: (state is LoginFailure) ? state.errMsg : '',
+                  )
                 ],
               ),
             )
@@ -167,6 +173,8 @@ class _LoginModuleState extends State<LoginModule> {
       PasswordChanged(password: _passwordController.text),
     );
   }
+
+  void _onSignUpButtonPress() {}
 
   void _onSignInButtonPress() {
     _loginBloc.add(
