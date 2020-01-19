@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
-import 'package:whatup/screens/HomeScreen/bloc/map_event.dart';
-import 'package:whatup/screens/HomeScreen/bloc/map_state.dart';
+import 'bloc/map_state.dart';
 
 class ActivitiesMapViewWidget extends StatelessWidget {
   Completer<GoogleMapController> _controller = Completer();
