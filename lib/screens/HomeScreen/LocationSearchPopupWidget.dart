@@ -26,19 +26,20 @@ class LocationSearchPopupWidget extends PlacesAutocompleteWidget {
       _LocationSearchPopupWidgetState();
 }
 
-void updateLocation(BuildContext context, String locationName, LatLng center) {
+void updateMapLocation(
+    BuildContext context, String locationName, LatLng center) {
   final mapBloc = BlocProvider.of<MapBloc>(context);
-  mapBloc.add(UpdateMap(locationName, center));
+  mapBloc.add(FocusMap(locationName, center));
 }
 
-Future<Null> displayPrediction(Prediction p, BuildContext context) async {
+Future<Null> displayPrediction(BuildContext context, Prediction p) async {
   if (p != null) {
     // get detail (lat/lng)
     PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
     final double lat = detail.result.geometry.location.lat;
     final double lng = detail.result.geometry.location.lng;
     final LatLng _center = LatLng(lat, lng);
-    updateLocation(context, detail.result.name, _center);
+    updateMapLocation(context, detail.result.name, _center);
     Navigator.pop(context);
   }
 }
@@ -58,7 +59,7 @@ class _LocationSearchPopupWidgetState extends PlacesAutocompleteState {
         ),
         body: PlacesAutocompleteResult(
           onTap: (p) {
-            displayPrediction(p, context);
+            displayPrediction(context, p);
           },
         ));
   }

@@ -11,14 +11,15 @@ class ActivitiesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MapBloc mapBloc = BlocProvider.of<MapBloc>(context);
+
     return Container(
         alignment: Alignment.bottomCenter,
         height: 200,
-        child: BlocBuilder<MapBloc, MapState>(
+        child: BlocBuilder<ActivityBloc, ActivityState>(
           builder: (context, state) {
-            if (state is LoadingMap) {
+            if (state is LoadingActivity) {
               return LinearProgressIndicator();
-            } else if (state is LoadedMap) {
+            } else if (state is LoadedActivity) {
               return Swiper(
                 itemBuilder: (context, i) {
                   final activity = state.activityList.items[i];
@@ -29,7 +30,7 @@ class ActivitiesListView extends StatelessWidget {
                 },
                 onIndexChanged: (int i) {
                   LatLng _center = state.activityList.items[i].location;
-                  mapBloc.add(UpdateMap("testing", _center));
+                  mapBloc.add(FocusMap("testing", _center));
                 },
                 itemCount: state.activityList.items.length,
                 viewportFraction: 0.8,
