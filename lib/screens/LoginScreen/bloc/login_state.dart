@@ -1,38 +1,38 @@
 import 'package:equatable/equatable.dart';
 
-abstract class LoginState extends Equatable {
+abstract class AuthState extends Equatable {
   final bool isEmailValid;
   final bool isPasswordValid;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
 
-  const LoginState(this.isEmailValid, this.isPasswordValid, this.isSubmitting,
+  const AuthState(this.isEmailValid, this.isPasswordValid, this.isSubmitting,
       this.isSuccess, this.isFailure);
 
   List<Object> get props =>
       [isEmailValid, isPasswordValid, isSubmitting, isSuccess, isFailure];
 }
 
-class LoginEmpty extends LoginState {
-  const LoginEmpty() : super(true, true, false, false, false);
+class AuthEmpty extends AuthState {
+  const AuthEmpty() : super(true, true, false, false, false);
 }
 
-class LoginLoading extends LoginState {
-  const LoginLoading() : super(true, true, true, false, false);
+class AuthLoading extends AuthState {
+  const AuthLoading() : super(true, true, true, false, false);
 }
 
-class LoginUpdate extends LoginState {
-  const LoginUpdate(isEmailValid, isPasswordValid)
+class AuthUpdate extends AuthState {
+  const AuthUpdate(isEmailValid, isPasswordValid)
       : super(isEmailValid, isPasswordValid, true, false, false);
 }
 
-class LoginSuccess extends LoginState {
-  const LoginSuccess() : super(true, true, true, true, false);
+class AuthSuccess extends AuthState {
+  const AuthSuccess() : super(true, true, true, true, false);
 }
 
-class LoginFailure extends LoginState {
+class AuthFailure extends AuthState {
   final String errMsg;
 
-  const LoginFailure(this.errMsg) : super(true, true, true, false, true);
+  const AuthFailure(this.errMsg) : super(true, true, true, false, true);
 }

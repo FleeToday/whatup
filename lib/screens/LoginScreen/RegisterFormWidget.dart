@@ -6,20 +6,23 @@ class RegisterFormWidget extends StatelessWidget {
   const RegisterFormWidget({
     @required TextEditingController emailController,
     @required TextEditingController passwordController,
+    @required TextEditingController confirmPasswordController,
     @required Function onSignUpButtonPress,
-    @required LoginState state,
+    @required AuthState state,
     @required String errMsg,
   })  : _emailController = emailController,
         _passwordController = passwordController,
-        _onSignInButtonPress = onSignUpButtonPress,
+        _confirmPasswordController = confirmPasswordController,
+        _onSignUpButtonPress = onSignUpButtonPress,
         _state = state,
         _errMsg = errMsg,
         super();
 
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
-  final Function _onSignInButtonPress;
-  final LoginState _state;
+  final TextEditingController _confirmPasswordController;
+  final Function _onSignUpButtonPress;
+  final AuthState _state;
   final String _errMsg;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class RegisterFormWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                child: (_state is LoginLoading)
+                child: (_state is AuthLoading)
                     ? LoginLoadingView()
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +73,7 @@ class RegisterFormWidget extends StatelessWidget {
                             height: 20,
                           ),
                           TextFormField(
-                            controller: _passwordController,
+                            controller: _confirmPasswordController,
                             obscureText: true,
                             autovalidate: true,
                             decoration: InputDecoration(
@@ -91,7 +94,7 @@ class RegisterFormWidget extends StatelessWidget {
                             ),
                           ),
                           FlatButton(
-                            onPressed: _onSignInButtonPress,
+                            onPressed: _onSignUpButtonPress,
                             textColor: Colors.white,
                             padding: const EdgeInsets.all(0.0),
                             color: Colors.transparent,

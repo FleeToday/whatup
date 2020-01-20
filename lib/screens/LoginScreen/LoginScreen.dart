@@ -34,20 +34,24 @@ class LoginModule extends StatefulWidget {
 class _LoginModuleState extends State<LoginModule> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final PageController _pageController = PageController(
     viewportFraction: 1,
     keepPage: true,
   );
+  bool isConfirmPasswordErr = false;
   int _currentIndex = 0;
 
-  LoginBloc _loginBloc;
+  LoginBloc _authBloc;
 
   @override
   void initState() {
     super.initState();
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
+    _authBloc = BlocProvider.of<LoginBloc>(context);
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
+    _confirmPasswordController.addListener(_onConfirmPasswordChanged);
   }
 
   void _onPageChanged(int index) {
@@ -59,12 +63,12 @@ class _LoginModuleState extends State<LoginModule> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
-      if (state is LoginSuccess) {
+    return BlocListener<LoginBloc, AuthState>(listener: (context, state) {
+      if (state is AuthSuccess) {
         Route route = MaterialPageRoute(builder: (context) => HomeScreen());
         Navigator.pushReplacement(context, route);
       }
-    }, child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+    }, child: BlocBuilder<LoginBloc, AuthState>(builder: (context, state) {
       return Scaffold(
           body: SafeArea(
         child: Column(
@@ -136,14 +140,19 @@ class _LoginModuleState extends State<LoginModule> {
                     passwordController: _passwordController,
                     state: state,
                     onSignInButtonPress: _onSignInButtonPress,
-                    errMsg: (state is LoginFailure) ? state.errMsg : '',
+                    errMsg: (state is AuthFailure) ? state.errMsg : '',
                   ),
                   RegisterFormWidget(
+                    confirmPasswordController: _confirmPasswordController,
                     emailController: _emailController,
                     passwordController: _passwordController,
                     state: state,
                     onSignUpButtonPress: _onSignUpButtonPress,
-                    errMsg: (state is LoginFailure) ? state.errMsg : '',
+                    errMsg: (state is AuthFailure)
+                        ? state.errMsg
+                        : isConfirmPasswordErr
+                            ? 'The two passwords are the same'
+                            : '',
                   )
                 ],
               ),
@@ -163,22 +172,32 @@ class _LoginModuleState extends State<LoginModule> {
   }
 
   void _onEmailChanged() {
-    _loginBloc.add(
+    _authBloc.add(
       EmailChanged(email: _emailController.text),
     );
   }
 
+  void _onConfirmPasswordChanged() {
+    isConfirmPasswordErr =
+        _passwordController.text != _confirmPasswordController.text;
+  }
+
   void _onPasswordChanged() {
-    _loginBloc.add(
+    _authBloc.add(
       PasswordChanged(password: _passwordController.text),
     );
   }
 
-  void _onSignUpButtonPress() {}
+  void _onSignUpButtonPress() {
+    _authBloc.add(
+      SignUpSubmitted(
+          email: _emailController.text, password: _passwordController.text),
+    );
+  }
 
   void _onSignInButtonPress() {
-    _loginBloc.add(
-      Submitted(
+    _authBloc.add(
+      SignInSubmitted(
           email: _emailController.text, password: _passwordController.text),
     );
   }

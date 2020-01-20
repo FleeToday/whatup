@@ -7,7 +7,7 @@ class LoginFormWidget extends StatelessWidget {
     @required TextEditingController emailController,
     @required TextEditingController passwordController,
     @required Function onSignInButtonPress,
-    @required LoginState state,
+    @required AuthState state,
     @required String errMsg,
   })  : _emailController = emailController,
         _passwordController = passwordController,
@@ -19,7 +19,7 @@ class LoginFormWidget extends StatelessWidget {
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
   final Function _onSignInButtonPress;
-  final LoginState _state;
+  final AuthState _state;
   final String _errMsg;
 
   @override
@@ -28,14 +28,13 @@ class LoginFormWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              child: (_state is LoginLoading)
+              child: (_state is AuthLoading)
                   ? LoginLoadingView()
                   : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         TextFormField(
                             controller: _emailController,

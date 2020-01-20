@@ -5,36 +5,50 @@ import 'package:whatup/screens/LoginScreen/bloc/login_event.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
 import 'package:whatup/screens/LoginScreen/utils/login_validators.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
+class LoginBloc extends Bloc<AuthEvent, AuthState> {
   LoginBloc(this.repo);
 
   final Repository repo;
 
   @override
-  LoginState get initialState => LoginEmpty();
+  AuthState get initialState => AuthEmpty();
 
   @override
-  Stream<LoginState> mapEventToState(
-    LoginEvent event,
+  Stream<AuthState> mapEventToState(
+    AuthEvent event,
   ) async* {
     if (event is EmailChanged) {
-      yield LoginUpdate(Validators.isValidEmail(event.email), true);
+      yield AuthUpdate(Validators.isValidEmail(event.email), true);
     } else if (event is PasswordChanged) {
-      yield LoginUpdate(true, Validators.isValidPassword(event.password));
-    } else if (event is Submitted) {
-      yield* _mapSubmittedEventToStates(
+      yield AuthUpdate(true, Validators.isValidPassword(event.password));
+    } else if (event is SignInSubmitted) {
+      yield* _mapSignInSubmittedEventToStates(
+          email: event.email, password: event.password);
+    } else if (event is SignUpSubmitted) {
+      yield* _mapSignUpSubmittedEventToStates(
           email: event.email, password: event.password);
     }
   }
 
-  Stream<LoginState> _mapSubmittedEventToStates(
+  Stream<AuthState> _mapSignInSubmittedEventToStates(
       {String email, String password}) async* {
-    yield LoginLoading();
+    yield AuthLoading();
     try {
       await repo.signIn(email, password);
-      yield LoginSuccess();
+      yield AuthSuccess();
     } catch (_) {
-      yield LoginFailure(_.message);
+      yield AuthFailure(_.message);
+    }
+  }
+
+  Stream<AuthState> _mapSignUpSubmittedEventToStates(
+      {String email, String password}) async* {
+    yield AuthLoading();
+    try {
+      await repo.signUp(email, password);
+      yield AuthSuccess();
+    } catch (_) {
+      yield AuthFailure(_.message);
     }
   }
 }

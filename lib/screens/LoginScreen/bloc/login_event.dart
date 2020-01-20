@@ -1,12 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-abstract class LoginEvent extends Equatable {
-  const LoginEvent();
+abstract class AuthEvent extends Equatable {
+  const AuthEvent();
 }
 
-
-class EmailChanged extends LoginEvent {
+class EmailChanged extends AuthEvent {
   final String email;
 
   const EmailChanged({@required this.email});
@@ -18,7 +17,7 @@ class EmailChanged extends LoginEvent {
   String toString() => 'EmailChanged { email :$email }';
 }
 
-class PasswordChanged extends LoginEvent {
+class PasswordChanged extends AuthEvent {
   final String password;
 
   const PasswordChanged({@required this.password});
@@ -30,11 +29,11 @@ class PasswordChanged extends LoginEvent {
   String toString() => 'PasswordChanged { password: $password }';
 }
 
-class Submitted extends LoginEvent {
+class SignInSubmitted extends AuthEvent {
   final String email;
   final String password;
 
-  const Submitted({
+  const SignInSubmitted({
     @required this.email,
     @required this.password,
   });
@@ -45,5 +44,23 @@ class Submitted extends LoginEvent {
   @override
   String toString() {
     return 'Submitted { email: $email, password: $password }';
+  }
+}
+
+class SignUpSubmitted extends AuthEvent {
+  final String email;
+  final String password;
+
+  const SignUpSubmitted({
+    @required this.email,
+    @required this.password,
+  });
+
+  @override
+  List<Object> get props => [email, password];
+
+  @override
+  String toString() {
+    return 'SignUpSubmitted { email: $email, password: $password }';
   }
 }
