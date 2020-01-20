@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:whatup/screens/HomeScreen/ActivitiesCreateButtonWidget.dart';
+import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.dart';
+import 'package:whatup/screens/HomeScreen/widgets/ActivityReloadButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/ActivitiesListViewWidget.dart';
 import 'package:whatup/screens/HomeScreen/AppBarProfileButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/LocationSearchInputWidget.dart';
@@ -34,7 +35,15 @@ class HomeScreen extends StatelessWidget {
         new SafeArea(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[LocationSearchInputWidget(), ActivitiesListView()],
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                LocationSearchInputWidget(),
+                ActivityReloadButton(),
+              ],
+            ),
+            ActivitiesListView()
+          ],
         )),
       ]),
     );

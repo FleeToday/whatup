@@ -16,6 +16,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       }
     });
   }
+
   @override
   MapState get initialState => LoadingMap();
 

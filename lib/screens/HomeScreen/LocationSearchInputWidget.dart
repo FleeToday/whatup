@@ -46,6 +46,7 @@ class LocationSearchInputWidget extends StatelessWidget {
             height: 50,
             margin: const EdgeInsets.only(top: 10.0),
             child: TextField(
+              readOnly: true,
               controller: _locationController,
               onTap: () {
                 // Todo: Custom Animated transition with named route?
