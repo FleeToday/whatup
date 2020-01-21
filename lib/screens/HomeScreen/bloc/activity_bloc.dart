@@ -24,16 +24,13 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
   Stream<ActivityState> _mapFetchActivityToState(FetchActivity event) async* {
     ActivityList _activityList =
         await _repository.getActivitiesByCenter(event.center, event.radius);
-    yield LoadedActivity(event.center, event.radius, _activityList);
+    yield LoadedActivity(_activityList);
   }
 
   Stream<ActivityState> _mapCreateActivityToState(CreateActivity event) async* {
     await _repository.addActivity(event.activity);
-    if (state is LoadedActivity) {
-      ActivityList _activityList = await _repository.getActivitiesByCenter(
-          (state as LoadedActivity).center, (state as LoadedActivity).radius);
-      yield LoadedActivity((state as LoadedActivity).center,
-          (state as LoadedActivity).radius, _activityList);
-    }
+    ActivityList _activityList =
+        await _repository.getActivitiesByCenter(event.activity.location, 10);
+    yield LoadedActivity(_activityList);
   }
 }

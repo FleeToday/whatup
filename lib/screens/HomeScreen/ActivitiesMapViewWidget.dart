@@ -7,8 +7,6 @@ import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
 import 'bloc/bloc.dart';
 import 'bloc/map_state.dart';
 
-LatLngBounds a;
-
 class ActivitiesMapViewWidget extends StatefulWidget {
   @override
   _ActivitiesMapViewWidgetState createState() =>
@@ -25,42 +23,43 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final ActivityBloc activityBloc = BlocProvider.of<ActivityBloc>(context);
     return MultiBlocListener(
         listeners: [
           BlocListener<MapBloc, MapState>(listener: (context, state) async {
-            if (state is LoadedMap) {
+            if (state is MovingMap) {
               final GoogleMapController controller = await _controller.future;
-              await controller
+              controller
                   .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
                 target: state.center,
                 zoom: 15.0,
               )));
             }
-          }),
-          BlocListener<ActivityBloc, ActivityState>(
-              listener: (context, state) async {
-            if (state is LoadedActivity) {
-              setState(() {
-                this.markers = state.activityList.getMarkers();
-              });
-            }
-          }),
+          })
         ],
-        child: BlocBuilder<MapBloc, MapState>(builder: (context, state) {
-          if (state is LoadedMap) {
-            return GoogleMap(
-              onMapCreated: (controller) => _onMapCreated(context, controller),
-              myLocationEnabled: true,
-              markers: Set<Marker>.of(this.markers.values),
-              initialCameraPosition: CameraPosition(
-                target: state.center,
-                zoom: 18.0,
-              ),
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
+        child: BlocBuilder<MapBloc, MapState>(builder: (context, mapState) {
+          return BlocBuilder<ActivityBloc, ActivityState>(
+            builder: (context, activityState) {
+              if (mapState is LoadedMap && activityState is LoadedActivity) {
+                return GoogleMap(
+                  onMapCreated: (controller) =>
+                      _onMapCreated(context, controller),
+                  myLocationEnabled: true,
+                  markers: Set<Marker>.of(
+                      activityState.activityList.getMarkers().values),
+                  onCameraMove: (CameraPosition cameraPosition) {
+                    BlocProvider.of<MapBloc>(context)
+                        .add(UpdateCenter(cameraPosition.target));
+                  },
+                  initialCameraPosition: CameraPosition(
+                    target: mapState.center,
+                    zoom: 18.0,
+                  ),
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          );
         }));
   }
 }

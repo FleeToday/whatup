@@ -3,10 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
-import 'package:whatup/screens/HomeScreen/bloc/map_event.dart';
-
-import 'bloc/map_bloc.dart';
+import 'package:whatup/screens/HomeScreen/bloc/bloc.dart';
 
 const kGoogleApiKey = "AIzaSyA5feactDV3qCiw1W5a0DdkCqgnCBazxCs";
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
@@ -26,20 +23,18 @@ class LocationSearchPopupWidget extends PlacesAutocompleteWidget {
       _LocationSearchPopupWidgetState();
 }
 
-void updateMapLocation(
-    BuildContext context, String locationName, LatLng center) {
-  final mapBloc = BlocProvider.of<MapBloc>(context);
-  mapBloc.add(FocusMap(locationName, center));
-}
-
 Future<Null> displayPrediction(BuildContext context, Prediction p) async {
   if (p != null) {
     // get detail (lat/lng)
     PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
     final double lat = detail.result.geometry.location.lat;
     final double lng = detail.result.geometry.location.lng;
+    final String _locationName = detail.result.name;
     final LatLng _center = LatLng(lat, lng);
-    updateMapLocation(context, detail.result.name, _center);
+
+    BlocProvider.of<MapBloc>(context).add(MoveCamera(_center));
+    BlocProvider.of<LocationInputBloc>(context)
+        .add(UpdateLocationInput(_locationName));
     Navigator.pop(context);
   }
 }

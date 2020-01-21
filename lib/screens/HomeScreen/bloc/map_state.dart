@@ -19,12 +19,17 @@ class InitialMapState extends MapState {
 
 class LoadingMap extends MapState {}
 
-class LoadedMap extends MapState {
-  final String locationName;
+class MovingMap extends MapState {
   final LatLng center;
 
-  const LoadedMap([this.locationName, this.center]);
+  MovingMap([this.center]);
+}
+
+class LoadedMap extends MapState {
+  final LatLng center;
+
+  const LoadedMap([this.center]);
 
   @override
-  List<Object> get props => [this.locationName, this.center];
+  List<Object> get props => [this.center];
 }

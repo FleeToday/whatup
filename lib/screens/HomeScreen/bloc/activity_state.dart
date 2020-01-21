@@ -12,11 +12,9 @@ class LoadingActivity extends ActivityState {
 }
 
 class LoadedActivity extends ActivityState {
-  final LatLng center;
-  final double radius;
   final ActivityList activityList;
 
-  LoadedActivity([this.center, this.radius, this.activityList]);
+  LoadedActivity([this.activityList]);
   @override
-  List<Object> get props => [this.center, this.radius, this.activityList];
+  List<Object> get props => [this.activityList];
 }

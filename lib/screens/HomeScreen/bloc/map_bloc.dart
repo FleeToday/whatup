@@ -18,31 +18,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Stream<MapState> mapEventToState(
     MapEvent event,
   ) async* {
-    if (event is UpdateActivity) {
-      yield* _mapUpdateActivityToState(event);
-    } else if (event is FocusMap) {
-      yield* _mapFocusMapToState(event);
-    } else if (event is UpdateMapToCurrentLocation) {
-      yield* _mapUpdateMapToCurrentLocationToState(event);
-    }
-  }
-
-  Stream<MapState> _mapFocusMapToState(FocusMap event) async* {
-    // activityBloc.add(FetchActivity(event.center));
-    yield LoadedMap("location", event.center);
-  }
-
-  Stream<MapState> _mapUpdateMapToCurrentLocationToState(
-      UpdateMapToCurrentLocation event) async* {
-    LatLng _currentLocation = await _repository.getCurrentLocation();
-    // activityBloc.add(FetchActivity(_currentLocation));
-    yield LoadedMap("location", _currentLocation);
-  }
-
-  Stream<MapState> _mapUpdateActivityToState(UpdateActivity event) async* {
-    if (state is LoadedMap) {
-      yield LoadedMap(
-          (state as LoadedMap).locationName, (state as LoadedMap).center);
+    if (event is UpdateCenter) {
+      yield LoadedMap(event.center);
+    } else if (event is MoveCamera) {
+      yield MovingMap(event.center);
+      yield LoadedMap(event.center);
+    } else if (event is ResetCamera) {
+      LatLng _currentLocation = await _repository.getCurrentLocation();
+      activityBloc.add(FetchActivity(_currentLocation));
+      yield LoadedMap(_currentLocation);
     }
   }
 }

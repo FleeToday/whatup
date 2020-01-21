@@ -9,22 +9,22 @@ abstract class MapEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class UpdateActivity extends MapEvent {
-  final ActivityList activityList;
-
-  const UpdateActivity([this.activityList]);
+class ResetCamera extends MapEvent {
+  const ResetCamera();
 }
 
-class UpdateMapToCurrentLocation extends MapEvent {
-  const UpdateMapToCurrentLocation();
-}
-
-class FocusMap extends MapEvent {
-  final String locationName;
+class MoveCamera extends MapEvent {
   final LatLng center;
-
-  const FocusMap(this.locationName, this.center);
+  const MoveCamera([this.center]);
 
   @override
-  List<Object> get props => [this.locationName, this.center];
+  List<Object> get props => [this.center];
+}
+
+class UpdateCenter extends MapEvent {
+  final LatLng center;
+  const UpdateCenter([this.center]);
+
+  @override
+  List<Object> get props => [this.center];
 }
