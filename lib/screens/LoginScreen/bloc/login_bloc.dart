@@ -5,8 +5,8 @@ import 'package:whatup/screens/LoginScreen/bloc/login_event.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
 import 'package:whatup/screens/LoginScreen/utils/login_validators.dart';
 
-class LoginBloc extends Bloc<AuthEvent, AuthState> {
-  LoginBloc(this.repo);
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  AuthBloc(this.repo);
 
   final Repository repo;
 

@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/models/Activity.dart';
+import 'package:whatup/resources/Repository.dart';
 import 'package:whatup/screens/HomeScreen/bloc/bloc.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
+import 'package:whatup/screens/LoginScreen/bloc/login_bloc.dart';
 
 import 'routes.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +16,13 @@ class MyApp extends StatelessWidget {
     final ActivityBloc activityBloc = ActivityBloc()..add(FetchActivity());
     final MapBloc mapBloc = MapBloc(activityBloc: activityBloc)
       ..add(UpdateMapToCurrentLocation());
+    final AuthBloc authBloc = AuthBloc(Repository());
 
     return MultiBlocProvider(
         providers: [
           BlocProvider<MapBloc>(create: (context) => mapBloc),
           BlocProvider<ActivityBloc>(create: (context) => activityBloc),
+          BlocProvider<AuthBloc>(create: (context) => authBloc),
         ],
         child: MaterialApp(
           title: 'WhatUp',

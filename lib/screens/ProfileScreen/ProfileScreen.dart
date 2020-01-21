@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_bloc.dart';
+import 'package:whatup/screens/LoginScreen/bloc/login_event.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override

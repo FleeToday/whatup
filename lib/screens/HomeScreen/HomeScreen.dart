@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.dart';
@@ -9,6 +7,7 @@ import 'package:whatup/screens/HomeScreen/AppBarProfileButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/LocationSearchInputWidget.dart';
 import 'package:whatup/screens/HomeScreen/ActivitiesMapViewWidget.dart';
 import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
+import 'package:whatup/screens/LoginScreen/bloc/login_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
 import 'package:whatup/screens/ProfileScreen/ProfileScreen.dart';
 
@@ -18,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Route route = MaterialPageRoute(builder: (context) => LoginScreen());
-    return BlocListener(
+    return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthEmpty) {
           Navigator.of(context).pushReplacement(route);
