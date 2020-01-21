@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
+import 'package:whatup/utilities/Debouncer.dart';
 import 'bloc/bloc.dart';
 import 'bloc/map_state.dart';
 
@@ -16,6 +17,7 @@ class ActivitiesMapViewWidget extends StatefulWidget {
 class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
   Completer<GoogleMapController> _controller = Completer();
   Map<MarkerId, Marker> markers = {};
+  final _debouncer = Debouncer(milliseconds: 500);
 
   void _onMapCreated(BuildContext context, GoogleMapController controller) {
     _controller.complete(controller);
@@ -47,8 +49,8 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
                   markers: Set<Marker>.of(
                       activityState.activityList.getMarkers().values),
                   onCameraMove: (CameraPosition cameraPosition) {
-                    BlocProvider.of<MapBloc>(context)
-                        .add(UpdateCenter(cameraPosition.target));
+                    _debouncer.run(() => BlocProvider.of<MapBloc>(context)
+                        .add(UpdateCenter(cameraPosition.target)));
                   },
                   initialCameraPosition: CameraPosition(
                     target: mapState.center,
