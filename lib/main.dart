@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/models/Activity.dart';
 import 'package:whatup/resources/Repository.dart';
@@ -5,6 +6,7 @@ import 'package:whatup/screens/HomeScreen/bloc/bloc.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 
+import 'blocs/SimpleBlocDelegate.dart';
 import 'routes.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +15,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    BlocSupervisor.delegate = SimpleBlocDelegate();
     final ActivityBloc activityBloc = ActivityBloc();
     final LocationInputBloc locationInputBloc = LocationInputBloc();
     final MapBloc mapBloc = MapBloc(activityBloc: activityBloc)
