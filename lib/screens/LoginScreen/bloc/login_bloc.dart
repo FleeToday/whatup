@@ -51,4 +51,14 @@ class LoginBloc extends Bloc<AuthEvent, AuthState> {
       yield AuthFailure(_.message);
     }
   }
+
+  Stream<AuthState> _mapSignOutEventToStates() async* {
+    yield AuthLoading();
+    try {
+      await repo.signOut();
+      yield AuthEmpty();
+    } catch (_) {
+      yield AuthEmpty();
+    }
+  }
 }

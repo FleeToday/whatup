@@ -12,8 +12,8 @@ import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(Repository()),
+    return BlocProvider<AuthBloc>(
+      create: (context) => AuthBloc(Repository()),
       child: LoginModule(),
     );
   }
@@ -43,12 +43,12 @@ class _LoginModuleState extends State<LoginModule> {
   bool isConfirmPasswordErr = false;
   int _currentIndex = 0;
 
-  LoginBloc _authBloc;
+  AuthBloc _authBloc;
 
   @override
   void initState() {
     super.initState();
-    _authBloc = BlocProvider.of<LoginBloc>(context);
+    _authBloc = BlocProvider.of<AuthBloc>(context);
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
     _confirmPasswordController.addListener(_onConfirmPasswordChanged);
@@ -63,12 +63,12 @@ class _LoginModuleState extends State<LoginModule> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocListener<LoginBloc, AuthState>(listener: (context, state) {
+    return BlocListener<AuthBloc, AuthState>(listener: (context, state) {
       if (state is AuthSuccess) {
         Route route = MaterialPageRoute(builder: (context) => HomeScreen());
         Navigator.pushReplacement(context, route);
       }
-    }, child: BlocBuilder<LoginBloc, AuthState>(builder: (context, state) {
+    }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       return Scaffold(
           body: SafeArea(
         child: Column(

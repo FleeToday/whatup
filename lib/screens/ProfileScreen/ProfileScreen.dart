@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
+import 'package:whatup/screens/LoginScreen/bloc/login_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Route route = MaterialPageRoute(builder: (context) => LoginScreen());
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.6,
       child: Scaffold(
@@ -39,7 +40,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 FlatButton(
-                  onPressed: () => {Navigator.pushReplacement(context, route)},
+                  onPressed: () =>
+                      {BlocProvider.of<AuthBloc>(context).add(SignOut())},
                   shape: Border(
                       bottom: BorderSide(width: 1, color: Colors.grey[300])),
                   padding: EdgeInsets.symmetric(horizontal: 36, vertical: 12),

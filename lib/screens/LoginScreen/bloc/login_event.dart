@@ -29,6 +29,15 @@ class PasswordChanged extends AuthEvent {
   String toString() => 'PasswordChanged { password: $password }';
 }
 
+class SignOut extends AuthEvent {
+  @override
+  // TODO: implement props
+  List<Object> get props => null;
+
+  @override
+  String toString() => 'SignOut { }';
+}
+
 class SignInSubmitted extends AuthEvent {
   final String email;
   final String password;
