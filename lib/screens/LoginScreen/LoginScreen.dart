@@ -32,7 +32,6 @@ class LoginModule extends StatefulWidget {
 }
 
 class _LoginModuleState extends State<LoginModule> {
-<<<<<<< HEAD
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -43,12 +42,6 @@ class _LoginModuleState extends State<LoginModule> {
   );
   bool isConfirmPasswordErr = false;
   int _currentIndex = 0;
-=======
-  final TextEditingController _emailController =
-      TextEditingController(text: 'test@whatup.com');
-  final TextEditingController _passwordController =
-      TextEditingController(text: '123456');
->>>>>>> refactor bloc
 
   AuthBloc _authBloc;
 

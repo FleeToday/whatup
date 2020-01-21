@@ -14,14 +14,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ActivityBloc activityBloc = ActivityBloc();
+    final LocationInputBloc locationInputBloc = LocationInputBloc();
     final MapBloc mapBloc = MapBloc(activityBloc: activityBloc)
-      ..add(UpdateMapToCurrentLocation());
+      ..add(ResetCamera());
     final AuthBloc authBloc = AuthBloc(Repository());
 
     return MultiBlocProvider(
         providers: [
           BlocProvider<MapBloc>(create: (context) => mapBloc),
           BlocProvider<ActivityBloc>(create: (context) => activityBloc),
+          BlocProvider<LocationInputBloc>(
+              create: (context) => locationInputBloc),
           BlocProvider<AuthBloc>(create: (context) => authBloc),
         ],
         child: MaterialApp(
