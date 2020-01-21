@@ -17,7 +17,7 @@ class ActivitiesMapViewWidget extends StatefulWidget {
 class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
   Completer<GoogleMapController> _controller = Completer();
   Map<MarkerId, Marker> markers = {};
-  final _debouncer = Debouncer(milliseconds: 500);
+  final _debouncer = Debouncer(milliseconds: 100);
 
   void _onMapCreated(BuildContext context, GoogleMapController controller) {
     _controller.complete(controller);
