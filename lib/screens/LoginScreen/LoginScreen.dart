@@ -5,9 +5,9 @@ import 'package:whatup/resources/Repository.dart';
 import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
 import 'package:whatup/screens/LoginScreen/LoginFormWidget.dart';
 import 'package:whatup/screens/LoginScreen/RegisterFormWidget.dart';
-import 'package:whatup/screens/LoginScreen/bloc/login_bloc.dart';
-import 'package:whatup/screens/LoginScreen/bloc/login_event.dart';
-import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 
 class LoginScreen extends StatelessWidget {
   @override

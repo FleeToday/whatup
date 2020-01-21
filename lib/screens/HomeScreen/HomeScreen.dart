@@ -7,8 +7,8 @@ import 'package:whatup/screens/HomeScreen/AppBarProfileButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/LocationSearchInputWidget.dart';
 import 'package:whatup/screens/HomeScreen/ActivitiesMapViewWidget.dart';
 import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
-import 'package:whatup/screens/LoginScreen/bloc/login_bloc.dart';
-import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 import 'package:whatup/screens/ProfileScreen/ProfileScreen.dart';
 
 class HomeScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatup/screens/LoginScreen/LoginLoadingViewWidget.dart';
-import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({

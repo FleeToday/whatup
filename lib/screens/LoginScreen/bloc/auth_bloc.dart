@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whatup/resources/Repository.dart';
-import 'package:whatup/screens/LoginScreen/bloc/login_event.dart';
-import 'package:whatup/screens/LoginScreen/bloc/login_state.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 import 'package:whatup/screens/LoginScreen/utils/login_validators.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -27,6 +27,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else if (event is SignUpSubmitted) {
       yield* _mapSignUpSubmittedEventToStates(
           email: event.email, password: event.password);
+    } else if (event is SignOut) {
+      yield* _mapSignOutEventToStates();
     }
   }
 
