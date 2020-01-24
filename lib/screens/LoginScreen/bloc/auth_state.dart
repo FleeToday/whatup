@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthState extends Equatable {
   final bool isEmailValid;
@@ -28,7 +29,9 @@ class AuthUpdate extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  const AuthSuccess() : super(true, true, true, true, false);
+  final FirebaseUser user;
+
+  const AuthSuccess(this.user) : super(true, true, true, true, false);
 }
 
 class AuthFailure extends AuthState {

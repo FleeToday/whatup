@@ -12,10 +12,7 @@ import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(Repository()),
-      child: LoginModule(),
-    );
+    return LoginModule();
   }
 }
 
@@ -48,7 +45,6 @@ class _LoginModuleState extends State<LoginModule> {
   void initState() {
     super.initState();
     _authBloc = BlocProvider.of<AuthBloc>(context);
-    _authBloc.add(CheckSignIn());
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
     _confirmPasswordController.addListener(_onConfirmPasswordChanged);
@@ -65,8 +61,10 @@ class _LoginModuleState extends State<LoginModule> {
     // TODO: implement build
     return BlocListener<AuthBloc, AuthState>(listener: (context, state) {
       if (state is AuthSuccess) {
-        Route route = MaterialPageRoute(builder: (context) => HomeScreen());
-        Navigator.pushReplacement(context, route);
+        Future.delayed(Duration.zero, () {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomeScreen()));
+        });
       }
     }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       return Scaffold(

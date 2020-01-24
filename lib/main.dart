@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     final LocationInputBloc locationInputBloc = LocationInputBloc();
     final MapBloc mapBloc = MapBloc(activityBloc: activityBloc)
       ..add(ResetCamera());
-    final AuthBloc authBloc = AuthBloc(Repository());
+    final AuthBloc authBloc = AuthBloc(Repository())..add(CheckSignIn());
 
     return MultiBlocProvider(
         providers: [
@@ -29,7 +29,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<ActivityBloc>(create: (context) => activityBloc),
           BlocProvider<LocationInputBloc>(
               create: (context) => locationInputBloc),
-          BlocProvider<AuthBloc>(create: (context) => authBloc),
+          BlocProvider<AuthBloc>(
+            create: (context) => authBloc,
+          ),
         ],
         child: MaterialApp(
           title: 'WhatUp',
@@ -37,8 +39,9 @@ class MyApp extends StatelessWidget {
           routes: routes,
           theme: new ThemeData(
               // brightness: Brightness.light,
-              // primaryColor: Colors.orange[200],
-              // accentColor: Colors.white,
+              // primaryColor: Colors.orange,
+              // primaryColorLight: Colors.amber[300],
+              // accentColor: Colors.orange[800],
               // backgroundColor: Colors.orange[200],
               // buttonColor: Colors.orange[200],
               // primaryTextTheme: TextTheme(),

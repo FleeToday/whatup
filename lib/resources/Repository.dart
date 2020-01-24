@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:whatup/models/Activity.dart';
 import 'package:whatup/models/ActivityList.dart';
+import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/resources/FirestoreProvider.dart';
 import 'package:whatup/resources/UserProvider.dart';
 
@@ -50,8 +51,14 @@ class Repository {
 
   Future<void> signOut() => _userProvider.signOut();
 
-  Future<String> getCurrentUser() => _userProvider.getUser();
+  Future<FirebaseUser> getCurrentUser() => _userProvider.getFirebaseUser();
 
   Future<AuthResult> signUp(String email, String password) =>
       _userProvider.signUp(email: email, password: password);
+
+  Future<bool> checkUserProfileExistById(String id) =>
+      _firestoreProvider.checkUserProfileExistsById(id);
+
+  Future<void> addUserProfile(UserProfile user) =>
+      _firestoreProvider.addUserProfile(user);
 }

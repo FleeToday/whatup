@@ -29,7 +29,7 @@ class UserProvider {
     return currentUser != null;
   }
 
-  Future<String> getUser() async {
-    return (await _firebaseAuth.currentUser()).email;
+  Future<FirebaseUser> getFirebaseUser() async {
+    return await _firebaseAuth.currentUser();
   }
 }

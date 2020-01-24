@@ -16,11 +16,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Route route = MaterialPageRoute(builder: (context) => LoginScreen());
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthEmpty) {
-          Navigator.of(context).pushReplacement(route);
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => LoginScreen()));
         }
       },
       child: Scaffold(

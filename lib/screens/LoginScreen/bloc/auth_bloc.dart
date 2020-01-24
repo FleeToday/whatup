@@ -11,7 +11,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final Repository repo;
 
   @override
-  AuthState get initialState => AuthEmpty();
+  AuthState get initialState {
+    print("AuthState initialState { }");
+    return AuthEmpty();
+  }
 
   @override
   Stream<AuthState> mapEventToState(
@@ -38,8 +41,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       {String email, String password}) async* {
     yield AuthLoading();
     try {
-      await repo.signIn(email, password);
-      yield AuthSuccess();
+      AuthResult authResult = await repo.signIn(email, password);
+      yield AuthSuccess(authResult.user);
     } catch (_) {
       yield AuthFailure(_.message);
     }
@@ -48,9 +51,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapCheckSignInEventToStates() async* {
     yield AuthLoading();
     try {
-      String user = await repo.getCurrentUser();
+      FirebaseUser user = await repo.getCurrentUser();
       if (user != null) {
-        yield AuthSuccess();
+        yield AuthSuccess(user);
       } else {
         yield AuthEmpty();
       }
@@ -63,8 +66,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       {String email, String password}) async* {
     yield AuthLoading();
     try {
-      await repo.signUp(email, password);
-      yield AuthSuccess();
+      AuthResult authResult = await repo.signUp(email, password);
+      FirebaseUser user = authResult.user;
+      yield AuthSuccess(user);
     } catch (_) {
       yield AuthFailure(_.message);
     }
