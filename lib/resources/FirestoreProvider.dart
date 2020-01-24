@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:whatup/models/Activity.dart';
-import 'package:whatup/models/User.dart';
+import 'package:whatup/models/UserProfile.dart';
+import 'package:whatup/models/UserProfile.dart';
 
 class FirestoreProvider {
   Geoflutterfire geo = Geoflutterfire();
   static Firestore _firestore = Firestore.instance;
   final CollectionReference activitiesRef = _firestore.collection('activties');
-  final CollectionReference usersRef = _firestore.collection('users');
+  final CollectionReference usersRef = _firestore.collection('userProfiles');
 
   Future<void> addActivity(Activity _activity) async {
     GeoFirePoint _location = geo.point(
@@ -36,16 +37,16 @@ class FirestoreProvider {
   }
 
   // User Collection
-  Future<void> addUser(User _user) async {
+  Future<void> addUserProfile(UserProfile _userProfile) async {
     return _firestore
-        .collection("user")
-        .document(_user.id)
-        .setData(_user.toJson());
+        .collection("userProfiles")
+        .document(_userProfile.id)
+        .setData(_userProfile.toJson());
   }
 
-  Future<bool> checkUserExistsById(String id) async {
+  Future<bool> checkUserProfileExistsById(String id) async {
     DocumentSnapshot docSnapshot =
-        await _firestore.collection("user").document(id).get();
+        await _firestore.collection("userProfiles").document(id).get();
     return docSnapshot.exists;
   }
 }

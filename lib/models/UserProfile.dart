@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class UserProfile {
   final String id;
   final String firstName;
   final String lastName;
@@ -8,8 +8,9 @@ class User {
   final List<String> interests;
   DocumentReference reference;
 
-  User({this.id, this.firstName, this.lastName, this.email, this.interests});
-  User.fromMap(Map<String, dynamic> map, {reference})
+  UserProfile(
+      {this.id, this.firstName, this.lastName, this.email, this.interests});
+  UserProfile.fromMap(Map<String, dynamic> map, {reference})
       : assert(map['firstName'] != null),
         assert(map['lastName'] != null),
         assert(map['interests'] != null),
@@ -21,7 +22,7 @@ class User {
         id = map['id'],
         email = map['email'];
 
-  User.fromSnapshot(DocumentSnapshot snapshot)
+  UserProfile.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   Map<String, dynamic> toJson() {
