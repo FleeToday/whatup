@@ -26,7 +26,6 @@ class LoginModule extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _LoginModuleState();
   }
 }
@@ -49,6 +48,7 @@ class _LoginModuleState extends State<LoginModule> {
   void initState() {
     super.initState();
     _authBloc = BlocProvider.of<AuthBloc>(context);
+    _authBloc.add(CheckSignIn());
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
     _confirmPasswordController.addListener(_onConfirmPasswordChanged);

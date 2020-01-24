@@ -8,7 +8,7 @@ class ActivitiesCreateButtonWidget extends StatelessWidget {
         Navigator.pushNamed(context, '/create');
       },
       child: Icon(Icons.add),
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).primaryColor,
     );
   }
 }

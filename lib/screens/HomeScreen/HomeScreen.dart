@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatup/screens/HomeScreen/AppBarDrawerWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivityReloadButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/ActivitiesListViewWidget.dart';
@@ -9,7 +10,6 @@ import 'package:whatup/screens/HomeScreen/ActivitiesMapViewWidget.dart';
 import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
-import 'package:whatup/screens/ProfileScreen/ProfileScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                 },
               )),
         ),
-        drawer: ProfileScreen(),
+        drawer: AppBarDrawerWidget(),
         floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 230),
             child: ActivitiesCreateButtonWidget()),

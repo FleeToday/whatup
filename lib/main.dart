@@ -4,6 +4,7 @@ import 'package:whatup/resources/Repository.dart';
 import 'package:whatup/screens/HomeScreen/bloc/bloc.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
+import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
 
 import 'routes.dart';
 import 'package:flutter/material.dart';

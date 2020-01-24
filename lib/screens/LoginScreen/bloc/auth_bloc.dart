@@ -29,6 +29,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           email: event.email, password: event.password);
     } else if (event is SignOut) {
       yield* _mapSignOutEventToStates();
+    } else if (event is CheckSignIn) {
+      yield* _mapCheckSignInEventToStates();
     }
   }
 
@@ -40,6 +42,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield AuthSuccess();
     } catch (_) {
       yield AuthFailure(_.message);
+    }
+  }
+
+  Stream<AuthState> _mapCheckSignInEventToStates() async* {
+    yield AuthLoading();
+    try {
+      String user = await repo.getCurrentUser();
+      if (user != null) {
+        yield AuthSuccess();
+      } else {
+        yield AuthEmpty();
+      }
+    } catch (_) {
+      yield AuthEmpty();
     }
   }
 

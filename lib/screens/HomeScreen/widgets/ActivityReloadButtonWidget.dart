@@ -10,12 +10,12 @@ class ActivityReloadButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(10.0),
       ),
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
       textColor: Colors.white,
       disabledColor: Colors.grey,
       disabledTextColor: Colors.black,
       padding: EdgeInsets.all(8.0),
-      splashColor: Colors.blueAccent,
+      splashColor: Theme.of(context).primaryColor,
       child: Text("Reload activities"),
       onPressed: () {
         BlocProvider.of<ActivityBloc>(context).add(FetchActivity());

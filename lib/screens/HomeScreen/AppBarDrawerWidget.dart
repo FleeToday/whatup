@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
 
-class ProfileScreen extends StatelessWidget {
+class AppBarDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

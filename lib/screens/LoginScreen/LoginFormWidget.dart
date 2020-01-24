@@ -82,8 +82,8 @@ class LoginFormWidget extends StatelessWidget {
                                     _state.isPasswordValid &&
                                     _emailController.text.isNotEmpty &&
                                     _passwordController.text.isNotEmpty
-                                ? Colors.blue[800]
-                                : Colors.blue[300],
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).primaryColorLight,
                             duration: Duration(milliseconds: 500),
                             padding: const EdgeInsets.all(10.0),
                             child: const Text('Sign In',

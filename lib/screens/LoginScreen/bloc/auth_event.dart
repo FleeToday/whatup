@@ -5,6 +5,17 @@ abstract class AuthEvent extends Equatable {
   const AuthEvent();
 }
 
+class CheckSignIn extends AuthEvent {
+  const CheckSignIn();
+
+  @override
+  // TODO: implement props
+  List<Object> get props => null;
+
+  @override
+  String toString() => 'CheckSignIn { }';
+}
+
 class EmailChanged extends AuthEvent {
   final String email;
 

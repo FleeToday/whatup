@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:whatup/screens/ProfileScreen/ProfileScreen.dart';
 
 class AppBarProfileButtonWidget extends StatelessWidget {
   const AppBarProfileButtonWidget({Key key, this.onPressed}) : super(key: key);
@@ -21,7 +20,7 @@ class AppBarProfileButtonWidget extends StatelessWidget {
             Icons.account_circle,
             size: 30,
           ),
-          color: Colors.lightBlue,
+          color: Theme.of(context).accentColor,
           onPressed: this.onPressed,
         ),
       ),

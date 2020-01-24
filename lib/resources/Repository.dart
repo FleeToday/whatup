@@ -25,7 +25,9 @@ class Repository {
   Future<AuthResult> signIn(String email, String password) =>
       _userProvider.signInWithCredentials(email: email, password: password);
 
-  Future<void> signOut() => _userProvider.signUp();
+  Future<void> signOut() => _userProvider.signOut();
+
+  Future<String> getCurrentUser() => _userProvider.getUser();
 
   Future<AuthResult> signUp(String email, String password) =>
       _userProvider.signUp(email: email, password: password);
