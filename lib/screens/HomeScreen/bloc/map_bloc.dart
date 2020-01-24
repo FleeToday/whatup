@@ -9,13 +9,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final Repository _repository = Repository();
   final ActivityBloc activityBloc;
 
-  MapBloc({@required this.activityBloc}) {
-    activityBloc.listen((state) {
-      if (state is LoadedActivity) {
-        add(UpdateActivity((state as LoadedActivity).activityList));
-      }
-    });
-  }
+  MapBloc({@required this.activityBloc}) {}
 
   @override
   MapState get initialState => LoadingMap();
@@ -24,38 +18,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Stream<MapState> mapEventToState(
     MapEvent event,
   ) async* {
-    if (event is UpdateActivity) {
-      yield* _mapUpdateActivityToState(event);
-    } else if (event is FocusMap) {
-      yield* _mapFocusMapToState(event);
-    } else if (event is UpdateMapToCurrentLocation) {
-      yield* _mapUpdateMapToCurrentLocationToState(event);
-    }
-  }
-
-  Stream<MapState> _mapFocusMapToState(FocusMap event) async* {
-    yield LoadedMap(
-        event.locationName, event.center, (state as LoadedMap).activityList);
-  }
-
-  Stream<MapState> _mapUpdateMapToCurrentLocationToState(
-      UpdateMapToCurrentLocation event) async* {
-    LatLng _currentLocation = await _repository.getCurrentLocation();
-    if (state is LoadedMap) {
-      yield LoadedMap(
-          "location name", _currentLocation, (state as LoadedMap).activityList);
-    } else {
-      yield LoadingActivityMap("location name", _currentLocation);
-    }
-  }
-
-  Stream<MapState> _mapUpdateActivityToState(UpdateActivity event) async* {
-    if (state is LoadingActivityMap) {
-      yield LoadedMap((state as LoadingActivityMap).locationName,
-          (state as LoadingActivityMap).center, event.activityList);
-    } else if (state is LoadedMap) {
-      yield LoadedMap((state as LoadedMap).locationName,
-          (state as LoadedMap).center, event.activityList);
+    if (event is UpdateCenter) {
+      yield LoadedMap(event.center);
+    } else if (event is MoveCamera) {
+      yield MovingMap(event.center);
+      yield LoadedMap(event.center);
+    } else if (event is ResetCamera) {
+      LatLng _currentLocation = await _repository.getCurrentLocation();
+      activityBloc.add(FetchActivity(_currentLocation));
+      yield LoadedMap(_currentLocation);
     }
   }
 }

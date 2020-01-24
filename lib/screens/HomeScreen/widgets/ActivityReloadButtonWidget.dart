@@ -18,7 +18,8 @@ class ActivityReloadButton extends StatelessWidget {
       splashColor: Theme.of(context).primaryColor,
       child: Text("Reload activities"),
       onPressed: () {
-        BlocProvider.of<ActivityBloc>(context).add(FetchActivity());
+        BlocProvider.of<ActivityBloc>(context).add(FetchActivity(
+            (BlocProvider.of<MapBloc>(context).state as LoadedMap).center));
       },
     );
   }

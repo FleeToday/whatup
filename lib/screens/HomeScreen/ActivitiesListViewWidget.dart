@@ -11,6 +11,7 @@ class ActivitiesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MapBloc mapBloc = BlocProvider.of<MapBloc>(context);
+    final ActivityBloc activityBloc = BlocProvider.of<ActivityBloc>(context);
 
     return Container(
         alignment: Alignment.bottomCenter,
@@ -30,7 +31,8 @@ class ActivitiesListView extends StatelessWidget {
                 },
                 onIndexChanged: (int i) {
                   LatLng _center = state.activityList.items[i].location;
-                  mapBloc.add(FocusMap("testing", _center));
+                  mapBloc.add(MoveCamera(_center));
+                  // activityBloc.add(FetchActivity(_center));
                 },
                 itemCount: state.activityList.items.length,
                 viewportFraction: 0.8,

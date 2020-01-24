@@ -12,6 +12,29 @@ class Repository {
   final _userProvider = UserProvider(firebaseAuth: FirebaseAuth.instance);
 
   Stream<QuerySnapshot> getActivities() => _firestoreProvider.getActivities();
+
+  Future<ActivityList> getActivitiesByCenter(
+      LatLng center, double radius) async {
+    ActivityList activityList = await _firestoreProvider
+        .streamActivitiesByCenter(center, radius)
+        .first
+        .then((snapshots) {
+      return ActivityList.fromSnapshotList(snapshots);
+    }).catchError((err) {
+      print(err);
+    });
+    return activityList;
+  }
+
+  Stream<ActivityList> getActivitiesStreamByCenter(
+      LatLng center, double radius) {
+    Stream<List<DocumentSnapshot>> stream =
+        _firestoreProvider.streamActivitiesByCenter(center, radius);
+    return stream.map((data) {
+      return ActivityList.fromSnapshotList(data);
+    });
+  }
+
   Future<void> addActivity(Activity _activity) =>
       _firestoreProvider.addActivity(_activity);
 
@@ -31,9 +54,4 @@ class Repository {
 
   Future<AuthResult> signUp(String email, String password) =>
       _userProvider.signUp(email: email, password: password);
-
-  Future<ActivityList> getActivitiesByCenter() async {
-    QuerySnapshot _snapshot = await _firestoreProvider.getActivitiesByCenter();
-    return ActivityList.fromSnapshot(_snapshot);
-  }
 }

@@ -34,11 +34,11 @@ class LocationSearchInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MapBloc, MapState>(
+    return BlocListener<LocationInputBloc, LocationInputState>(
         listener: (context, state) async {
-          if (state is LoadedMap) {
+          if (state is FilledLocationInput) {
             _locationController.value =
-                _locationController.value.copyWith(text: state.locationName);
+                _locationController.value.copyWith(text: state.input);
           }
         },
         child: Container(

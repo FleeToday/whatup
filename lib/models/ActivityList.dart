@@ -6,6 +6,11 @@ import 'Activity.dart';
 class ActivityList {
   List<Activity> items;
 
+  ActivityList.fromSnapshotList(List<DocumentSnapshot> snapshots) {
+    this.items =
+        snapshots.map((_data) => Activity.fromSnapshot(_data)).toList();
+  }
+
   ActivityList.fromSnapshot(QuerySnapshot snapshot) {
     this.items = snapshot.documents
         .map((_data) => Activity.fromSnapshot(_data))
