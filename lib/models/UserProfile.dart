@@ -11,12 +11,7 @@ class UserProfile {
   UserProfile(
       {this.id, this.firstName, this.lastName, this.email, this.interests});
   UserProfile.fromMap(Map<String, dynamic> map, {reference})
-      : assert(map['firstName'] != null),
-        assert(map['lastName'] != null),
-        assert(map['interests'] != null),
-        assert(map['id'] != null),
-        assert(map['email'] != null),
-        firstName = map['firstName'],
+      : firstName = map['firstName'],
         lastName = map['lastName'],
         interests = map['interests'],
         id = map['id'],
@@ -24,6 +19,14 @@ class UserProfile {
 
   UserProfile.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
+
+  static bool isCompleted(UserProfile userProfile) {
+    return userProfile.interests != null &&
+        userProfile.lastName != null &&
+        userProfile.firstName != null &&
+        userProfile.id != null &&
+        userProfile.email != null;
+  }
 
   Map<String, dynamic> toJson() {
     return {

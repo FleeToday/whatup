@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_event.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_state.dart';
 
 class AppBarDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-        listener: (BuildContext context, AuthState state) {},
-        child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+    return BlocListener<UserProfileBloc, UserProfileState>(
+        listener: (BuildContext context, UserProfileState state) {},
+        child: BlocBuilder<UserProfileBloc, UserProfileState>(
+            builder: (context, state) {
           return SizedBox(
             width: MediaQuery.of(context).size.width * 0.66,
             child: Scaffold(
@@ -41,10 +44,12 @@ class AppBarDrawerWidget extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(""),
+                                  Text((state is UserProfileRetrievalSuccess)
+                                      ? '${state.currentUserProfile.firstName} ${state.currentUserProfile.lastName}'
+                                      : state.toString()),
                                   Text(
-                                    (state is AuthSuccess)
-                                        ? state.user.email
+                                    (state is UserProfileRetrievalSuccess)
+                                        ? state.currentUserProfile.email
                                         : state.toString(),
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,

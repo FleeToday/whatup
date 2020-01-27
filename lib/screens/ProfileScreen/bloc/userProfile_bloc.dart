@@ -38,8 +38,11 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       UserProfile userProfile = await repo.getUserProfileById(user.uid);
       if (userProfile == null) {
         yield UserProfileRetrievalFailure();
+      } else if (UserProfile.isCompleted(userProfile)) {
+        yield UserProfileRetrievalSuccess(userProfile, true);
+      } else {
+        yield UserProfileIncompleted(userProfile);
       }
-      yield UserProfileRetrievalSuccess(userProfile);
     }
   }
 
@@ -56,7 +59,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     if (userProfile == null) {
       yield UserProfileRetrievalFailure();
     } else {
-      yield UserProfileRetrievalSuccess(userProfile);
+      yield UserProfileRetrievalSuccess(userProfile, true);
     }
   }
 }
