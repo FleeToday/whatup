@@ -8,6 +8,10 @@ import 'package:whatup/screens/LoginScreen/RegisterFormWidget.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
+import 'package:whatup/screens/ProfileScreen/CreateProfileScreen.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_event.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_state.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -40,11 +44,13 @@ class _LoginModuleState extends State<LoginModule> {
   int _currentIndex = 0;
 
   AuthBloc _authBloc;
+  UserProfileBloc _userProfileBloc;
 
   @override
   void initState() {
     super.initState();
     _authBloc = BlocProvider.of<AuthBloc>(context);
+    _userProfileBloc = BlocProvider.of<UserProfileBloc>(context);
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
     _confirmPasswordController.addListener(_onConfirmPasswordChanged);
@@ -59,106 +65,131 @@ class _LoginModuleState extends State<LoginModule> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocListener<AuthBloc, AuthState>(listener: (context, state) {
-      if (state is AuthSuccess) {
-        Future.delayed(Duration.zero, () {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomeScreen()));
-        });
-      }
-    }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-      return Scaffold(
-          body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Flexible(
-              flex: 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Welcome to Whatup',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w200,
-                      fontSize: 36,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  Text(
-                    'Sign in to continue',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  ButtonBar(
-                    alignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FlatButton(
-                        child: Text("Sign In"),
-                        onPressed: (_currentIndex != 0)
-                            ? () => {
-                                  _pageController.animateToPage(
-                                    0,
-                                    duration: const Duration(milliseconds: 400),
-                                    curve: Curves.easeInOutCirc,
-                                  )
-                                }
-                            : null,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UserProfileBloc, UserProfileState>(
+            listener: (context, state) {
+          if (state is UserProfileRetrievalSuccess) {
+            Future.delayed(Duration.zero, () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
+            });
+          }
+          if (state is UserProfileRetrievalFailure) {
+            Future.delayed(Duration.zero, () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute<Null>(
+                    builder: (BuildContext context) {
+                      return CreateProfileScreen();
+                    },
+                    fullscreenDialog: true,
+                  ));
+            });
+          }
+        }),
+        BlocListener<AuthBloc, AuthState>(listener: (context, state) {
+          if (state is AuthSuccess) {
+            _userProfileBloc.add(RetrieveUserProfile(state.user.uid));
+          }
+        })
+      ],
+      child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+        return Scaffold(
+            body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Flexible(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Welcome to Whatup',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w200,
+                        fontSize: 36,
+                        color: Colors.black87,
                       ),
-                      FlatButton(
-                        child: Text("Sign Up"),
-                        onPressed: (_currentIndex != 1)
-                            ? () => {
-                                  _pageController.animateToPage(
-                                    1,
-                                    duration: const Duration(milliseconds: 400),
-                                    curve: Curves.easeInOutCirc,
-                                  )
-                                }
-                            : null,
-                      )
-                    ],
-                  ),
-                ],
+                    ),
+                    Text(
+                      'Sign in to continue',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        FlatButton(
+                          child: Text("Sign In"),
+                          onPressed: (_currentIndex != 0)
+                              ? () => {
+                                    _pageController.animateToPage(
+                                      0,
+                                      duration:
+                                          const Duration(milliseconds: 400),
+                                      curve: Curves.easeInOutCirc,
+                                    )
+                                  }
+                              : null,
+                        ),
+                        FlatButton(
+                          child: Text("Sign Up"),
+                          onPressed: (_currentIndex != 1)
+                              ? () => {
+                                    _pageController.animateToPage(
+                                      1,
+                                      duration:
+                                          const Duration(milliseconds: 400),
+                                      curve: Curves.easeInOutCirc,
+                                    )
+                                  }
+                              : null,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Flexible(
-              flex: 3,
-              child: PageView(
-                onPageChanged: _onPageChanged,
-                controller: _pageController,
-                children: <Widget>[
-                  LoginFormWidget(
-                    emailController: _emailController,
-                    passwordController: _passwordController,
-                    state: state,
-                    onSignInButtonPress: _onSignInButtonPress,
-                    errMsg: (state is AuthFailure) ? state.errMsg : '',
-                  ),
-                  RegisterFormWidget(
-                    confirmPasswordController: _confirmPasswordController,
-                    emailController: _emailController,
-                    passwordController: _passwordController,
-                    state: state,
-                    onSignUpButtonPress: _onSignUpButtonPress,
-                    errMsg: (state is AuthFailure)
-                        ? state.errMsg
-                        : isConfirmPasswordErr
-                            ? 'The two passwords are the same'
-                            : '',
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ));
-    }));
+              Flexible(
+                flex: 3,
+                child: PageView(
+                  onPageChanged: _onPageChanged,
+                  controller: _pageController,
+                  children: <Widget>[
+                    LoginFormWidget(
+                      emailController: _emailController,
+                      passwordController: _passwordController,
+                      state: state,
+                      onSignInButtonPress: _onSignInButtonPress,
+                      errMsg: (state is AuthFailure) ? state.errMsg : '',
+                    ),
+                    RegisterFormWidget(
+                      confirmPasswordController: _confirmPasswordController,
+                      emailController: _emailController,
+                      passwordController: _passwordController,
+                      state: state,
+                      onSignUpButtonPress: _onSignUpButtonPress,
+                      errMsg: (state is AuthFailure)
+                          ? state.errMsg
+                          : isConfirmPasswordErr
+                              ? 'The two passwords are the same'
+                              : '',
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ));
+      }),
+    );
   }
 
   @override

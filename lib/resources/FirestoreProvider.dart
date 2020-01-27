@@ -49,4 +49,11 @@ class FirestoreProvider {
         await _firestore.collection("userProfiles").document(id).get();
     return docSnapshot.exists;
   }
+
+  Future<UserProfile> getUserProfileById(String id) async {
+    DocumentSnapshot docSnapshot =
+        await _firestore.collection("userProfiles").document(id).get();
+    UserProfile userProfile = UserProfile.fromSnapshot(docSnapshot);
+    return userProfile;
+  }
 }

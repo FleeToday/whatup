@@ -6,6 +6,7 @@ import 'package:whatup/screens/HomeScreen/bloc/bloc.dart';
 import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
 
 import 'blocs/SimpleBlocDelegate.dart';
 import 'routes.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     final MapBloc mapBloc = MapBloc(activityBloc: activityBloc)
       ..add(ResetCamera());
     final AuthBloc authBloc = AuthBloc(Repository())..add(CheckSignIn());
+    final UserProfileBloc userProfileBloc = UserProfileBloc(Repository());
 
     return MultiBlocProvider(
         providers: [
@@ -31,6 +33,9 @@ class MyApp extends StatelessWidget {
               create: (context) => locationInputBloc),
           BlocProvider<AuthBloc>(
             create: (context) => authBloc,
+          ),
+          BlocProvider<UserProfileBloc>(
+            create: (context) => userProfileBloc,
           ),
         ],
         child: MaterialApp(

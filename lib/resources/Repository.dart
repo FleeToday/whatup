@@ -51,13 +51,17 @@ class Repository {
 
   Future<void> signOut() => _userProvider.signOut();
 
-  Future<FirebaseUser> getCurrentUser() => _userProvider.getFirebaseUser();
+  Future<FirebaseUser> getCurrentFirebaseUser() =>
+      _userProvider.getFirebaseUser();
 
   Future<AuthResult> signUp(String email, String password) =>
       _userProvider.signUp(email: email, password: password);
 
   Future<bool> checkUserProfileExistById(String id) =>
       _firestoreProvider.checkUserProfileExistsById(id);
+
+  Future<UserProfile> getUserProfileById(String id) =>
+      _firestoreProvider.getUserProfileById(id);
 
   Future<void> addUserProfile(UserProfile user) =>
       _firestoreProvider.addUserProfile(user);
