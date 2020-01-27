@@ -75,7 +75,7 @@ class _LoginModuleState extends State<LoginModule> {
                   MaterialPageRoute(builder: (context) => HomeScreen()));
             });
           }
-          if (state is UserProfileRetrievalFailure) {
+          if (!state.isUserProfileCompleted || !state.isUserProfileExist) {
             Future.delayed(Duration.zero, () {
               Navigator.pushReplacement(
                   context,

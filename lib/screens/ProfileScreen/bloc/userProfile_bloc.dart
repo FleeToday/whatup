@@ -21,7 +21,6 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       yield* _mapCreateUserProfileEventToState(
           firstName: event.firstName,
           lastName: event.lastName,
-          email: event.email,
           interests: event.interests);
     } else if (event is RetrieveUserProfile) {
       yield* _mapRetrieveUserProfileEventToState();
@@ -39,28 +38,28 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       UserProfile userProfile = await repo.getUserProfileById(user.uid);
       if (userProfile == null) {
         yield UserProfileRetrievalFailure();
+      } else if (UserProfile.isCompleted(userProfile)) {
+        yield UserProfileRetrievalSuccess(userProfile, true);
+      } else {
+        yield UserProfileIncompleted(userProfile);
       }
-      yield UserProfileRetrievalSuccess(userProfile);
     }
   }
 
   Stream<UserProfileState> _mapCreateUserProfileEventToState(
-      {String firstName,
-      String lastName,
-      String email,
-      List<String> interests}) async* {
+      {String firstName, String lastName, List<String> interests}) async* {
     FirebaseUser user = await repo.getCurrentFirebaseUser();
     UserProfile userProfile = UserProfile(
         id: user.uid,
         firstName: firstName,
         lastName: lastName,
-        email: email,
+        email: user.email,
         interests: interests);
     await repo.addUserProfile(userProfile);
     if (userProfile == null) {
       yield UserProfileRetrievalFailure();
     } else {
-      yield UserProfileRetrievalSuccess(userProfile);
+      yield UserProfileRetrievalSuccess(userProfile, true);
     }
   }
 }

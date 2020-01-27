@@ -22,19 +22,16 @@ class RetrieveUserProfile extends UserProfileEvent {
 class CreateUserProfile extends UserProfileEvent {
   final String firstName;
   final String lastName;
-  final String email;
   final List<String> interests;
 
-  CreateUserProfile(
-      {this.firstName, this.lastName, this.email, this.interests});
+  CreateUserProfile({this.firstName, this.lastName, this.interests});
 
   @override
-  List<Object> get props =>
-      [this.firstName, this.lastName, this.email, this.interests];
+  List<Object> get props => [this.firstName, this.lastName, this.interests];
 
   @override
   String toString() {
-    return 'CreateUserProfile { firstName: $firstName, lastName: $lastName, email: $email, interests: $interests }';
+    return 'CreateUserProfile { firstName: $firstName, lastName: $lastName, interests: $interests }';
   }
 }
 

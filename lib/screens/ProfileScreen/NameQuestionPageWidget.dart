@@ -3,13 +3,22 @@ import 'package:flutter/material.dart';
 class NameQuestionPageWidget extends StatelessWidget {
   final TextEditingController _firstNameController;
   final TextEditingController _lastNameController;
+  final Function _onFirstNameChanged;
+  final Function _onLastNameChanged;
+  final Function _onBlur;
 
-  const NameQuestionPageWidget(
-      {Key key,
-      @required TextEditingController firstNameController,
-      @required TextEditingController lastNameController})
-      : _firstNameController = firstNameController,
+  const NameQuestionPageWidget({
+    Key key,
+    @required TextEditingController firstNameController,
+    @required TextEditingController lastNameController,
+    @required Function onFirstNameChanged,
+    @required Function onLastNameChanged,
+    @required Function onBlur,
+  })  : _firstNameController = firstNameController,
         _lastNameController = lastNameController,
+        _onFirstNameChanged = onFirstNameChanged,
+        _onLastNameChanged = onLastNameChanged,
+        _onBlur = onBlur,
         super(key: key);
 
   @override
@@ -29,6 +38,9 @@ class NameQuestionPageWidget extends StatelessWidget {
             height: 32,
           ),
           TextField(
+            textInputAction: TextInputAction.next,
+            onEditingComplete: _onBlur,
+            onChanged: _onFirstNameChanged,
             controller: _firstNameController,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
@@ -51,6 +63,9 @@ class NameQuestionPageWidget extends StatelessWidget {
             height: 32,
           ),
           TextField(
+            textInputAction: TextInputAction.done,
+            onEditingComplete: _onBlur,
+            onChanged: _onLastNameChanged,
             controller: _lastNameController,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
