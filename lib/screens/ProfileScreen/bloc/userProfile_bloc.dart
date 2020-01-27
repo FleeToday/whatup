@@ -16,24 +16,21 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   @override
   Stream<UserProfileState> mapEventToState(UserProfileEvent event) async* {
     if (event is RetrieveUserProfile) {
-      yield* mapRetrieveUserProfileEventToState();
-    }
-    if (event is RemoveUserProfile) {
+      yield* _mapRetrieveUserProfileEventToState();
+    } else if (event is RemoveUserProfile) {
       yield UserProfileRetrievalEmpty();
     }
   }
 
-  Stream<UserProfileState> mapRetrieveUserProfileEventToState() async* {
+  Stream<UserProfileState> _mapRetrieveUserProfileEventToState() async* {
     FirebaseUser user = await repo.getCurrentFirebaseUser();
     bool isUserProfileExist = await repo.checkUserProfileExistById(user.uid);
     if (!isUserProfileExist) {
       yield UserProfileRetrievalFailure();
-      return;
     } else {
       UserProfile userProfile = await repo.getUserProfileById(user.uid);
       if (userProfile == null) {
         yield UserProfileRetrievalFailure();
-        return;
       }
       yield UserProfileRetrievalSuccess(userProfile);
     }
