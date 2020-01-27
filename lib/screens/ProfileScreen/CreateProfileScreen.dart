@@ -21,6 +21,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
   PageController _pageController;
   TextEditingController _firstNameController;
   TextEditingController _lastNameController;
+  bool isNameFilled = false;
 
   @override
   void initState() {
@@ -30,6 +31,28 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
     _pageController = PageController();
   }
 
+  void _onFirstNameChanged(String firstName) {
+    // setState(() {
+    //   isNameFilled = _firstNameController.text.isNotEmpty &&
+    //       _lastNameController.text.isNotEmpty;
+    // });
+  }
+
+  void _onLastNameChanged(String lastName) {
+    // setState(() {
+    //   isNameFilled = _firstNameController.text.isNotEmpty &&
+    //       _lastNameController.text.isNotEmpty;
+    // });
+  }
+
+  void _onBlur() {
+    print("onBlur");
+    setState(() {
+      isNameFilled = _firstNameController.text.isNotEmpty &&
+          _lastNameController.text.isNotEmpty;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserProfileBloc, UserProfileState>(
@@ -37,6 +60,9 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
       if (state is UserProfileRetrievalSuccess) {
         _firstNameController.text = state.currentUserProfile.firstName;
         _lastNameController.text = state.currentUserProfile.lastName;
+
+        isNameFilled = _firstNameController.text.isNotEmpty &&
+            _lastNameController.text.isNotEmpty;
       }
       return Container(
         child: SafeArea(
@@ -64,13 +90,21 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                       controller: _pageController,
                       children: <Widget>[
                         QuestionCardWidget(
+                          isCardCompleted: isNameFilled,
                           child: NameQuestionPageWidget(
+                            onBlur: _onBlur,
+                            onFirstNameChanged: _onFirstNameChanged,
+                            onLastNameChanged: _onLastNameChanged,
                             firstNameController: _firstNameController,
                             lastNameController: _lastNameController,
                           ),
                         ),
-                        QuestionCardWidget(),
-                        QuestionCardWidget(),
+                        QuestionCardWidget(
+                          isCardCompleted: false,
+                        ),
+                        QuestionCardWidget(
+                          isCardCompleted: false,
+                        ),
                       ],
                     ),
                   ),
