@@ -8,6 +8,8 @@ import 'package:whatup/screens/LoginScreen/RegisterFormWidget.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_event.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -61,6 +63,10 @@ class _LoginModuleState extends State<LoginModule> {
     // TODO: implement build
     return BlocListener<AuthBloc, AuthState>(listener: (context, state) {
       if (state is AuthSuccess) {
+        if (state is AuthSuccess) {
+          BlocProvider.of<UserProfileBloc>(context)
+              .add(RetrieveUserProfile(state.user.uid));
+        }
         Future.delayed(Duration.zero, () {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => HomeScreen()));

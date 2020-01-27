@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapCheckSignInEventToStates() async* {
     yield AuthLoading();
     try {
-      FirebaseUser user = await repo.getCurrentUser();
+      FirebaseUser user = await repo.getCurrentFirebaseUser();
       if (user != null) {
         yield AuthSuccess(user);
       } else {
