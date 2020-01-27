@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/components/DotsIndicator.dart';
+import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
 import 'package:whatup/screens/ProfileScreen/NameQuestionPageWidget.dart';
 import 'package:whatup/screens/ProfileScreen/QuestionCardWidget.dart';
@@ -17,10 +18,14 @@ class CreateProfileScreen extends StatefulWidget {
 
 class CreateProfileScreenState extends State<CreateProfileScreen> {
   PageController _pageController;
+  TextEditingController _firstNameController;
+  TextEditingController _lastNameController;
 
   @override
   void initState() {
     super.initState();
+    _firstNameController = TextEditingController();
+    _lastNameController = TextEditingController();
     _pageController = PageController();
   }
 
@@ -50,7 +55,10 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                     controller: _pageController,
                     children: <Widget>[
                       QuestionCardWidget(
-                        child: NameQuestionPageWidget(),
+                        child: NameQuestionPageWidget(
+                          firstNameController: _firstNameController,
+                          lastNameController: _lastNameController,
+                        ),
                       ),
                       QuestionCardWidget(),
                       QuestionCardWidget(),
@@ -67,8 +75,10 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                   textColor: Colors.white,
                   padding: const EdgeInsets.all(0.0),
                   onPressed: () {
-                    BlocProvider.of<UserProfileBloc>(context)
-                        .add(RemoveUserProfile());
+                    BlocProvider.of<UserProfileBloc>(context).add(
+                        CreateUserProfile(
+                            firstName: _firstNameController.text,
+                            lastName: _lastNameController.text));
                     Future.delayed(Duration.zero, () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => HomeScreen()));
@@ -79,7 +89,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                     padding: EdgeInsets.all(12.0),
                     margin: EdgeInsets.all(16.0),
                     child: Text(
-                      "Skip",
+                      "Skip and Save",
                       style: TextStyle(
                           color: Theme.of(context).primaryColorLight,
                           fontSize: Theme.of(context).textTheme.title.fontSize),

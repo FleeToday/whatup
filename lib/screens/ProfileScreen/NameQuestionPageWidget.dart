@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
 class NameQuestionPageWidget extends StatelessWidget {
+  final TextEditingController _firstNameController;
+  final TextEditingController _lastNameController;
+
+  const NameQuestionPageWidget(
+      {Key key,
+      @required TextEditingController firstNameController,
+      @required TextEditingController lastNameController})
+      : _firstNameController = firstNameController,
+        _lastNameController = lastNameController,
+        super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,6 +29,7 @@ class NameQuestionPageWidget extends StatelessWidget {
             height: 32,
           ),
           TextField(
+            controller: _firstNameController,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w800,
@@ -39,6 +51,7 @@ class NameQuestionPageWidget extends StatelessWidget {
             height: 32,
           ),
           TextField(
+            controller: _lastNameController,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w800,

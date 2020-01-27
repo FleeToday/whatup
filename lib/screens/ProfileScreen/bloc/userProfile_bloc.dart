@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whatup/models/UserProfile.dart';
@@ -15,7 +17,13 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
   @override
   Stream<UserProfileState> mapEventToState(UserProfileEvent event) async* {
-    if (event is RetrieveUserProfile) {
+    if (event is CreateUserProfile) {
+      yield* _mapCreateUserProfileEventToState(
+          firstName: event.firstName,
+          lastName: event.lastName,
+          email: event.email,
+          interests: event.interests);
+    } else if (event is RetrieveUserProfile) {
       yield* _mapRetrieveUserProfileEventToState();
     } else if (event is RemoveUserProfile) {
       yield UserProfileRetrievalEmpty();
@@ -32,6 +40,26 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       if (userProfile == null) {
         yield UserProfileRetrievalFailure();
       }
+      yield UserProfileRetrievalSuccess(userProfile);
+    }
+  }
+
+  Stream<UserProfileState> _mapCreateUserProfileEventToState(
+      {String firstName,
+      String lastName,
+      String email,
+      List<String> interests}) async* {
+    FirebaseUser user = await repo.getCurrentFirebaseUser();
+    UserProfile userProfile = UserProfile(
+        id: user.uid,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        interests: interests);
+    await repo.addUserProfile(userProfile);
+    if (userProfile == null) {
+      yield UserProfileRetrievalFailure();
+    } else {
       yield UserProfileRetrievalSuccess(userProfile);
     }
   }
