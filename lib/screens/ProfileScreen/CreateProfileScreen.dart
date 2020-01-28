@@ -75,7 +75,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                   child: Text(
                     "A Few More Steps for Better Matches...",
                     style: TextStyle(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Colors.white,
                         fontSize: Theme.of(context)
                             .primaryTextTheme
                             .headline
@@ -132,14 +132,14 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                       child: Text(
                         "Skip / Save",
                         style: TextStyle(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Colors.white,
                             fontSize:
                                 Theme.of(context).textTheme.title.fontSize),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Colors.white,
                             width: 2,
                             style: BorderStyle.solid),
                       ),
@@ -148,7 +148,20 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
             ),
           ),
         ),
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            end: Alignment.bottomRight,
+            begin: Alignment.bottomLeft,
+            stops: [
+              0.0,
+              1.0,
+            ],
+            colors: [
+              Theme.of(context).primaryColorDark,
+              Theme.of(context).primaryColor,
+            ],
+          ),
+        ),
       );
     });
   }

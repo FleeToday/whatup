@@ -16,7 +16,6 @@ import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return HomeScreenState();
   }
 }
@@ -32,12 +31,6 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     menuController = new MenuController(
       vsync: this,
     )..addListener(() => setState(() {}));
-  }
-
-  @override
-  void dispose() {
-    // menuController.dispose();
-    super.dispose();
   }
 
   @override
