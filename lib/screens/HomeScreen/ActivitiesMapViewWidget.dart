@@ -24,6 +24,12 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
         listeners: [
@@ -35,19 +41,23 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
                 target: state.center,
                 zoom: 15.0,
               )));
+              BlocProvider.of<MapBloc>(context).add(UpdateCenter(state.center));
             }
           })
         ],
         child: BlocBuilder<MapBloc, MapState>(builder: (context, mapState) {
           return BlocBuilder<ActivityBloc, ActivityState>(
             builder: (context, activityState) {
-              if (mapState is LoadedMap && activityState is LoadedActivity) {
+              Set<Marker> markers = Set<Marker>.of(
+                  (activityState is LoadedActivity)
+                      ? activityState.activityList.getMarkers().values
+                      : {});
+              if (mapState is LoadedMap) {
                 return GoogleMap(
                   onMapCreated: (controller) =>
                       _onMapCreated(context, controller),
                   myLocationEnabled: true,
-                  markers: Set<Marker>.of(
-                      activityState.activityList.getMarkers().values),
+                  markers: markers,
                   onCameraMove: (CameraPosition cameraPosition) {
                     _debouncer.run(() => BlocProvider.of<MapBloc>(context)
                         .add(UpdateCenter(cameraPosition.target)));

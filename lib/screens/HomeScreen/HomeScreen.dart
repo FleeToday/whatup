@@ -11,6 +11,8 @@ import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 
+import 'bloc/bloc.dart';
+
 class HomeScreen extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -50,7 +52,18 @@ class HomeScreen extends StatelessWidget {
               Column(
                 children: <Widget>[
                   LocationSearchInputWidget(),
-                  ActivityReloadButton(),
+                  BlocBuilder<MapBloc, MapState>(
+                    builder: (context, state) {
+                      return AnimatedOpacity(
+                        // If the widget is visible, animate to 0.0 (invisible).
+                        // If the widget is hidden, animate to 1.0 (fully visible).
+                        opacity: (state is LoadedMap) ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 100),
+                        // The green box must be a child of the AnimatedOpacity widget.
+                        child: ActivityReloadButton(),
+                      );
+                    },
+                  )
                 ],
               ),
               ActivitiesListView()
