@@ -60,7 +60,6 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
       if (state is UserProfileRetrievalSuccess) {
         _firstNameController.text = state.currentUserProfile.firstName;
         _lastNameController.text = state.currentUserProfile.lastName;
-
         isNameFilled = _firstNameController.text.isNotEmpty &&
             _lastNameController.text.isNotEmpty;
       }
@@ -123,8 +122,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                               firstName: _firstNameController.text,
                               lastName: _lastNameController.text));
                       Future.delayed(Duration.zero, () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => HomeScreen()));
+                        Navigator.of(context).pop();
                       });
                     },
                     child: Container(
@@ -132,7 +130,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                       padding: EdgeInsets.all(12.0),
                       margin: EdgeInsets.all(16.0),
                       child: Text(
-                        "Skip and Save",
+                        "Skip / Save",
                         style: TextStyle(
                             color: Theme.of(context).primaryColorLight,
                             fontSize:
