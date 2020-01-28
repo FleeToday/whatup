@@ -99,14 +99,18 @@ class RegisterFormWidget extends StatelessWidget {
                             padding: const EdgeInsets.all(0.0),
                             color: Colors.transparent,
                             child: AnimatedContainer(
-                              color: _state.isEmailValid &&
-                                      _state.isPasswordValid &&
-                                      _emailController.text.isNotEmpty &&
-                                      _passwordController.text.isNotEmpty
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                              decoration: BoxDecoration(
+                                  color: _state.isEmailValid &&
+                                          _state.isPasswordValid &&
+                                          _emailController.text.isNotEmpty &&
+                                          _passwordController.text.isNotEmpty
+                                      ? Theme.of(context).primaryColor
+                                      : Theme.of(context).primaryColorLight,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
                               duration: Duration(milliseconds: 500),
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(12.0),
+                              margin: const EdgeInsets.all(16.0),
                               child: const Text('Sign Up',
                                   style: TextStyle(
                                       fontSize: 20,

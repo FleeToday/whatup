@@ -77,7 +77,7 @@ class _LoginModuleState extends State<LoginModule> {
           }
           if (!state.isUserProfileCompleted || !state.isUserProfileExist) {
             Future.delayed(Duration.zero, () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute<Null>(
                     builder: (BuildContext context) {

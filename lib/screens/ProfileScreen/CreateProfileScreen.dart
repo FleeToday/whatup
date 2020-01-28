@@ -60,7 +60,6 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
       if (state is UserProfileRetrievalSuccess) {
         _firstNameController.text = state.currentUserProfile.firstName;
         _lastNameController.text = state.currentUserProfile.lastName;
-
         isNameFilled = _firstNameController.text.isNotEmpty &&
             _lastNameController.text.isNotEmpty;
       }
@@ -76,7 +75,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                   child: Text(
                     "A Few More Steps for Better Matches...",
                     style: TextStyle(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Colors.white,
                         fontSize: Theme.of(context)
                             .primaryTextTheme
                             .headline
@@ -123,8 +122,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                               firstName: _firstNameController.text,
                               lastName: _lastNameController.text));
                       Future.delayed(Duration.zero, () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => HomeScreen()));
+                        Navigator.of(context).pop();
                       });
                     },
                     child: Container(
@@ -132,16 +130,16 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                       padding: EdgeInsets.all(12.0),
                       margin: EdgeInsets.all(16.0),
                       child: Text(
-                        "Skip and Save",
+                        "Skip / Save",
                         style: TextStyle(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Colors.white,
                             fontSize:
                                 Theme.of(context).textTheme.title.fontSize),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Colors.white,
                             width: 2,
                             style: BorderStyle.solid),
                       ),
@@ -150,7 +148,20 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
             ),
           ),
         ),
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            end: Alignment.bottomRight,
+            begin: Alignment.bottomLeft,
+            stops: [
+              0.0,
+              1.0,
+            ],
+            colors: [
+              Theme.of(context).primaryColorDark,
+              Theme.of(context).primaryColor,
+            ],
+          ),
+        ),
       );
     });
   }
