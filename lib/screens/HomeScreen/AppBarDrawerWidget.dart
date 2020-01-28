@@ -4,6 +4,7 @@ import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_event.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
+import 'package:whatup/screens/ProfileScreen/CreateProfileScreen.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_event.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_state.dart';
@@ -37,39 +38,46 @@ class AppBarDrawerWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.account_circle,
-                            size: 48,
-                            color: Colors.white,
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  (state is UserProfileRetrievalSuccess)
-                                      ? '${state.currentUserProfile.firstName} ${state.currentUserProfile.lastName}'
-                                      : state.toString(),
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  (state is UserProfileRetrievalSuccess)
-                                      ? state.currentUserProfile.email
-                                      : state.toString(),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
+                    FlatButton(
+                      padding: EdgeInsets.all(0.0),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CreateProfileScreen()));
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.account_circle,
+                              size: 48,
+                              color: Colors.white,
                             ),
-                          ),
-                        ],
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    (state is UserProfileRetrievalSuccess)
+                                        ? '${state.currentUserProfile.firstName} ${state.currentUserProfile.lastName}'
+                                        : state.toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Text(
+                                    (state is UserProfileRetrievalSuccess)
+                                        ? state.currentUserProfile.email
+                                        : state.toString(),
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     FlatButton(

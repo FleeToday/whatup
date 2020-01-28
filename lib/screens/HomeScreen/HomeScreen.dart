@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:whatup/components/ZoomScaffold.dart';
 import 'package:whatup/screens/HomeScreen/AppBarDrawerWidget.dart';
+import 'package:whatup/screens/HomeScreen/AppBarMenuButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivityReloadButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/ActivitiesListViewWidget.dart';
-import 'package:whatup/screens/HomeScreen/AppBarProfileButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/LocationSearchInputWidget.dart';
 import 'package:whatup/screens/HomeScreen/ActivitiesMapViewWidget.dart';
 import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
@@ -53,7 +53,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             elevation: 0,
             leading: Container(
                 padding: EdgeInsets.only(left: 20),
-                child: AppBarProfileButtonWidget(
+                child: AppBarMenuButtonWidget(
                   onPressed: () {
                     menuController.toggle();
                   },
