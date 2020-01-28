@@ -15,72 +15,83 @@ class AppBarDrawerWidget extends StatelessWidget {
         listener: (BuildContext context, UserProfileState state) {},
         child: BlocBuilder<UserProfileBloc, UserProfileState>(
             builder: (context, state) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width * 0.66,
-            child: Scaffold(
-              body: SafeArea(
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    width: 1, color: Colors.grey[300]))),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.account_circle,
-                              size: 48,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text((state is UserProfileRetrievalSuccess)
-                                      ? '${state.currentUserProfile.firstName} ${state.currentUserProfile.lastName}'
-                                      : state.toString()),
-                                  Text(
-                                    (state is UserProfileRetrievalSuccess)
-                                        ? state.currentUserProfile.email
-                                        : state.toString(),
-                                    softWrap: true,
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        onPressed: () =>
-                            {BlocProvider.of<AuthBloc>(context).add(SignOut())},
-                        shape: Border(
-                            bottom:
-                                BorderSide(width: 1, color: Colors.grey[300])),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 36, vertical: 12),
-                        child: Row(children: [
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                end: Alignment.bottomRight,
+                begin: Alignment.bottomLeft,
+                stops: [
+                  0.0,
+                  1.0,
+                ],
+                colors: [
+                  Theme.of(context).primaryColorDark,
+                  Theme.of(context).primaryColor,
+                ],
+              ),
+            ),
+            child: SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                      child: Row(
+                        children: <Widget>[
                           Icon(
-                            Icons.exit_to_app,
-                            size: 24,
-                            color: Theme.of(context).accentColor,
+                            Icons.account_circle,
+                            size: 48,
+                            color: Colors.white,
                           ),
                           Container(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              child: Text("Sign out")),
-                        ]),
-                      )
-                    ],
-                  ),
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  (state is UserProfileRetrievalSuccess)
+                                      ? '${state.currentUserProfile.firstName} ${state.currentUserProfile.lastName}'
+                                      : state.toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Text(
+                                  (state is UserProfileRetrievalSuccess)
+                                      ? state.currentUserProfile.email
+                                      : state.toString(),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    FlatButton(
+                      onPressed: () =>
+                          {BlocProvider.of<AuthBloc>(context).add(SignOut())},
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 36, vertical: 12),
+                      child: Row(children: [
+                        Icon(
+                          Icons.exit_to_app,
+                          size: 24,
+                          color: Colors.white,
+                        ),
+                        Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              "Sign out",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ]),
+                    )
+                  ],
                 ),
               ),
             ),
