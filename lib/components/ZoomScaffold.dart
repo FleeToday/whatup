@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:whatup/screens/HomeScreen/AppBarProfileButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.dart';
 
 class ZoomScaffold extends StatefulWidget {

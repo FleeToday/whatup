@@ -25,81 +25,92 @@ class LoginFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: (_state is AuthLoading)
-                  ? LoginLoadingView()
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        TextFormField(
-                            controller: _emailController,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                child: (_state is AuthLoading)
+                    ? LoginLoadingView()
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          TextFormField(
+                              controller: _emailController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Username',
+                              ),
+                              autovalidate: true,
+                              validator: (String value) {
+                                return _state.isEmailValid
+                                    ? null
+                                    : "Invalid Email";
+                              }),
+                          Container(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            controller: _passwordController,
+                            obscureText: true,
+                            autovalidate: true,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Username',
+                              labelText: 'Password',
                             ),
-                            autovalidate: true,
                             validator: (String value) {
-                              return _state.isEmailValid
+                              return _state.isPasswordValid
                                   ? null
-                                  : "Invalid Email";
-                            }),
-                        Container(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          autovalidate: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Password',
+                                  : "Invalid Password";
+                            },
                           ),
-                          validator: (String value) {
-                            return _state.isPasswordValid
-                                ? null
-                                : "Invalid Password";
-                          },
-                        ),
-                        Container(
-                          child: Center(
-                            child: Text(
-                              _errMsg,
+                          Container(
+                            child: Center(
+                              child: Text(
+                                _errMsg,
+                              ),
                             ),
                           ),
-                        ),
-                        FlatButton(
-                          onPressed: _onSignInButtonPress,
-                          textColor: Colors.white,
-                          padding: const EdgeInsets.all(0.0),
-                          color: Colors.transparent,
-                          child: AnimatedContainer(
-                            decoration: BoxDecoration(
-                                color: _state.isEmailValid &&
-                                        _state.isPasswordValid &&
-                                        _emailController.text.isNotEmpty &&
-                                        _passwordController.text.isNotEmpty
-                                    ? Theme.of(context).primaryColor
-                                    : Theme.of(context).primaryColorLight,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25))),
-                            duration: Duration(milliseconds: 500),
-                            padding: const EdgeInsets.all(12.0),
-                            margin: const EdgeInsets.all(16.0),
-                            child: const Text('Sign In',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w200)),
-                            alignment: Alignment.center,
+                          FlatButton(
+                            onPressed: _onSignInButtonPress,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(0.0),
+                            color: Colors.transparent,
+                            child: AnimatedContainer(
+                              decoration: BoxDecoration(
+                                  color: _state.isEmailValid &&
+                                          _state.isPasswordValid &&
+                                          _emailController.text.isNotEmpty &&
+                                          _passwordController.text.isNotEmpty
+                                      ? Theme.of(context).primaryColor
+                                      : Theme.of(context).primaryColorLight,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                              duration: Duration(milliseconds: 500),
+                              padding: const EdgeInsets.all(12.0),
+                              margin: const EdgeInsets.all(16.0),
+                              child: const Text('Sign In',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w200)),
+                              alignment: Alignment.center,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-            )
-          ],
+                        ],
+                      ),
+              )
+            ],
+          ),
         ),
       ),
     );
