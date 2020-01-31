@@ -15,7 +15,7 @@ class ActivitiesListView extends StatelessWidget {
 
     return Container(
         alignment: Alignment.bottomCenter,
-        height: 200,
+        height: 190,
         child: BlocBuilder<ActivityBloc, ActivityState>(
           builder: (context, state) {
             if (state is LoadingActivity) {
@@ -24,10 +24,11 @@ class ActivitiesListView extends StatelessWidget {
               return Swiper(
                 itemBuilder: (context, i) {
                   final activity = state.activityList.items[i];
-                  return SizedBox(
-                      width: 300,
-                      height: 180,
-                      child: ActivityCard(activity: activity));
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: SizedBox(
+                        width: 300, child: ActivityCard(activity: activity)),
+                  );
                 },
                 onIndexChanged: (int i) {
                   LatLng _center = state.activityList.items[i].location;
@@ -35,7 +36,7 @@ class ActivitiesListView extends StatelessWidget {
                   // activityBloc.add(FetchActivity(_center));
                 },
                 itemCount: state.activityList.items.length,
-                viewportFraction: 0.8,
+                viewportFraction: 0.85,
                 scale: 0.95,
               );
             }

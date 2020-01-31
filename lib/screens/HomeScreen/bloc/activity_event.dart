@@ -12,7 +12,7 @@ class FetchActivity extends ActivityEvent {
   FetchActivity([this.center, this.radius = 2]);
 
   @override
-  List<Object> get props => null;
+  List<Object> get props => [this.center, this.radius];
 }
 
 class CreateActivity extends ActivityEvent {

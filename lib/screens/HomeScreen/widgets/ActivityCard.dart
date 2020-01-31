@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatup/models/Activity.dart';
+import 'package:whatup/screens/HomeScreen/widgets/ActivityTime.dart';
 
 class ActivityCard extends StatelessWidget {
   final Activity activity;
@@ -8,20 +9,62 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        elevation: 5,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                  title: Text(activity.title),
-                  subtitle: Text(activity.description)),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(
+              height: 190,
+              width: 130,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      topLeft: Radius.circular(20)),
+                  child: Image.network(
+                      "https://d3ph2ovtiyj37.cloudfront.net/wp-content/uploads/2019/10/15153839/easyhikingtrailshongkong-870x435.jpg",
+                      fit: BoxFit.cover)),
+            ),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            activity.title,
+                            style: Theme.of(context).textTheme.headline,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Text(
+                              activity.locationName,
+                              style: Theme.of(context).textTheme.subhead,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: ActivityTime(
+                      datetime: activity.datetime,
+                    ),
+                  )
+                ],
+              ),
+            ))
+          ],
         ));
   }
 }
