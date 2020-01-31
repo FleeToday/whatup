@@ -27,6 +27,7 @@ class RegisterFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
@@ -34,6 +35,13 @@ class RegisterFormWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
                 child: (_state is AuthLoading)
                     ? LoginLoadingView()
                     : Column(

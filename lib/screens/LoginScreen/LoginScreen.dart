@@ -96,96 +96,135 @@ class _LoginModuleState extends State<LoginModule> {
       ],
       child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
         return Scaffold(
-            body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Flexible(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Welcome to Whatup',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w200,
-                        fontSize: 36,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    Text(
-                      'Sign in to continue',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        FlatButton(
-                          child: Text("Sign In"),
-                          onPressed: (_currentIndex != 0)
-                              ? () => {
-                                    _pageController.animateToPage(
-                                      0,
-                                      duration:
-                                          const Duration(milliseconds: 400),
-                                      curve: Curves.easeInOutCirc,
-                                    )
-                                  }
-                              : null,
+            body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              end: Alignment.bottomRight,
+              begin: Alignment.bottomLeft,
+              stops: [
+                0.0,
+                1.0,
+              ],
+              colors: [
+                Theme.of(context).primaryColorDark,
+                Theme.of(context).primaryColor,
+              ],
+            ),
+          ),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Flexible(
+                  flex: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Welcome to Whatup',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w200,
+                          fontSize: 36,
+                          color: Colors.white,
                         ),
-                        FlatButton(
-                          child: Text("Sign Up"),
-                          onPressed: (_currentIndex != 1)
-                              ? () => {
-                                    _pageController.animateToPage(
-                                      1,
-                                      duration:
-                                          const Duration(milliseconds: 400),
-                                      curve: Curves.easeInOutCirc,
-                                    )
-                                  }
-                              : null,
+                      ),
+                      Text(
+                        'Sign in to continue',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            color: Colors.white),
+                      ),
+                      ButtonBar(
+                        alignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FlatButton(
+                            disabledColor: Theme.of(context).primaryColorDark,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.horizontal(
+                                  left: Radius.circular(12)),
+                            ),
+                            child: Text(
+                              "Sign In",
+                              style: TextStyle(
+                                  color: (_currentIndex == 0)
+                                      ? Colors.white
+                                      : Colors.black54),
+                            ),
+                            onPressed: (_currentIndex != 0)
+                                ? () => {
+                                      _pageController.animateToPage(
+                                        0,
+                                        duration:
+                                            const Duration(milliseconds: 400),
+                                        curve: Curves.easeInOutCirc,
+                                      )
+                                    }
+                                : null,
+                          ),
+                          FlatButton(
+                            disabledColor: Theme.of(context).primaryColorDark,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.horizontal(
+                                  right: Radius.circular(12)),
+                            ),
+                            child: Text(
+                              "Sign Up",
+                              style: TextStyle(
+                                  color: (_currentIndex == 1)
+                                      ? Colors.white
+                                      : Colors.black54),
+                            ),
+                            onPressed: (_currentIndex != 1)
+                                ? () => {
+                                      _pageController.animateToPage(
+                                        1,
+                                        duration:
+                                            const Duration(milliseconds: 400),
+                                        curve: Curves.easeInOutCirc,
+                                      )
+                                    }
+                                : null,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  flex: 3,
+                  child: Container(
+                    child: PageView(
+                      onPageChanged: _onPageChanged,
+                      controller: _pageController,
+                      children: <Widget>[
+                        LoginFormWidget(
+                          emailController: _emailController,
+                          passwordController: _passwordController,
+                          state: state,
+                          onSignInButtonPress: _onSignInButtonPress,
+                          errMsg: (state is AuthFailure) ? state.errMsg : '',
+                        ),
+                        RegisterFormWidget(
+                          confirmPasswordController: _confirmPasswordController,
+                          emailController: _emailController,
+                          passwordController: _passwordController,
+                          state: state,
+                          onSignUpButtonPress: _onSignUpButtonPress,
+                          errMsg: (state is AuthFailure)
+                              ? state.errMsg
+                              : isConfirmPasswordErr
+                                  ? 'The two passwords are the same'
+                                  : '',
                         )
                       ],
                     ),
-                  ],
-                ),
-              ),
-              Flexible(
-                flex: 3,
-                child: PageView(
-                  onPageChanged: _onPageChanged,
-                  controller: _pageController,
-                  children: <Widget>[
-                    LoginFormWidget(
-                      emailController: _emailController,
-                      passwordController: _passwordController,
-                      state: state,
-                      onSignInButtonPress: _onSignInButtonPress,
-                      errMsg: (state is AuthFailure) ? state.errMsg : '',
-                    ),
-                    RegisterFormWidget(
-                      confirmPasswordController: _confirmPasswordController,
-                      emailController: _emailController,
-                      passwordController: _passwordController,
-                      state: state,
-                      onSignUpButtonPress: _onSignUpButtonPress,
-                      errMsg: (state is AuthFailure)
-                          ? state.errMsg
-                          : isConfirmPasswordErr
-                              ? 'The two passwords are the same'
-                              : '',
-                    )
-                  ],
-                ),
-              )
-            ],
+                  ),
+                )
+              ],
+            ),
           ),
         ));
       }),

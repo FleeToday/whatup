@@ -22,7 +22,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       yield LoadedMap(event.center);
     } else if (event is MoveCamera) {
       yield MovingMap(event.center);
-      yield LoadedMap(event.center);
     } else if (event is ResetCamera) {
       LatLng _currentLocation = await _repository.getCurrentLocation();
       activityBloc.add(FetchActivity(_currentLocation));
