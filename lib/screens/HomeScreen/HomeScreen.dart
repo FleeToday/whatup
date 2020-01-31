@@ -28,9 +28,9 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    menuController = new MenuController(
-      vsync: this,
-    )..addListener(() => setState(() {}));
+    // menuController = new MenuController(
+    //   vsync: this,
+    // )..addListener(() => setState(() {}));
   }
 
   @override
@@ -44,78 +44,43 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       },
       child: ChangeNotifierProvider.value(
         value: menuController,
-        child: ZoomScaffold(
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
           floatingActionButton: Padding(
               padding: const EdgeInsets.only(bottom: 230),
               child: ActivitiesCreateButtonWidget()),
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            leading: Container(
-                padding: EdgeInsets.only(left: 20),
-                child: AppBarMenuButtonWidget(
-                  onPressed: () {
-                    menuController.toggle();
-                  },
-                )),
-          ),
-          menuScreen: AppBarDrawerWidget(),
-          contentScreen: Layout(
-            contentBuilder: (context) => Stack(children: [
-              ActivitiesMapViewWidget(),
-              new SafeArea(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      LocationSearchInputWidget(),
-                      ActivityReloadButton(),
-                    ],
-                  ),
-                  ActivitiesListView()
-                ],
-              )),
-            ]),
-          ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              actions: [
+                Container(
+                    margin: EdgeInsets.only(right: 5),
+                    padding: EdgeInsets.all(8),
+                    child: AppBarMenuButtonWidget(
+                      onPressed: () {
+                        // menuController.toggle();
+                      },
+                    )),
+              ]),
+          // menuScreen: AppBarDrawerWidget(),
+          body: Stack(children: [
+            ActivitiesMapViewWidget(),
+            new SafeArea(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    LocationSearchInputWidget(),
+                    ActivityReloadButton(),
+                  ],
+                ),
+                ActivitiesListView()
+              ],
+            )),
+          ]),
         ),
       ),
     );
-    // Scaffold(
-    //   key: _scaffoldKey,
-    //   extendBodyBehindAppBar: true,
-    //   appBar: AppBar(
-    //     backgroundColor: Colors.transparent,
-    //     elevation: 0,
-    //     leading: Container(
-    //         padding: EdgeInsets.only(left: 20),
-    //         child: AppBarProfileButtonWidget(
-    //           onPressed: () {
-    //             _scaffoldKey.currentState.openDrawer();
-    //           },
-    //         )),
-    //   ),
-    //   drawer: AppBarDrawerWidget(),
-    //   floatingActionButton: Padding(
-    //       padding: const EdgeInsets.only(bottom: 230),
-    //       child: ActivitiesCreateButtonWidget()),
-    //   body: Stack(children: [
-    //     ActivitiesMapViewWidget(),
-    //     new SafeArea(
-    //         child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: <Widget>[
-    //         Column(
-    //           children: <Widget>[
-    //             LocationSearchInputWidget(),
-    //             ActivityReloadButton(),
-    //           ],
-    //         ),
-    //         ActivitiesListView()
-    //       ],
-    //     )),
-    //   ]),
-    // ),
-    // );
   }
 }
