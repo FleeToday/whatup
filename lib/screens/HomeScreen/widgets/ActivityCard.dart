@@ -11,22 +11,25 @@ class ActivityCard extends StatelessWidget {
     return Card(
         elevation: 5,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(
-              height: 190,
+              height: 230,
               width: 130,
               child: ClipRRect(
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      topLeft: Radius.circular(20)),
-                  child: Image.network(
-                      "https://d3ph2ovtiyj37.cloudfront.net/wp-content/uploads/2019/10/15153839/easyhikingtrailshongkong-870x435.jpg",
-                      fit: BoxFit.cover)),
+                      bottomLeft: Radius.circular(10),
+                      topLeft: Radius.circular(10)),
+                  child: Hero(
+                    tag: "image_${activity.reference.documentID}",
+                    child: Image.network(
+                        "https://d3ph2ovtiyj37.cloudfront.net/wp-content/uploads/2019/10/15153839/easyhikingtrailshongkong-870x435.jpg",
+                        fit: BoxFit.cover),
+                  )),
             ),
             Expanded(
                 child: Padding(
@@ -40,9 +43,12 @@ class ActivityCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            activity.title,
-                            style: Theme.of(context).textTheme.headline,
+                          Hero(
+                            tag: "title_${activity.reference.documentID}",
+                            child: Text(
+                              activity.title,
+                              style: Theme.of(context).textTheme.headline,
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(3.0),
