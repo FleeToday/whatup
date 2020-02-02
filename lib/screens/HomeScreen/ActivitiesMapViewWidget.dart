@@ -7,6 +7,7 @@ import 'package:whatup/screens/HomeScreen/bloc/map_bloc.dart';
 import 'package:whatup/utilities/Debouncer.dart';
 import 'bloc/bloc.dart';
 import 'bloc/map_state.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class ActivitiesMapViewWidget extends StatefulWidget {
   @override
@@ -17,16 +18,20 @@ class ActivitiesMapViewWidget extends StatefulWidget {
 class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
   Completer<GoogleMapController> _controller = Completer();
   Map<MarkerId, Marker> markers = {};
+  String _mapStyle;
   final _debouncer = Debouncer(milliseconds: 100);
 
   void _onMapCreated(BuildContext context, GoogleMapController controller) {
+    controller.setMapStyle(_mapStyle);
     _controller.complete(controller);
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    rootBundle.loadString('assets/map_style.txt').then((string) {
+      _mapStyle = string;
+    });
   }
 
   @override
@@ -56,7 +61,7 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
                 return GoogleMap(
                   onMapCreated: (controller) =>
                       _onMapCreated(context, controller),
-                  myLocationEnabled: true,
+                  myLocationEnabled: false,
                   markers: markers,
                   onCameraMove: (CameraPosition cameraPosition) {
                     _debouncer.run(() => BlocProvider.of<MapBloc>(context)
