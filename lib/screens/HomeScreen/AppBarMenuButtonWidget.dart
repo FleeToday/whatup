@@ -11,13 +11,16 @@ class AppBarMenuButtonWidget extends StatelessWidget {
       // decoration: ShapeDecoration(
       //     // shadows: [BoxShadow(color: Colors.black38, blurRadius: 2)],
       //     shape: CircleBorder(side: BorderSide.none)),
-      child: Hero(
-        tag: 'profile',
+      child: Container(
+        decoration: ShapeDecoration(
+            color: Colors.white,
+            shadows: [BoxShadow(color: Colors.black38, blurRadius: 2)],
+            shape: CircleBorder(side: BorderSide.none)),
         child: IconButton(
           padding: EdgeInsets.all(0),
           icon: Icon(
-            Icons.menu,
-            size: 30,
+            Icons.notifications,
+            size: 25,
           ),
           color: Theme.of(context).accentColor,
           onPressed: this.onPressed,

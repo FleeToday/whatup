@@ -31,7 +31,23 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: widget.appBar,
-        body: widget.contentScreen.contentBuilder(context),
+        body: Stack(alignment: Alignment.center, children: [
+          widget.contentScreen.contentBuilder(context),
+          Provider.of<MenuController>(context, listen: true).state !=
+                  MenuState.closed
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: FlatButton(
+                    color: Colors.black26,
+                    onPressed: () {
+                      Provider.of<MenuController>(context).toggle();
+                    },
+                  ),
+                )
+              : Container(),
+        ]),
+
         floatingActionButton: widget.floatingActionButton,
         // bottomNavigationBar: BottomNavigationBar(
         //   type: BottomNavigationBarType.fixed,
