@@ -13,8 +13,6 @@ class Hobby {
         name = map['name'],
         category = map['category'];
 
-  
-  UserProfile.fromSnapshot(DocumentSnapshot snapshot)
+  Hobby.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
-  }
 }
