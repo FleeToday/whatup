@@ -35,7 +35,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void _onItemTapped(index) {
-    if (index == 1) {
+    if (index == 2) {
       Navigator.pushNamed(context, '/create');
       return;
     }
@@ -67,6 +67,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   title: Text('Home'),
                 ),
                 BottomNavigationBarItem(
+                  icon: Icon(Icons.calendar_today),
+                  title: Text('Calendar'),
+                ),
+                BottomNavigationBarItem(
                   icon: Icon(Icons.add),
                   title: Text('New Activity'),
                 ),
@@ -76,6 +80,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ],
               currentIndex: _selectedIndex,
+              unselectedItemColor: Theme.of(context).primaryColorLight,
               selectedItemColor: Theme.of(context).primaryColor,
               onTap: this._onItemTapped,
             ),
@@ -102,7 +107,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     switch (_selectedIndex) {
       case 0:
         return this._getHomeWidget();
-      case 2:
+      case 3:
         return this._getSettingsWidget();
     }
   }
