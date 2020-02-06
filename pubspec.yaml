@@ -20,9 +20,10 @@ dependencies:
   flutter:
     sdk: flutter
   google_maps_flutter: ^0.5.11
+  expanding_bottom_bar: ^0.1.2
   firebase_core: ^0.4.0+9
   firebase_auth: ^0.14.0+5
-  cloud_firestore: ^0.12.9+5
+  cloud_firestore: ^0.13.0+1
   bloc: ^2.0.0
   flutter_bloc: ^2.0.0
   equatable: ^1.0.0
