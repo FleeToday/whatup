@@ -41,13 +41,15 @@ class ActivityCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            activity.title,
+                            activity.title != null ? activity.title : "",
                             style: Theme.of(context).textTheme.headline,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(3.0),
                             child: Text(
-                              activity.locationName,
+                              activity.locationName != null
+                                  ? activity.locationName
+                                  : "",
                               style: Theme.of(context).textTheme.subhead,
                             ),
                           ),
