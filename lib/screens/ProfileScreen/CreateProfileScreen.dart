@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/components/DotsIndicator.dart';
 import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
+import 'package:whatup/screens/ProfileScreen/HobbyPageWidget.dart';
 import 'package:whatup/screens/ProfileScreen/NameQuestionPageWidget.dart';
 import 'package:whatup/screens/ProfileScreen/QuestionCardWidget.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
@@ -76,6 +77,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                     "A Few More Steps for Better Matches...",
                     style: TextStyle(
                         color: Colors.white,
+                        fontWeight: FontWeight.w200,
                         fontSize: Theme.of(context)
                             .primaryTextTheme
                             .headline
@@ -99,6 +101,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                           ),
                         ),
                         QuestionCardWidget(
+                          child: HobbyPageWidget(),
                           isCardCompleted: false,
                         ),
                         QuestionCardWidget(

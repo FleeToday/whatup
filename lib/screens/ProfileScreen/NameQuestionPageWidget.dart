@@ -31,7 +31,7 @@ class NameQuestionPageWidget extends StatelessWidget {
             'Tell Us Your Name',
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w300,
                 fontSize: Theme.of(context).primaryTextTheme.headline.fontSize),
           ),
           Container(
@@ -44,46 +44,47 @@ class NameQuestionPageWidget extends StatelessWidget {
             controller: _firstNameController,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w300,
                 fontSize: Theme.of(context).primaryTextTheme.title.fontSize),
             decoration: InputDecoration(
-              labelText: "First Name",
+              labelText: "Name",
               labelStyle: TextStyle(
+                  fontWeight: FontWeight.w300,
                   color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w800,
+                  // fontWeight: FontWeight.w800,
                   fontSize: Theme.of(context).primaryTextTheme.title.fontSize),
               enabledBorder: UnderlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(2)),
                 borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor, width: 4.0),
+                    color: Theme.of(context).primaryColor, width: 2.0),
               ),
             ),
           ),
-          Container(
-            height: 32,
-          ),
-          TextField(
-            textInputAction: TextInputAction.done,
-            onEditingComplete: _onBlur,
-            onChanged: _onLastNameChanged,
-            controller: _lastNameController,
-            style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w800,
-                fontSize: Theme.of(context).primaryTextTheme.title.fontSize),
-            decoration: InputDecoration(
-              labelText: "Last Name",
-              labelStyle: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w800,
-                  fontSize: Theme.of(context).primaryTextTheme.title.fontSize),
-              enabledBorder: UnderlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(2)),
-                borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor, width: 4.0),
-              ),
-            ),
-          )
+          // Container(
+          //   height: 32,
+          // ),
+          // TextField(
+          //   textInputAction: TextInputAction.done,
+          //   onEditingComplete: _onBlur,
+          //   onChanged: _onLastNameChanged,
+          //   controller: _lastNameController,
+          //   style: TextStyle(
+          //       color: Theme.of(context).primaryColor,
+          //       fontWeight: FontWeight.w300,
+          //       fontSize: Theme.of(context).primaryTextTheme.title.fontSize),
+          //   decoration: InputDecoration(
+          //     labelText: "Last Name",
+          //     labelStyle: TextStyle(
+          //         color: Theme.of(context).primaryColor,
+          //         fontWeight: FontWeight.w300,
+          //         fontSize: Theme.of(context).primaryTextTheme.title.fontSize),
+          //     enabledBorder: UnderlineInputBorder(
+          //       borderRadius: BorderRadius.all(Radius.circular(2)),
+          //       borderSide: BorderSide(
+          //           color: Theme.of(context).primaryColor, width: 2.0),
+          //     ),
+          //   ),
+          // )
         ]);
   }
 }
