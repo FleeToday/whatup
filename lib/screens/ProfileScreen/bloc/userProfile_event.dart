@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:whatup/models/Hobby.dart';
 import 'package:whatup/models/UserProfile.dart';
 
 abstract class UserProfileEvent extends Equatable {
@@ -22,16 +23,16 @@ class RetrieveUserProfile extends UserProfileEvent {
 class CreateUserProfile extends UserProfileEvent {
   final String firstName;
   final String lastName;
-  final List<String> interests;
+  final List<Hobby> hobbies;
 
-  CreateUserProfile({this.firstName, this.lastName, this.interests});
+  CreateUserProfile({this.firstName, this.lastName, this.hobbies});
 
   @override
-  List<Object> get props => [this.firstName, this.lastName, this.interests];
+  List<Object> get props => [this.firstName, this.lastName, this.hobbies];
 
   @override
   String toString() {
-    return 'CreateUserProfile { firstName: $firstName, lastName: $lastName, interests: $interests }';
+    return 'CreateUserProfile { firstName: $firstName, lastName: $lastName, hobbies: $hobbies }';
   }
 }
 
