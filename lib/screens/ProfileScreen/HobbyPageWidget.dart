@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:whatup/models/Hobby.dart';
 
 class HobbyPageWidget extends StatefulWidget {
+  Function onToggleHobby;
+  List<Hobby> selectedHobbies;
+
+  HobbyPageWidget({this.onToggleHobby, this.selectedHobbies});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -10,7 +15,6 @@ class HobbyPageWidget extends StatefulWidget {
 }
 
 class HobbyPageState extends State<HobbyPageWidget> {
-  List<Widget> chips = [];
   List<Hobby> hobbies = [
     Hobby("id", "Jogging", "cat", null),
     Hobby("id", "Swimming", "cat", null),
@@ -21,20 +25,14 @@ class HobbyPageState extends State<HobbyPageWidget> {
     Hobby("id", "Movies", "cat", null),
     Hobby("id", "Reading", "cat", null),
   ];
-  List<bool> isSelected = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    for (int i = 0; i < hobbies.length; i++) {
-      isSelected.add(false);
-    }
   }
 
-  void _onSelected(int index) {
-    this.setState(() {
-      this.isSelected[index] = !this.isSelected[index];
-    });
+  void _onSelected(Hobby hobby) {
+    this.widget.onToggleHobby(hobby);
   }
 
   @override
@@ -56,12 +54,11 @@ class HobbyPageState extends State<HobbyPageWidget> {
           runSpacing: 0.0, // gap between lines
           children: this.hobbies.map(
             (e) {
-              int index = this.hobbies.indexOf(e);
               return FlatButton(
-                onPressed: () => {this._onSelected(index)},
+                onPressed: () => {this._onSelected(e)},
                 padding: EdgeInsets.all(0),
                 child: Chip(
-                  avatar: this.isSelected[index]
+                  avatar: widget.selectedHobbies.contains(e)
                       ? Icon(
                           Icons.check_circle,
                           color: Theme.of(context).primaryColorDark,
