@@ -18,7 +18,9 @@ class FirestoreProvider {
     return _firestore.collection("activities").add({
       'title': _activity.title,
       'description': _activity.description,
-      'location': _location.data
+      'location': _location.data,
+      'location_name': _activity.locationName,
+      'datetime': DateTime.now(),
     });
   }
 

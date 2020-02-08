@@ -5,7 +5,7 @@ class Activity {
   String title;
   String description;
   LatLng location;
-  String locationName;
+  String locationName = "locationName";
   DateTime datetime;
   DocumentReference reference;
   GeoPoint _;

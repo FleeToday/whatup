@@ -21,7 +21,7 @@ class ActivitiesListView extends StatelessWidget {
           builder: (context, state) {
             if (state is LoadingActivity) {
               return LinearProgressIndicator();
-            } else if (state is LoadedActivity) {
+            } else if (state is LoadedActivity && state.activityList != null) {
               return Swiper(
                 loop: false,
                 itemBuilder: (context, i) {
@@ -48,6 +48,8 @@ class ActivitiesListView extends StatelessWidget {
                 viewportFraction: 0.9,
                 scale: 0.8,
               );
+            } else {
+              return LinearProgressIndicator();
             }
           },
         ));
