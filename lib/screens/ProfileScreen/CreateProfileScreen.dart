@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:whatup/components/DotsIndicator.dart';
+import 'package:whatup/models/Hobby.dart';
 import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
+import 'package:whatup/screens/ProfileScreen/HobbyPageWidget.dart';
 import 'package:whatup/screens/ProfileScreen/NameQuestionPageWidget.dart';
 import 'package:whatup/screens/ProfileScreen/QuestionCardWidget.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
@@ -22,6 +25,8 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
   TextEditingController _firstNameController;
   TextEditingController _lastNameController;
   bool isNameFilled = false;
+  List<Hobby> _selectedHobbies = [];
+  bool isHobbiesChanged = false;
 
   @override
   void initState() {
@@ -53,6 +58,16 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
     });
   }
 
+  void _onToggleHobby(Hobby hobby) {
+    this.setState(() {
+      // if (this._selectedHobbies.contains(hobby)) {
+      bool isRemove = this._selectedHobbies.remove(hobby);
+      // }
+      if (!isRemove) this._selectedHobbies.add(hobby);
+      isHobbiesChanged = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserProfileBloc, UserProfileState>(
@@ -62,6 +77,9 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
         _lastNameController.text = state.currentUserProfile.lastName;
         isNameFilled = _firstNameController.text.isNotEmpty &&
             _lastNameController.text.isNotEmpty;
+        if (!this.isHobbiesChanged) {
+          _selectedHobbies = [...state.currentUserProfile.hobbies];
+        }
       }
       return Container(
         child: SafeArea(
@@ -76,6 +94,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                     "A Few More Steps for Better Matches...",
                     style: TextStyle(
                         color: Colors.white,
+                        fontWeight: FontWeight.w200,
                         fontSize: Theme.of(context)
                             .primaryTextTheme
                             .headline
@@ -99,6 +118,10 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                           ),
                         ),
                         QuestionCardWidget(
+                          child: HobbyPageWidget(
+                            selectedHobbies: this._selectedHobbies,
+                            onToggleHobby: this._onToggleHobby,
+                          ),
                           isCardCompleted: false,
                         ),
                         QuestionCardWidget(
@@ -120,7 +143,8 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                       BlocProvider.of<UserProfileBloc>(context).add(
                           CreateUserProfile(
                               firstName: _firstNameController.text,
-                              lastName: _lastNameController.text));
+                              lastName: "",
+                              hobbies: this._selectedHobbies));
                       Future.delayed(Duration.zero, () {
                         Navigator.of(context).pop();
                       });

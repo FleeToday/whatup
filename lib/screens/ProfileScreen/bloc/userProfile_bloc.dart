@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:whatup/models/Hobby.dart';
 import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/resources/Repository.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_event.dart';
@@ -21,7 +22,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       yield* _mapCreateUserProfileEventToState(
           firstName: event.firstName,
           lastName: event.lastName,
-          interests: event.interests);
+          hobbies: event.hobbies);
     } else if (event is RetrieveUserProfile) {
       yield* _mapRetrieveUserProfileEventToState();
     } else if (event is RemoveUserProfile) {
@@ -47,14 +48,14 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   Stream<UserProfileState> _mapCreateUserProfileEventToState(
-      {String firstName, String lastName, List<String> interests}) async* {
+      {String firstName, String lastName, List<Hobby> hobbies}) async* {
     FirebaseUser user = await repo.getCurrentFirebaseUser();
     UserProfile userProfile = UserProfile(
         id: user.uid,
         firstName: firstName,
         lastName: lastName,
         email: user.email,
-        interests: interests);
+        hobbies: hobbies);
     await repo.addUserProfile(userProfile);
     if (userProfile == null) {
       yield UserProfileRetrievalFailure();

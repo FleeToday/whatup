@@ -1,19 +1,24 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:whatup/models/Hobby.dart';
 
 class UserProfile {
   final String id;
   final String firstName;
   final String lastName;
   final String email;
-  final List<String> interests;
+  final List<Hobby> hobbies;
   DocumentReference reference;
 
   UserProfile(
-      {this.id, this.firstName, this.lastName, this.email, this.interests});
+      {this.id, this.firstName, this.lastName, this.email, this.hobbies});
   UserProfile.fromMap(Map<String, dynamic> map, {reference})
       : firstName = map['firstName'],
         lastName = map['lastName'],
-        interests = map['interests'],
+        hobbies = (map['hobbies'] as List<dynamic>)
+            .map((e) => Hobby.fromMap(e as Map<dynamic, dynamic>))
+            .toList(),
         id = map['id'],
         email = map['email'];
 
@@ -21,7 +26,7 @@ class UserProfile {
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   static bool isCompleted(UserProfile userProfile) {
-    return userProfile.interests != null &&
+    return userProfile.hobbies != null &&
         userProfile.lastName != null &&
         userProfile.firstName != null &&
         userProfile.id != null &&
@@ -34,7 +39,7 @@ class UserProfile {
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
-      'interests': interests,
+      'hobbies': hobbies.map((e) => e.toJson()).toList(),
     };
   }
 }

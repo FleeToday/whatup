@@ -54,9 +54,10 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
           return BlocBuilder<ActivityBloc, ActivityState>(
             builder: (context, activityState) {
               Set<Marker> markers = Set<Marker>.of(
-                  (activityState is LoadedActivity)
+                  (activityState is LoadedActivity &&
+                          activityState.activityList != null)
                       ? activityState.activityList.getMarkers().values
-                      : {});
+                      : []);
               if (mapState is LoadedMap) {
                 return GoogleMap(
                   onMapCreated: (controller) =>

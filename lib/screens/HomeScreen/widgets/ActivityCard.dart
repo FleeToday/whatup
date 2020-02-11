@@ -53,7 +53,9 @@ class ActivityCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(3.0),
                             child: Text(
-                              activity.locationName,
+                              activity.locationName != null
+                                  ? activity.locationName
+                                  : "",
                               style: Theme.of(context).textTheme.subhead,
                             ),
                           ),
