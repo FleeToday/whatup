@@ -16,9 +16,11 @@ class UserProfile {
   UserProfile.fromMap(Map<String, dynamic> map, {reference})
       : firstName = map['firstName'],
         lastName = map['lastName'],
-        hobbies = (map['hobbies'] as List<dynamic>)
-            .map((e) => Hobby.fromMap(e as Map<dynamic, dynamic>))
-            .toList(),
+        hobbies = map['hobbies'] != null
+            ? (map['hobbies'] as List<dynamic>)
+                .map((e) => Hobby.fromMap(e as Map<dynamic, dynamic>))
+                .toList()
+            : [],
         id = map['id'],
         email = map['email'];
 
