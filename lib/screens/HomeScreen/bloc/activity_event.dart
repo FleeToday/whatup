@@ -9,7 +9,7 @@ abstract class ActivityEvent extends Equatable {
 class FetchActivity extends ActivityEvent {
   final LatLng center;
   final double radius;
-  FetchActivity([this.center, this.radius = 2]);
+  FetchActivity([this.center, this.radius = 10]);
 
   @override
   List<Object> get props => [this.center, this.radius];

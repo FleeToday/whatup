@@ -65,8 +65,10 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
                   myLocationEnabled: false,
                   markers: markers,
                   onCameraMove: (CameraPosition cameraPosition) {
-                    _debouncer.run(() => BlocProvider.of<MapBloc>(context)
-                        .add(UpdateCenter(cameraPosition.target)));
+                    _debouncer.run(() {
+                      BlocProvider.of<MapBloc>(context)
+                          .add(UpdateCenter(cameraPosition.target));
+                    });
                   },
                   initialCameraPosition: CameraPosition(
                     target: mapState.center,
