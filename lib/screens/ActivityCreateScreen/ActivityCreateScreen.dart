@@ -7,6 +7,11 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:whatup/screens/HomeScreen/bloc/bloc.dart';
 
+import '../../models/UserProfile.dart';
+import '../ProfileScreen/bloc/userProfile_bloc.dart';
+import '../ProfileScreen/bloc/userProfile_state.dart';
+import '../ProfileScreen/bloc/userProfile_state.dart';
+
 const kGoogleApiKey = "AIzaSyA5feactDV3qCiw1W5a0DdkCqgnCBazxCs";
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
@@ -22,6 +27,10 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
 
   void _formSubmit() {
     _formKey.currentState.save();
+    UserProfileState userProfileState = BlocProvider.of<UserProfileBloc>(context).state;
+    if (userProfileState is UserProfileRetrievalSuccess) {
+      _activity.members.add(userProfileState.currentUserProfile);
+    }
     BlocProvider.of<ActivityBloc>(context).add(CreateActivity(_activity));
     Navigator.of(context).pop();
   }
