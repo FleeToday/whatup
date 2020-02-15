@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>308091676968-a1eojb3h46e9ul84jl5jtu69v68qdlfk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.308091676968-a1eojb3h46e9ul84jl5jtu69v68qdlfk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDeE3Ln3hRcVQjbdrKqsFnd6XzsrQ6UJiE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>308091676968</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.cubecnelson.RoomMobile</string>
+	<key>PROJECT_ID</key>
+	<string>room-77733</string>
+	<key>STORAGE_BUCKET</key>
+	<string>room-77733.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:308091676968:ios:3876d134f46c86c4</string>
+	<key>DATABASE_URL</key>
+	<string>https://room-77733.firebaseio.com</string>
+</dict>
+</plist>
