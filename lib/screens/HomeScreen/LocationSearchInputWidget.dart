@@ -10,7 +10,9 @@ class FadeRoute extends PageRouteBuilder {
   final Widget page;
   FadeRoute({this.page})
       : super(
+        opaque: false,
           pageBuilder: (
+            
             BuildContext context,
             Animation<double> animation,
             Animation<double> secondaryAnimation,

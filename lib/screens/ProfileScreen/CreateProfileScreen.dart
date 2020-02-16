@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:whatup/components/DotsIndicator.dart';
 import 'package:whatup/models/Hobby.dart';
-import 'package:whatup/models/UserProfile.dart';
-import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
 import 'package:whatup/screens/ProfileScreen/HobbyPageWidget.dart';
 import 'package:whatup/screens/ProfileScreen/NameQuestionPageWidget.dart';
 import 'package:whatup/screens/ProfileScreen/QuestionCardWidget.dart';
@@ -94,7 +91,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                     "A Few More Steps for Better Matches...",
                     style: TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.w200,
+                        fontWeight: FontWeight.w300,
                         fontSize: Theme.of(context)
                             .primaryTextTheme
                             .headline
@@ -157,6 +154,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                         "Skip / Save",
                         style: TextStyle(
                             color: Colors.white,
+                            fontWeight: FontWeight.w300,
                             fontSize:
                                 Theme.of(context).textTheme.title.fontSize),
                       ),
@@ -164,7 +162,7 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(
                             color: Colors.white,
-                            width: 2,
+                            width: 1,
                             style: BorderStyle.solid),
                       ),
                     ))

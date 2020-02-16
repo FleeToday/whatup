@@ -49,16 +49,28 @@ class ActivityCard extends StatelessWidget {
                             tag: "title_${activity.reference.documentID}",
                             child: Text(
                               activity.title,
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headline.copyWith(fontWeight: FontWeight.w200, fontSize: 22),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(3.0),
-                            child: Text(
-                              activity.locationName != null
-                                  ? activity.locationName
-                                  : "",
-                              style: Theme.of(context).textTheme.subhead,
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.pin_drop,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 15,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    activity.locationName != null
+                                        ? activity.locationName
+                                        : "",
+                                    style: Theme.of(context).textTheme.subhead,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -71,7 +83,7 @@ class ActivityCard extends StatelessWidget {
                       height: 40, width: 40, 
                       decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(20)), 
                         child: Center(
-                        child: Text(userProfile.firstName.split(' ').map((String item) => item[0]).join(''), style: TextStyle(color: Colors.white)),),
+                        child: Text(userProfile.firstName.split(' ').map((String item) => item[0]).join(''), style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200)),),
                       ); 
                     }).toList()
                   ,),),

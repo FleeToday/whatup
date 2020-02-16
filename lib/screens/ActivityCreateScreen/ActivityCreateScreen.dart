@@ -32,7 +32,7 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
     super.initState();
     Future.delayed(Duration(milliseconds: 20), () {
       this.setState(() {
-        animatingPadding = 80;
+        animatingPadding = 100;
       });
     });
   }
@@ -65,7 +65,14 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white.withOpacity(0),
       appBar: AppBar(
+        title: Text("Create Activity",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w200,),),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: new IconButton(
@@ -87,8 +94,8 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
               1.0,
             ],
             colors: [
-              Theme.of(context).primaryColorDark,
-              Theme.of(context).primaryColor,
+              Theme.of(context).primaryColorDark.withAlpha(200),
+              Theme.of(context).primaryColor.withAlpha(200),
             ],
           ),
         ),
@@ -100,7 +107,7 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
             child: Form(
               key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   TextFormField(
                     decoration: InputDecoration(hintText: "Title"),
@@ -134,11 +141,27 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
                     },
                   ),
                   Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: RaisedButton(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: FlatButton(
                         onPressed: _formSubmit,
-                        child: Text("submit"),
-                      ))
+                         textColor: Colors.white,
+                            padding: const EdgeInsets.all(0.0),
+                            color: Colors.transparent,
+                            child: AnimatedContainer(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                              duration: Duration(milliseconds: 500),
+                              padding: const EdgeInsets.all(12.0),
+                              margin: const EdgeInsets.all(16.0),
+                              child: const Text('Submit',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w200)),
+                              alignment: Alignment.center,
+                            ),
+                      ),),
                 ],
               ),
             )),

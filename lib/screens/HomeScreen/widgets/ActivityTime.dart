@@ -9,18 +9,19 @@ class ActivityTime extends StatelessWidget {
   Widget build(BuildContext context) {
     var formatter = new DateFormat('hh:mm a');
     String formatted_datetime = formatter.format(this.datetime);
-    return Container(
-      width: 90,
+    return Row(
+      children: [
+        Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(5)),
         color: Theme.of(context).primaryColorLight,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(7.5),
         child: Row(children: <Widget>[
           Icon(
             Icons.access_time,
-            size: 12,
+            size: 15,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5),
@@ -28,6 +29,6 @@ class ActivityTime extends StatelessWidget {
           ),
         ]),
       ),
-    );
+    ),],);
   }
 }

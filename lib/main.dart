@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
       ..add(ResetCamera());
     final AuthBloc authBloc = AuthBloc(Repository())..add(CheckSignIn());
     final UserProfileBloc userProfileBloc = UserProfileBloc(Repository());
+    TextTheme textTheme = Theme.of(context).textTheme;
+
 
     return MultiBlocProvider(
         providers: [
