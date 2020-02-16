@@ -13,7 +13,7 @@ class UserProfile {
 
   UserProfile(
       {this.id, this.firstName, this.lastName, this.email, this.hobbies});
-  UserProfile.fromMap(Map<String, dynamic> map, {reference})
+  UserProfile.fromMap(Map<dynamic, dynamic> map, {reference})
       : firstName = map['firstName'],
         lastName = map['lastName'],
         hobbies = map['hobbies'] != null

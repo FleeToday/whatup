@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:whatup/models/Activity.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivityTime.dart';
 
+import '../../../models/UserProfile.dart';
+
 class ActivityCard extends StatelessWidget {
   final Activity activity;
   const ActivityCard({@required this.activity});
@@ -63,6 +65,16 @@ class ActivityCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Container(child: Row(children: 
+                    activity.members.map((UserProfile userProfile) {
+                      return Container(
+                      height: 40, width: 40, 
+                      decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(20)), 
+                        child: Center(
+                        child: Text(userProfile.firstName.split(' ').map((String item) => item[0]).join(''), style: TextStyle(color: Colors.white)),),
+                      ); 
+                    }).toList()
+                  ,),),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: ActivityTime(

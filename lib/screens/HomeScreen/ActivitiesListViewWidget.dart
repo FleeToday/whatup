@@ -45,8 +45,8 @@ class ActivitiesListView extends StatelessWidget {
                   // activityBloc.add(FetchActivity(_center));
                 },
                 itemCount: state.activityList.items.length,
-                viewportFraction: 0.9,
-                scale: 0.8,
+                viewportFraction: 0.85,
+                scale: 0.9,
               );
             } else {
               return LinearProgressIndicator();

@@ -5,6 +5,8 @@ import 'package:whatup/models/Activity.dart';
 import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/models/UserProfile.dart';
 
+import '../models/UserProfile.dart';
+
 class FirestoreProvider {
   Geoflutterfire geo = Geoflutterfire();
   static Firestore _firestore = Firestore.instance;
@@ -21,6 +23,7 @@ class FirestoreProvider {
       'location': _location.data,
       'location_name': _activity.locationName,
       'datetime': DateTime.now(),
+      'members': _activity.members.map((item) => (item).toJson()).toList()
     });
   }
 

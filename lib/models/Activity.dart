@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../resources/Repository.dart';
 import 'UserProfile.dart';
 import 'UserProfile.dart';
 
@@ -14,11 +16,13 @@ class Activity {
   List<UserProfile> members;
   GeoPoint _;
 
-  Activity() {}
+  Activity() {
+    members = [];
+  }
 
-  Activity.fromMap(Map<String, dynamic> map, {this.reference})
+  Activity.fromMap(Map<dynamic, dynamic> map, {this.reference})
       : assert(map['title'] != null),
-        assert(map['members'] != null),
+        // assert(map['members'] != null),
         assert(map['description'] != null),
         assert(map['location_name'] != null),
         assert(map['location'] != null),
@@ -37,4 +41,5 @@ class Activity {
 
   Activity.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
+
 }
