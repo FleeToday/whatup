@@ -53,7 +53,7 @@ class ActivityCard extends StatelessWidget {
                                   .textTheme
                                   .headline
                                   .copyWith(
-                                      fontWeight: FontWeight.w200,
+                                      fontWeight: FontWeight.w300,
                                       fontSize: 22),
                             ),
                           ),
@@ -72,7 +72,12 @@ class ActivityCard extends StatelessWidget {
                                     activity.locationName != null
                                         ? activity.locationName
                                         : "",
-                                    style: Theme.of(context).textTheme.subhead,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subhead
+                                        .copyWith(
+                                          fontWeight: FontWeight.w300,
+                                        ),
                                   ),
                                 ),
                               ],
