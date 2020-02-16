@@ -24,6 +24,18 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
   final _activity = Activity();
   final _formKey = GlobalKey<FormState>();
   final _locationController = TextEditingController();
+  double animatingPadding = 500;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration(milliseconds: 20), () {
+      this.setState(() {
+        animatingPadding = 80;
+      });
+    });
+  }
 
   void _formSubmit() {
     _formKey.currentState.save();
@@ -54,58 +66,83 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: new IconButton(
-          icon: new Icon(Icons.arrow_back, color: Colors.black),
+          icon: new Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Container(
-          margin: EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(hintText: "Title"),
-                  onSaved: (String val) {
-                    setState(() {
-                      _activity.title = val;
-                    });
-                  },
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: "Description"),
-                  maxLines: 5,
-                  onSaved: (String val) {
-                    setState(() {
-                      _activity.description = val;
-                    });
-                  },
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: "Location"),
-                  controller: _locationController,
-                  onTap: () async {
-                    Prediction p = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: kGoogleApiKey,
-                      mode: Mode.overlay,
-                      radius: 100000,
-                      components: [Component(Component.country, "hk")],
-                    );
-                    displayPrediction(p);
-                  },
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: RaisedButton(
-                      onPressed: _formSubmit,
-                      child: Text("submit"),
-                    ))
-              ],
-            ),
-          )),
+      extendBodyBehindAppBar: true,
+      body: AnimatedContainer(
+        curve: Curves.fastOutSlowIn,
+        duration: Duration(milliseconds: 250),
+        padding: EdgeInsets.only(top: this.animatingPadding),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            end: Alignment.bottomRight,
+            begin: Alignment.bottomLeft,
+            stops: [
+              0.0,
+              1.0,
+            ],
+            colors: [
+              Theme.of(context).primaryColorDark,
+              Theme.of(context).primaryColor,
+            ],
+          ),
+        ),
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                color: Colors.white),
+            padding: EdgeInsets.all(20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  TextFormField(
+                    decoration: InputDecoration(hintText: "Title"),
+                    onSaved: (String val) {
+                      setState(() {
+                        _activity.title = val;
+                      });
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(hintText: "Description"),
+                    maxLines: 5,
+                    onSaved: (String val) {
+                      setState(() {
+                        _activity.description = val;
+                      });
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(hintText: "Location"),
+                    controller: _locationController,
+                    onTap: () async {
+                      Prediction p = await PlacesAutocomplete.show(
+                        context: context,
+                        apiKey: kGoogleApiKey,
+                        mode: Mode.overlay,
+                        radius: 100000,
+                        components: [Component(Component.country, "hk")],
+                      );
+                      displayPrediction(p);
+                    },
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: RaisedButton(
+                        onPressed: _formSubmit,
+                        child: Text("submit"),
+                      ))
+                ],
+              ),
+            )),
+      ),
     );
   }
 }
