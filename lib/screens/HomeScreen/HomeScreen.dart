@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:whatup/components/ZoomScaffold.dart';
+import 'package:whatup/screens/ActivityCreateScreen/ActivityCreateScreen.dart';
 import 'package:whatup/screens/HomeScreen/AppBarDrawerWidget.dart';
 import 'package:whatup/screens/HomeScreen/AppBarMenuButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.dart';
@@ -36,7 +37,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void _onItemTapped(index) {
     if (index == 2) {
-      Navigator.pushNamed(context, '/create');
+      Navigator.of(context).push(FadeRoute(page: ActivityCreateScreen()));
       return;
     }
     this.setState(() {
