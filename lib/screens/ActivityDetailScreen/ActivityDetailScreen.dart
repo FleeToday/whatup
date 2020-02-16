@@ -21,13 +21,14 @@ class ActivityDetailScreen extends StatelessWidget {
             ),
           )),
       SliverFillRemaining(
-        child: Container(
+        child: 
+        Container(
           padding: EdgeInsets.all(20),
           child: Text(
             activity.title,
             style: Theme.of(context).textTheme.headline,
           ),
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: BoxDecoration(color: Colors.white,),
         ),
       )
     ]));

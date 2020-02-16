@@ -63,7 +63,7 @@ class AppBarDrawerWidget extends StatelessWidget {
                                     (state is UserProfileRetrievalSuccess)
                                         ? '${state.currentUserProfile.firstName} ${state.currentUserProfile.lastName}'
                                         : state.toString(),
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),
                                   ),
                                   Text(
                                     (state is UserProfileRetrievalSuccess)
@@ -95,7 +95,7 @@ class AppBarDrawerWidget extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 12),
                             child: Text(
                               "Sign out",
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),
                             )),
                       ]),
                     )

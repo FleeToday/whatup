@@ -14,6 +14,11 @@ import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
 
+import 'bloc/activity_bloc.dart';
+import 'bloc/activity_event.dart';
+import 'bloc/bloc.dart';
+import 'widgets/ActivitiesCreateButtonWidget.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -58,26 +63,35 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         value: menuController,
         child: Scaffold(
             extendBodyBehindAppBar: true,
-            // floatingActionButton: Padding(
-            //     padding: const EdgeInsets.only(bottom: 230),
-            //     child: ActivitiesCreateButtonWidget()),
             bottomNavigationBar: BottomNavigationBar(
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
-                  title: Text('Home'),
+                  title: Text(
+                    'Home',
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                  ),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.calendar_today),
-                  title: Text('Calendar'),
+                  title: Text(
+                    'Calendar',
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                  ),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.add),
-                  title: Text('New Activity'),
+                  title: Text(
+                    'New Activity',
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                  ),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.settings),
-                  title: Text('Settings'),
+                  title: Text(
+                    'Settings',
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                  ),
                 ),
               ],
               currentIndex: _selectedIndex,
@@ -126,7 +140,22 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ActivityReloadButton(),
             ],
           ),
-          ActivitiesListView()
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ActivitiesCreateButtonWidget(
+                  onPressed: () {
+                    BlocProvider.of<ActivityBloc>(context).add(FetchActivity(
+                        (BlocProvider.of<MapBloc>(context).state as LoadedMap)
+                            .center));
+                  },
+                ),
+              ),
+              ActivitiesListView()
+            ],
+          )
         ],
       )),
     ]);

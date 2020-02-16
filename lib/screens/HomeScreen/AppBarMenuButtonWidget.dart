@@ -12,6 +12,8 @@ class AppBarMenuButtonWidget extends StatelessWidget {
       //     // shadows: [BoxShadow(color: Colors.black38, blurRadius: 2)],
       //     shape: CircleBorder(side: BorderSide.none)),
       child: Container(
+        height: 40,
+        width: 40,
         decoration: ShapeDecoration(
             color: Colors.white,
             shadows: [BoxShadow(color: Colors.black38, blurRadius: 2)],

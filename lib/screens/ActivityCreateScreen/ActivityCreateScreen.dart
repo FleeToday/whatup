@@ -57,6 +57,7 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
       _locationController.text = detail.result.name;
 
       setState(() {
+        _activity.locationName = detail.result.name;
         _activity.location = LatLng(lat, lng);
       });
     }
