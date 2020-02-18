@@ -137,7 +137,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           Column(
             children: <Widget>[
               LocationSearchInputWidget(),
-              ActivityReloadButton(),
+              // ActivityReloadButton(),
             ],
           ),
           Column(

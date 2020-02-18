@@ -36,6 +36,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   geoflutterfire: ^2.0.3+1
   provider: ^3.0.0
+  image: ^2.1.4
 
 dev_dependencies:
   flutter_test:
@@ -52,7 +53,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/map_style.txt
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
