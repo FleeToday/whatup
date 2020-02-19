@@ -39,6 +39,9 @@ class Repository {
   Future<void> addActivity(Activity _activity) =>
       _firestoreProvider.addActivity(_activity);
 
+  Future<void> updateActivity(Activity _activity) =>
+      _firestoreProvider.updateActivity(_activity);
+
   Future<LatLng> getCurrentLocation() async {
     var _location = Location();
     var isLocationPermitted = await _location.requestPermission();

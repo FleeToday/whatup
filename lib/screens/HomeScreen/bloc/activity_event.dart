@@ -23,3 +23,12 @@ class CreateActivity extends ActivityEvent {
   @override
   List<Object> get props => [this.activity];
 }
+
+class UpdateActivity extends ActivityEvent {
+  final Activity activity;
+
+  UpdateActivity([this.activity]);
+
+  @override
+  List<Object> get props => [this.activity];
+}

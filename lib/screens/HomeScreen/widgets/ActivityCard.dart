@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/models/Activity.dart';
+import 'package:whatup/screens/HomeScreen/bloc/activity_bloc.dart';
+import 'package:whatup/screens/HomeScreen/bloc/activity_event.dart';
+import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivityTime.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
+import 'package:whatup/screens/ProfileScreen/bloc/userProfile_state.dart';
 
 import '../../../models/UserProfile.dart';
 
@@ -10,6 +16,20 @@ class ActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isActivityJoinable = true;
+    UserProfileState userProfileState =
+        BlocProvider.of<UserProfileBloc>(context).state;
+    if (userProfileState is UserProfileRetrievalSuccess) {
+      if (activity.members
+              .map((item) => item.id)
+              .toList()
+              .contains(userProfileState.currentUserProfile.id) ||
+          activity.members.length > 5) {
+        isActivityJoinable = false;
+      }
+    } else {
+      isActivityJoinable = false;
+    }
     return Card(
         elevation: 5,
         shape: RoundedRectangleBorder(
@@ -34,92 +54,119 @@ class ActivityCard extends StatelessWidget {
                   )),
             ),
             Expanded(
-                child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Hero(
-                            tag: "title_${activity.reference.documentID}",
-                            child: Text(
-                              activity.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline
-                                  .copyWith(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 22),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.pin_drop,
-                                  color: Theme.of(context).primaryColor,
-                                  size: 15,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text(
-                                    activity.locationName != null
-                                        ? activity.locationName
-                                        : "",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subhead
-                                        .copyWith(
+              child: Stack(alignment: Alignment.topRight, children: [
+                Visibility(
+                  visible: isActivityJoinable,
+                  child: IconButton(
+                    onPressed: () {
+                      this.activity.members.add(
+                          (userProfileState as UserProfileRetrievalSuccess)
+                              .currentUserProfile);
+                      BlocProvider.of<ActivityBloc>(context)
+                          .add(UpdateActivity(this.activity));
+                    },
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(
+                      Icons.add_box,
+                      size: 25,
+                    ),
+                    color: Theme.of(context).accentColor,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Hero(
+                                tag: "title_${activity.reference.documentID}",
+                                child: Text(
+                                  activity.title,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline
+                                      .copyWith(
                                           fontWeight: FontWeight.w300,
-                                        ),
-                                  ),
+                                          fontSize: 22),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.pin_drop,
+                                      color: Theme.of(context).primaryColor,
+                                      size: 15,
+                                    ),
+                                    Flexible(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(
+                                          activity.locationName != null
+                                              ? activity.locationName
+                                              : "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subhead
+                                              .copyWith(
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                      Container(
+                        child: Row(
+                          children:
+                              activity.members.map((UserProfile userProfile) {
+                            return Container(
+                              height: 40,
+                              width: 40,
+                              margin: EdgeInsets.only(left: 4),
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Center(
+                                child: Text(
+                                    userProfile.firstName
+                                        .split(' ')
+                                        .map((String item) => item[0])
+                                        .join(''),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w200)),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: ActivityTime(
+                          datetime: activity.datetime,
+                        ),
+                      )
+                    ],
                   ),
-                  Container(
-                    child: Row(
-                      children: activity.members.map((UserProfile userProfile) {
-                        return Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: Text(
-                                userProfile.firstName
-                                    .split(' ')
-                                    .map((String item) => item[0])
-                                    .join(''),
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w200)),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: ActivityTime(
-                      datetime: activity.datetime,
-                    ),
-                  )
-                ],
-              ),
-            ))
+                )
+              ]),
+            )
           ],
         ));
   }

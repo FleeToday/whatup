@@ -62,6 +62,7 @@ class _ActivitiesMapViewWidgetState extends State<ActivitiesMapViewWidget> {
                 return GoogleMap(
                   onMapCreated: (controller) =>
                       _onMapCreated(context, controller),
+                  myLocationButtonEnabled: false,
                   myLocationEnabled: false,
                   markers: markers,
                   onCameraMove: (CameraPosition cameraPosition) {

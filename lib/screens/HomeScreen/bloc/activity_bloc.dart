@@ -18,6 +18,8 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
       yield* _mapCreateActivityToState(event);
     } else if (event is FetchActivity) {
       yield* _mapFetchActivityToState(event);
+    } else if (event is UpdateActivity) {
+      yield* _mapUpdateActivityToState(event);
     }
   }
 
@@ -30,6 +32,13 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
 
   Stream<ActivityState> _mapCreateActivityToState(CreateActivity event) async* {
     await _repository.addActivity(event.activity);
+    ActivityList _activityList =
+        await _repository.getActivitiesByCenter(event.activity.location, 10);
+    yield LoadedActivity(_activityList);
+  }
+
+  Stream<ActivityState> _mapUpdateActivityToState(UpdateActivity event) async* {
+    await _repository.updateActivity(event.activity);
     ActivityList _activityList =
         await _repository.getActivitiesByCenter(event.activity.location, 10);
     yield LoadedActivity(_activityList);

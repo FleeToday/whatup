@@ -27,6 +27,23 @@ class FirestoreProvider {
     });
   }
 
+  Future<void> updateActivity(Activity _activity) async {
+    GeoFirePoint _location = geo.point(
+        latitude: _activity.location.latitude,
+        longitude: _activity.location.longitude);
+    return _firestore
+        .collection("activities")
+        .document(_activity.reference.documentID)
+        .setData({
+      'title': _activity.title,
+      'description': _activity.description,
+      'location': _location.data,
+      'location_name': _activity.locationName,
+      'datetime': DateTime.now(),
+      'members': _activity.members.map((item) => (item).toJson()).toList()
+    }, merge: true);
+  }
+
   Stream<QuerySnapshot> getActivities() {
     return activitiesRef.snapshots();
   }
