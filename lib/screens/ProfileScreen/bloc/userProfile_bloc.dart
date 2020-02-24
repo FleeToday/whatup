@@ -56,7 +56,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         lastName: lastName,
         email: user.email,
         hobbies: hobbies);
-    await repo.addUserProfile(userProfile);
+    await repo.saveUserProfile(userProfile);
     if (userProfile == null) {
       yield UserProfileRetrievalFailure();
     } else {

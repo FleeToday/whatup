@@ -132,8 +132,9 @@ class ActivityCard extends StatelessWidget {
                       ),
                       Container(
                         child: Row(
-                          children:
-                              activity.members.map((UserProfile userProfile) {
+                          children: activity.members
+                              .where((profile) => profile.firstName.isNotEmpty)
+                              .map((UserProfile userProfile) {
                             return Container(
                               height: 40,
                               width: 40,

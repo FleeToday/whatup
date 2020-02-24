@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
     final UserProfileBloc userProfileBloc = UserProfileBloc(Repository());
     TextTheme textTheme = Theme.of(context).textTheme;
 
-
     return MultiBlocProvider(
         providers: [
           BlocProvider<MapBloc>(create: (context) => mapBloc),
@@ -46,13 +45,15 @@ class MyApp extends StatelessWidget {
           routes: routes,
           theme: new ThemeData(
               // brightness: Brightness.light,
-              // primaryColor: Colors.orange,
-              // primaryColorLight: Colors.amber[300],
-              // accentColor: Colors.orange[800],
-              // backgroundColor: Colors.orange[200],
-              // buttonColor: Colors.orange[200],
-              // primaryTextTheme: TextTheme(),
-              appBarTheme: AppBarTheme(brightness: Brightness.light)),
+              // primaryColor: Color.fromRGBO(235, 235, 240, 1),
+              // primaryColorDark: Color.fromRGBO(225, 225, 240, 1),
+              //     // primaryColorLight: Colors.amber[300],
+              //     // accentColor: Colors.orange[800],
+              //     // backgroundColor: Colors.orange[200],
+              //     // buttonColor: Colors.orange[200],
+              //     primaryTextTheme: TextTheme(),
+              //     appBarTheme: AppBarTheme(brightness: Brightness.light)
+              ),
         ));
   }
 }

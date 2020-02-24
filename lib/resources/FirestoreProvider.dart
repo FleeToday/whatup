@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:whatup/models/Activity.dart';
+import 'package:whatup/models/ActivityList.dart';
 import 'package:whatup/models/UserProfile.dart';
 import 'package:whatup/models/UserProfile.dart';
 
@@ -59,11 +60,32 @@ class FirestoreProvider {
   }
 
   // User Collection
-  Future<void> addUserProfile(UserProfile _userProfile) async {
-    return _firestore
-        .collection("userProfiles")
-        .document(_userProfile.id)
-        .setData(_userProfile.toJson());
+  Future<void> saveUserProfile(UserProfile _userProfile) async {
+    return _firestore.runTransaction((Transaction transaction) async {
+      // Update position (++) of existing catalogItems
+      await transaction.set(
+          _firestore.collection("userProfiles").document(_userProfile.id),
+          _userProfile.toJson());
+
+      QuerySnapshot snapshot = (await getActivities().first);
+      ActivityList activityList = ActivityList.fromSnapshot(snapshot);
+      List<Activity> activities = activityList.items;
+
+      await Future.wait(activities.where((activity) {
+        return activity.members
+            .map((member) => member.id)
+            .contains(_userProfile.id);
+      }).map((Activity activity) {
+        return transaction.update(activity.reference, {
+          'members': activity.members.map((member) {
+            if (member.id == _userProfile.id) {
+              return _userProfile.toJson();
+            }
+            return _userProfile.toJson();
+          }),
+        });
+      }));
+    });
   }
 
   Future<bool> checkUserProfileExistsById(String id) async {

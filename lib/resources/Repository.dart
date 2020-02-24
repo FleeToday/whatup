@@ -66,6 +66,6 @@ class Repository {
   Future<UserProfile> getUserProfileById(String id) =>
       _firestoreProvider.getUserProfileById(id);
 
-  Future<void> addUserProfile(UserProfile user) =>
-      _firestoreProvider.addUserProfile(user);
+  Future<void> saveUserProfile(UserProfile user) =>
+      _firestoreProvider.saveUserProfile(user);
 }

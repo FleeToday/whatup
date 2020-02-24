@@ -107,9 +107,6 @@ class CreateProfileScreenState extends State<CreateProfileScreen> {
                         QuestionCardWidget(
                           isCardCompleted: isNameFilled,
                           child: NameQuestionPageWidget(
-                            onBlur: _onBlur,
-                            onFirstNameChanged: _onFirstNameChanged,
-                            onLastNameChanged: _onLastNameChanged,
                             firstNameController: _firstNameController,
                             lastNameController: _lastNameController,
                           ),
