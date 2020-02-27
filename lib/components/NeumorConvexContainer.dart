@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:whatup/main.dart';
 
-class NeumorInnerContainer extends StatelessWidget {
-  NeumorInnerContainer({this.child, this.borderRadius});
+class NeumorConvexContainer extends StatelessWidget {
+  NeumorConvexContainer({this.child, this.borderRadius, this.color});
 
   BorderRadius borderRadius;
   Widget child;
+  Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromRGBO(225, 225, 250, 1), //color: Colors.purple[200],
+        color: this.color != null ? this.color : mainColor,
         borderRadius: this.borderRadius,
       ),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
-            Colors.black12,
-            Colors.transparent,
-            Colors.transparent,
-            Colors.white10,
-            Colors.white30,
+            Colors.white30.withOpacity(0.5),
+            Colors.white10.withOpacity(0.1),
+            Colors.white.withAlpha(0),
+            Colors.white.withAlpha(0),
+            Colors.black12.withOpacity(0.1),
           ], stops: [
             0.0,
-            0.45,
-            0.5,
-            0.5,
+            0.3,
+            0.8,
+            0.9,
             1.0
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           borderRadius: this.borderRadius,
@@ -33,16 +35,16 @@ class NeumorInnerContainer extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-                Colors.black12,
-                Colors.transparent,
-                Colors.transparent,
-                Colors.white10,
                 Colors.white30,
+                Colors.white10,
+                Colors.white.withAlpha(0),
+                Colors.white.withAlpha(0),
+                Colors.black12,
               ], stops: [
                 0.0,
                 0.05,
                 0.5,
-                0.95,
+                0.99,
                 1.0
               ]),
               borderRadius: this.borderRadius),

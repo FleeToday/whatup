@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:whatup/components/NeumorConcaveContainer.dart';
+import 'package:whatup/components/NeumorConvexContainer.dart';
+import 'package:whatup/components/NeumorFlatContainer.dart';
 import 'package:whatup/screens/HomeScreen/LocationSearchPopupWidget.dart';
 
 import 'bloc/bloc.dart';
@@ -10,9 +13,8 @@ class FadeRoute extends PageRouteBuilder {
   final Widget page;
   FadeRoute({this.page})
       : super(
-        opaque: false,
+          opaque: false,
           pageBuilder: (
-            
             BuildContext context,
             Animation<double> animation,
             Animation<double> secondaryAnimation,
@@ -58,32 +60,42 @@ class LocationSearchInputWidget extends StatelessWidget {
         },
         child: Container(
             width: 350,
-            height: 50,
+            height: 56,
             margin: const EdgeInsets.only(top: 10.0),
-            child: TextField(
-              readOnly: true,
-              controller: _locationController,
-              onTap: () {
-                // Todo: Custom Animated transition with named route?
-                Navigator.push(
-                    context, FadeRoute(page: LocationSearchPopupWidget()));
-              },
-              decoration: InputDecoration(
-                border: new OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(25.0),
-                  ),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
+            child: NeumorFlatContainer(
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(30.0),
+              ),
+              child: NeumorConvexContainer(
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(30.0),
                 ),
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'Search Location',
-                prefixIcon: Icon(
-                  Icons.pin_drop,
-                  color: Colors.grey,
+                child: Container(
+                  margin: const EdgeInsets.all(6),
+                  child: NeumorConcaveContainer(
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(30.0),
+                    ),
+                    child: Container(
+                      child: TextField(
+                        readOnly: true,
+                        controller: _locationController,
+                        onTap: () {
+                          // Todo: Custom Animated transition with named route?
+                          Navigator.push(context,
+                              FadeRoute(page: LocationSearchPopupWidget()));
+                        },
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search Location',
+                          prefixIcon: Icon(
+                            Icons.pin_drop,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             )));

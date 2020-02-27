@@ -44,16 +44,33 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: routes,
           theme: new ThemeData(
-              // brightness: Brightness.light,
-              // primaryColor: Color.fromRGBO(235, 235, 240, 1),
-              // primaryColorDark: Color.fromRGBO(225, 225, 240, 1),
-              //     // primaryColorLight: Colors.amber[300],
-              //     // accentColor: Colors.orange[800],
-              //     // backgroundColor: Colors.orange[200],
-              //     // buttonColor: Colors.orange[200],
-              //     primaryTextTheme: TextTheme(),
-              //     appBarTheme: AppBarTheme(brightness: Brightness.light)
-              ),
+            // brightness: Brightness.light,
+            primaryColor: Colors.purple[600],
+            primaryColorLight: Colors.purple[200],
+            primaryColorDark: Colors.purple[900],
+            //     // primaryColorLight: Colors.amber[300],
+            //     // accentColor: Colors.purple[800],
+            //     // backgroundColor: mainColor,
+            //     // buttonColor: mainColor,
+            //     primaryTextTheme: TextTheme(),
+            //     appBarTheme: AppBarTheme(brightness: Brightness.light)
+          ),
         ));
   }
 }
+
+MaterialColor mainColor =
+    MaterialColor(0xffc0e6f1, color); // 0xffc3d6f0 //0xffc8ecf0
+
+Map<int, Color> color = {
+  50: Color.fromRGBO(4, 131, 184, .1),
+  100: Color.fromRGBO(4, 131, 184, .2),
+  200: Color.fromRGBO(4, 131, 184, .3),
+  300: Color.fromRGBO(4, 131, 184, .4),
+  400: Color.fromRGBO(4, 131, 184, .5),
+  500: Color.fromRGBO(4, 131, 184, .6),
+  600: Color.fromRGBO(4, 131, 184, .7),
+  700: Color.fromRGBO(4, 131, 184, .8),
+  800: Color.fromRGBO(4, 131, 184, .9),
+  900: Color.fromRGBO(4, 131, 184, 1),
+};

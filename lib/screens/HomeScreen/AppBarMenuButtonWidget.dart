@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatup/components/NeumorConvexContainer.dart';
 
 class AppBarMenuButtonWidget extends StatelessWidget {
   const AppBarMenuButtonWidget({Key key, this.onPressed}) : super(key: key);
@@ -18,14 +19,17 @@ class AppBarMenuButtonWidget extends StatelessWidget {
             color: Colors.white,
             shadows: [BoxShadow(color: Colors.black38, blurRadius: 2)],
             shape: CircleBorder(side: BorderSide.none)),
-        child: IconButton(
-          padding: EdgeInsets.all(0),
-          icon: Icon(
-            Icons.notifications,
-            size: 25,
+        child: NeumorConvexContainer(
+          borderRadius: BorderRadius.circular(20),
+          child: IconButton(
+            padding: EdgeInsets.all(0),
+            icon: Icon(
+              Icons.notifications,
+              size: 25,
+            ),
+            color: Theme.of(context).primaryColor,
+            onPressed: this.onPressed,
           ),
-          color: Theme.of(context).accentColor,
-          onPressed: this.onPressed,
         ),
       ),
     );

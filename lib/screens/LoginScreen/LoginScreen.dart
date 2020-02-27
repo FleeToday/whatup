@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatup/main.dart';
 import 'package:whatup/resources/Repository.dart';
 import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
 import 'package:whatup/screens/LoginScreen/LoginFormWidget.dart';
@@ -12,6 +13,8 @@ import 'package:whatup/screens/ProfileScreen/CreateProfileScreen.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_event.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_state.dart';
+
+const Color backgroundColor = Color.fromRGBO(225, 225, 250, 1);
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -98,18 +101,8 @@ class _LoginModuleState extends State<LoginModule> {
         return Scaffold(
             body: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              end: Alignment.bottomRight,
-              begin: Alignment.bottomLeft,
-              stops: [
-                0.0,
-                1.0,
-              ],
-              colors: [
-                Theme.of(context).primaryColorDark,
-                Theme.of(context).primaryColor,
-              ],
-            ),
+            color: mainColor,
+            borderRadius: BorderRadius.horizontal(left: Radius.circular(12)),
           ),
           child: SafeArea(
             child: Column(
@@ -127,7 +120,7 @@ class _LoginModuleState extends State<LoginModule> {
                         style: TextStyle(
                           fontWeight: FontWeight.w200,
                           fontSize: 36,
-                          color: Colors.white,
+                          color: Colors.black54,
                         ),
                       ),
                       Text(
@@ -135,13 +128,13 @@ class _LoginModuleState extends State<LoginModule> {
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
-                            color: Colors.white),
+                            color: Colors.black54),
                       ),
                       ButtonBar(
                         alignment: MainAxisAlignment.center,
                         children: <Widget>[
                           FlatButton(
-                            disabledColor: Theme.of(context).primaryColorDark,
+                            disabledColor: Theme.of(context).primaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.horizontal(
                                   left: Radius.circular(12)),
@@ -165,7 +158,7 @@ class _LoginModuleState extends State<LoginModule> {
                                 : null,
                           ),
                           FlatButton(
-                            disabledColor: Theme.of(context).primaryColorDark,
+                            disabledColor: Theme.of(context).primaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.horizontal(
                                   right: Radius.circular(12)),

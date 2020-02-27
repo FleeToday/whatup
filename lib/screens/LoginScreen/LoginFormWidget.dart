@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:whatup/components/NeumorConcaveContainer.dart';
+import 'package:whatup/components/NeumorConvexContainer.dart';
+import 'package:whatup/components/NeumorFlatContainer.dart';
+import 'package:whatup/main.dart';
 import 'package:whatup/screens/LoginScreen/LoginLoadingViewWidget.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
+import 'package:whatup/utilities/NeumorFlatDecoration.dart';
+import 'package:whatup/utilities/PrimaryGradientDecoration.dart';
 
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({
@@ -27,15 +33,16 @@ class LoginFormWidget extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
+                margin: EdgeInsets.only(top: 20, left: 16, right: 16),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                decoration: BoxDecoration(
-                  color: Colors.white,
+                decoration: NeumorFlatDecoration(
+                  // color: Colors.white,
+                  color: mainColor,
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   ),
@@ -45,34 +52,48 @@ class LoginFormWidget extends StatelessWidget {
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          TextFormField(
-                              controller: _emailController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Username',
+                          NeumorConcaveContainer(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 5),
+                              child: TextFormField(
+                                controller: _emailController,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  labelText: 'Username',
+                                ),
+                                // autovalidate: true,
+                                // validator: (String value) {
+                                //   return _state.isEmailValid
+                                //       ? null
+                                //       : "Invalid Email";
+                                // },
                               ),
-                              autovalidate: true,
-                              validator: (String value) {
-                                return _state.isEmailValid
-                                    ? null
-                                    : "Invalid Email";
-                              }),
+                            ),
+                          ),
                           Container(
                             height: 20,
                           ),
-                          TextFormField(
-                            controller: _passwordController,
-                            obscureText: true,
-                            autovalidate: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Password',
+                          NeumorConcaveContainer(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 5),
+                              child: TextFormField(
+                                controller: _passwordController,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  labelText: 'Password',
+                                ),
+                                // autovalidate: true,
+                                // validator: (String value) {
+                                //   return _state.isEmailValid
+                                //       ? null
+                                //       : "Invalid Email";
+                                // },
+                              ),
                             ),
-                            validator: (String value) {
-                              return _state.isPasswordValid
-                                  ? null
-                                  : "Invalid Password";
-                            },
                           ),
                           Container(
                             child: Center(
@@ -81,29 +102,33 @@ class LoginFormWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                          FlatButton(
-                            onPressed: _onSignInButtonPress,
-                            textColor: Colors.white,
-                            padding: const EdgeInsets.all(0.0),
-                            color: Colors.transparent,
-                            child: AnimatedContainer(
-                              decoration: BoxDecoration(
-                                  color: _state.isEmailValid &&
-                                          _state.isPasswordValid &&
-                                          _emailController.text.isNotEmpty &&
-                                          _passwordController.text.isNotEmpty
-                                      ? Theme.of(context).primaryColor
-                                      : Theme.of(context).primaryColorLight,
+                          Container(
+                            margin: const EdgeInsets.all(16.0),
+                            child: FlatButton(
+                              onPressed: _onSignInButtonPress,
+                              padding: const EdgeInsets.all(0.0),
+                              color: Colors.transparent,
+                              child: NeumorFlatContainer(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(28)),
+                                child: NeumorConvexContainer(
+                                  color: Theme.of(context).primaryColor,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(25))),
-                              duration: Duration(milliseconds: 500),
-                              padding: const EdgeInsets.all(12.0),
-                              margin: const EdgeInsets.all(16.0),
-                              child: const Text('Sign In',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w200)),
-                              alignment: Alignment.center,
+                                      BorderRadius.all(Radius.circular(28)),
+                                  child: Container(
+                                    decoration: getPrimaryGradientBoxDecoration(
+                                        context),
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: const Text('Sign In',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w200)),
+                                    alignment: Alignment.center,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
