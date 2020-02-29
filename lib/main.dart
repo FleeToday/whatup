@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
 }
 
 MaterialColor mainColor =
-    MaterialColor(0xffc0e6f1, color); // 0xffc3d6f0 //0xffc8ecf0
+    MaterialColor(0xffb0d8f2, color); // 0xffc3d6f0 //0xffb0d8f2
 
 Map<int, Color> color = {
   50: Color.fromRGBO(4, 131, 184, .1),

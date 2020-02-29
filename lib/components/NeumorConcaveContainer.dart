@@ -6,7 +6,11 @@ class NeumorConcaveContainer extends StatelessWidget {
       {this.child,
       this.borderRadius,
       this.verticalStops,
-      this.horizontalStops});
+      this.horizontalStops,
+      this.color,
+      this.gradient});
+
+  Color color;
 
   BorderRadius borderRadius;
   Widget child;
@@ -15,11 +19,16 @@ class NeumorConcaveContainer extends StatelessWidget {
 
   List<double> horizontalStops;
 
+  Gradient gradient;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: mainColor,
+        gradient: this.gradient != null ? this.gradient : null,
+        color: this.gradient == null
+            ? (this.color != null ? this.color : mainColor)
+            : null,
         borderRadius: this.borderRadius,
       ),
       child: Container(

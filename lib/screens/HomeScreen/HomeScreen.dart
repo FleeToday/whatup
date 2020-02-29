@@ -92,7 +92,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       ? NeumorFlatContainer(
                                           child: NeumorConvexContainer(
                                             child: Icon(
-                                              Icons.home,
+                                              Icons.map,
                                               color: Theme.of(context)
                                                   .primaryColor,
                                             ),
@@ -111,7 +111,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             1.0
                                           ],
                                           child: Icon(
-                                            Icons.home,
+                                            Icons.map,
                                             color:
                                                 Theme.of(context).primaryColor,
                                           ),

@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:whatup/main.dart';
 
 class NeumorConvexContainer extends StatelessWidget {
-  NeumorConvexContainer({this.child, this.borderRadius, this.color});
+  NeumorConvexContainer(
+      {this.child, this.borderRadius, this.color, this.gradient});
 
   BorderRadius borderRadius;
   Widget child;
   Color color;
+  Gradient gradient;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: this.color != null ? this.color : mainColor,
+        gradient: this.gradient != null ? this.gradient : null,
+        color: this.gradient == null
+            ? (this.color != null ? this.color : mainColor)
+            : null,
         borderRadius: this.borderRadius,
       ),
       child: Container(

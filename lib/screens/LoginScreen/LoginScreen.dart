@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatup/components/NeumorConcaveContainer.dart';
+import 'package:whatup/components/NeumorConvexContainer.dart';
+import 'package:whatup/components/NeumorFlatContainer.dart';
 import 'package:whatup/main.dart';
 import 'package:whatup/resources/Repository.dart';
 import 'package:whatup/screens/HomeScreen/HomeScreen.dart';
@@ -98,6 +101,10 @@ class _LoginModuleState extends State<LoginModule> {
         })
       ],
       child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+        final height = MediaQuery.of(context).size.height;
+
+        final width = MediaQuery.of(context).size.width;
+
         return Scaffold(
             body: Container(
           decoration: BoxDecoration(
@@ -105,118 +112,213 @@ class _LoginModuleState extends State<LoginModule> {
             borderRadius: BorderRadius.horizontal(left: Radius.circular(12)),
           ),
           child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Flexible(
-                  flex: 2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Welcome to Whatup',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w200,
-                          fontSize: 36,
-                          color: Colors.black54,
-                        ),
-                      ),
-                      Text(
-                        'Sign in to continue',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: Colors.black54),
-                      ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.center,
+            child: SingleChildScrollView(
+              child: Container(
+                height: height,
+                width: width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Flexible(
+                      flex: 3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          FlatButton(
-                            disabledColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.horizontal(
-                                  left: Radius.circular(12)),
+                          Image(
+                              width: 220,
+                              height: 220,
+                              image: AssetImage(
+                                'assets/whtatup_logo.png',
+                              ),
+                              color: Colors.purple[700]),
+                          NeumorFlatContainer(
+                            borderRadius: BorderRadius.circular(50),
+                            child: NeumorConvexContainer(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Container(
+                                height: 45,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 6),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    this._currentIndex != 0
+                                        ? FlatButton(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.horizontal(
+                                                      left:
+                                                          Radius.circular(100)),
+                                            ),
+                                            child: Text(
+                                              "Sign In",
+                                              // style: TextStyle(color: Colors.white),
+                                            ),
+                                            onPressed: (_currentIndex != 0)
+                                                ? () => {
+                                                      _pageController
+                                                          .animateToPage(
+                                                        0,
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    400),
+                                                        curve: Curves
+                                                            .easeInOutCirc,
+                                                      )
+                                                    }
+                                                : null,
+                                          )
+                                        : NeumorConcaveContainer(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Theme.of(context)
+                                                    .primaryColorDark,
+                                                Theme.of(context).primaryColor
+                                              ],
+                                              stops: [0, 1],
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.horizontal(
+                                                    left: Radius.circular(100)),
+                                            child: FlatButton(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.horizontal(
+                                                        left: Radius.circular(
+                                                            20)),
+                                              ),
+                                              child: Text(
+                                                "Sign In",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: (_currentIndex != 0)
+                                                  ? () => {
+                                                        _pageController
+                                                            .animateToPage(
+                                                          0,
+                                                          duration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      400),
+                                                          curve: Curves
+                                                              .easeInOutCirc,
+                                                        )
+                                                      }
+                                                  : null,
+                                            )),
+                                    this._currentIndex != 1
+                                        ? FlatButton(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.horizontal(
+                                                      right:
+                                                          Radius.circular(100)),
+                                            ),
+                                            child: Text(
+                                              "Sign Up",
+                                              // style: TextStyle(color: Colors.white),
+                                            ),
+                                            onPressed: (_currentIndex != 1)
+                                                ? () => {
+                                                      _pageController
+                                                          .animateToPage(
+                                                        1,
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    400),
+                                                        curve: Curves
+                                                            .easeInOutCirc,
+                                                      )
+                                                    }
+                                                : null,
+                                          )
+                                        : NeumorConcaveContainer(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Theme.of(context)
+                                                    .primaryColorDark,
+                                                Theme.of(context).primaryColor
+                                              ],
+                                              stops: [0, 1],
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.horizontal(
+                                                    right:
+                                                        Radius.circular(100)),
+                                            child: FlatButton(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.horizontal(
+                                                        right: Radius.circular(
+                                                            20)),
+                                              ),
+                                              child: Text(
+                                                "Sign Up",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: (_currentIndex != 1)
+                                                  ? () => {
+                                                        _pageController
+                                                            .animateToPage(
+                                                          0,
+                                                          duration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      400),
+                                                          curve: Curves
+                                                              .easeInOutCirc,
+                                                        )
+                                                      }
+                                                  : null,
+                                            )),
+                                  ],
+                                ),
+                              ),
                             ),
-                            child: Text(
-                              "Sign In",
-                              style: TextStyle(
-                                  color: (_currentIndex == 0)
-                                      ? Colors.white
-                                      : Colors.black54),
-                            ),
-                            onPressed: (_currentIndex != 0)
-                                ? () => {
-                                      _pageController.animateToPage(
-                                        0,
-                                        duration:
-                                            const Duration(milliseconds: 400),
-                                        curve: Curves.easeInOutCirc,
-                                      )
-                                    }
-                                : null,
                           ),
-                          FlatButton(
-                            disabledColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.horizontal(
-                                  right: Radius.circular(12)),
+                          Container(
+                            height: 400,
+                            child: PageView(
+                              onPageChanged: _onPageChanged,
+                              controller: _pageController,
+                              children: <Widget>[
+                                LoginFormWidget(
+                                  emailController: _emailController,
+                                  passwordController: _passwordController,
+                                  state: state,
+                                  onSignInButtonPress: _onSignInButtonPress,
+                                  errMsg: (state is AuthFailure)
+                                      ? state.errMsg
+                                      : '',
+                                ),
+                                RegisterFormWidget(
+                                  confirmPasswordController:
+                                      _confirmPasswordController,
+                                  emailController: _emailController,
+                                  passwordController: _passwordController,
+                                  state: state,
+                                  onSignUpButtonPress: _onSignUpButtonPress,
+                                  errMsg: (state is AuthFailure)
+                                      ? state.errMsg
+                                      : isConfirmPasswordErr
+                                          ? 'The two passwords are the same'
+                                          : '',
+                                )
+                              ],
                             ),
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                  color: (_currentIndex == 1)
-                                      ? Colors.white
-                                      : Colors.black54),
-                            ),
-                            onPressed: (_currentIndex != 1)
-                                ? () => {
-                                      _pageController.animateToPage(
-                                        1,
-                                        duration:
-                                            const Duration(milliseconds: 400),
-                                        curve: Curves.easeInOutCirc,
-                                      )
-                                    }
-                                : null,
-                          )
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                Flexible(
-                  flex: 3,
-                  child: Container(
-                    child: PageView(
-                      onPageChanged: _onPageChanged,
-                      controller: _pageController,
-                      children: <Widget>[
-                        LoginFormWidget(
-                          emailController: _emailController,
-                          passwordController: _passwordController,
-                          state: state,
-                          onSignInButtonPress: _onSignInButtonPress,
-                          errMsg: (state is AuthFailure) ? state.errMsg : '',
-                        ),
-                        RegisterFormWidget(
-                          confirmPasswordController: _confirmPasswordController,
-                          emailController: _emailController,
-                          passwordController: _passwordController,
-                          state: state,
-                          onSignUpButtonPress: _onSignUpButtonPress,
-                          errMsg: (state is AuthFailure)
-                              ? state.errMsg
-                              : isConfirmPasswordErr
-                                  ? 'The two passwords are the same'
-                                  : '',
-                        )
-                      ],
                     ),
-                  ),
-                )
-              ],
+                  ],
+                ),
+              ),
             ),
           ),
         ));

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:whatup/components/NeumorConcaveContainer.dart';
+import 'package:whatup/components/NeumorConvexContainer.dart';
+import 'package:whatup/components/NeumorFlatContainer.dart';
+import 'package:whatup/main.dart';
 import 'package:whatup/screens/LoginScreen/LoginLoadingViewWidget.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
+import 'package:whatup/utilities/NeumorFlatDecoration.dart';
+import 'package:whatup/utilities/PrimaryGradientDecoration.dart';
 
 class RegisterFormWidget extends StatelessWidget {
   const RegisterFormWidget({
@@ -31,108 +36,149 @@ class RegisterFormWidget extends StatelessWidget {
       color: Colors.transparent,
       child: Container(
         // padding: EdgeInsets.symmetric(),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 20, left: 16, right: 16),
-                child: NeumorConcaveContainer(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                    child: (_state is AuthLoading)
-                        ? LoginLoadingView()
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              TextFormField(
-                                  controller: _emailController,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Username',
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 20, left: 16, right: 16),
+              padding: EdgeInsets.all(20),
+              decoration: NeumorFlatDecoration(
+                // color: Colors.white,
+                color: mainColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              child: (_state is AuthLoading)
+                  ? LoginLoadingView()
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        NeumorFlatContainer(
+                          borderRadius: BorderRadius.circular(50),
+                          child: NeumorConvexContainer(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              height: 60,
+                              padding: EdgeInsets.all(4),
+                              child: NeumorConcaveContainer(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
                                   ),
-                                  autovalidate: true,
-                                  validator: (String value) {
-                                    return _state.isEmailValid
-                                        ? null
-                                        : "Invalid Email";
-                                  }),
-                              Container(
-                                height: 20,
-                              ),
-                              TextFormField(
-                                controller: _passwordController,
-                                obscureText: true,
-                                autovalidate: true,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Password',
-                                ),
-                                validator: (String value) {
-                                  return _state.isPasswordValid
-                                      ? null
-                                      : "Invalid Password";
-                                },
-                              ),
-                              Container(
-                                height: 20,
-                              ),
-                              TextFormField(
-                                controller: _confirmPasswordController,
-                                obscureText: true,
-                                autovalidate: true,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Confirm Password',
-                                ),
-                                validator: (String value) {
-                                  return _state.isPasswordValid
-                                      ? null
-                                      : "Invalid Password";
-                                },
-                              ),
-                              Container(
-                                child: Center(
-                                  child: Text(
-                                    _errMsg,
+                                  child: TextFormField(
+                                    style: TextStyle(fontSize: 14),
+                                    controller: _emailController,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Username',
+                                    ),
                                   ),
                                 ),
                               ),
-                              FlatButton(
-                                onPressed: _onSignUpButtonPress,
-                                textColor: Colors.white,
-                                padding: const EdgeInsets.all(0.0),
-                                color: Colors.transparent,
-                                child: AnimatedContainer(
-                                  decoration: BoxDecoration(
-                                      color: _state.isEmailValid &&
-                                              _state.isPasswordValid &&
-                                              _emailController
-                                                  .text.isNotEmpty &&
-                                              _passwordController
-                                                  .text.isNotEmpty
-                                          ? Theme.of(context).primaryColor
-                                          : Theme.of(context).primaryColorLight,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(25))),
-                                  duration: Duration(milliseconds: 500),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 15,
+                        ),
+                        NeumorFlatContainer(
+                          borderRadius: BorderRadius.circular(50),
+                          child: NeumorConvexContainer(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              height: 60,
+                              padding: EdgeInsets.all(4),
+                              child: NeumorConcaveContainer(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  child: TextFormField(
+                                    style: TextStyle(fontSize: 14),
+                                    controller: _confirmPasswordController,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Confirm Password',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 15,
+                        ),
+                        NeumorFlatContainer(
+                          borderRadius: BorderRadius.circular(50),
+                          child: NeumorConvexContainer(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              height: 60,
+                              padding: EdgeInsets.all(4),
+                              child: NeumorConcaveContainer(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  child: TextFormField(
+                                    controller: _passwordController,
+                                    style: TextStyle(fontSize: 14),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Password',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: Center(
+                            child: Text(''),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(16.0),
+                          child: FlatButton(
+                            onPressed: _onSignUpButtonPress,
+                            padding: const EdgeInsets.all(0.0),
+                            color: Colors.transparent,
+                            child: NeumorFlatContainer(
+                              // color: Theme.of(context).primaryColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(28)),
+                              child: NeumorConvexContainer(
+                                // color: Theme.of(context).primaryColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(28)),
+                                child: Container(
+                                  decoration:
+                                      getPrimaryGradientBoxDecoration(context),
                                   padding: const EdgeInsets.all(12.0),
-                                  margin: const EdgeInsets.all(16.0),
                                   child: const Text('Sign Up',
                                       style: TextStyle(
+                                          color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.w200)),
                                   alignment: Alignment.center,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                  ),
-                ),
-              )
-            ],
-          ),
+                        ),
+                      ],
+                    ),
+            )
+          ],
         ),
       ),
     );

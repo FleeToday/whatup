@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 const neumorBoxShadow = [
   BoxShadow(
     color: Colors.black26,
-    blurRadius: 20.0,
+    blurRadius: 10.0,
     spreadRadius: 0.0,
     offset: Offset(
       5.0,
@@ -13,8 +13,8 @@ const neumorBoxShadow = [
     ),
   ),
   BoxShadow(
-    color: Colors.white30,
-    blurRadius: 15.0,
+    color: Colors.white38,
+    blurRadius: 10.0,
     spreadRadius: 0.0,
     offset: Offset(
       -5.0,
