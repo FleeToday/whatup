@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatup/components/NeumorConcaveContainer.dart';
 import 'package:whatup/components/NeumorConvexContainer.dart';
 import 'package:whatup/main.dart';
 import 'package:whatup/models/Activity.dart';
@@ -144,31 +145,32 @@ class ActivityCard extends StatelessWidget {
                               return Container(
                                 height: 40,
                                 width: 40,
-                                margin: EdgeInsets.only(left: 4),
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      end: Alignment.bottomRight,
-                                      begin: Alignment.bottomLeft,
-                                      stops: [
-                                        0.0,
-                                        8.0,
-                                      ],
-                                      colors: [
-                                        Theme.of(context).primaryColorDark,
-                                        Theme.of(context).primaryColor,
-                                      ],
-                                    ),
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Center(
-                                  child: Text(
-                                      userProfile.firstName
-                                          .split(' ')
-                                          .map((String item) => item[0])
-                                          .join(''),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w200)),
+                                margin: EdgeInsets.only(right: 4),
+                                child: NeumorConcaveContainer(
+                                  gradient: LinearGradient(
+                                    end: Alignment.bottomRight,
+                                    begin: Alignment.bottomLeft,
+                                    stops: [
+                                      0.0,
+                                      8.0,
+                                    ],
+                                    colors: [
+                                      Theme.of(context).primaryColorDark,
+                                      Theme.of(context).primaryColor,
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Center(
+                                    child: Text(
+                                        userProfile.firstName
+                                            .split(' ')
+                                            .map((String item) => item[0])
+                                            .join(''),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w200)),
+                                  ),
                                 ),
                               );
                             }).toList(),

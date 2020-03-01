@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: routes,
           theme: new ThemeData(
+            // fontFamily: 'ArialRoundedBold',
             // brightness: Brightness.light,
             primaryColor: Colors.purple[600],
             primaryColorLight: Colors.purple[200],

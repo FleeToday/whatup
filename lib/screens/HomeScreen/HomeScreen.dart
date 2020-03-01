@@ -82,6 +82,8 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child: Container(
                               alignment: Alignment.center,
                               child: FlatButton(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onPressed: () {
                                   this._onItemTapped(0);
                                 },
@@ -127,6 +129,8 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child: Container(
                               alignment: Alignment.center,
                               child: FlatButton(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onPressed: () {
                                   this._onItemTapped(1);
                                 },
@@ -172,6 +176,8 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child: Container(
                               alignment: Alignment.center,
                               child: FlatButton(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onPressed: () {
                                   this._onItemTapped(2);
                                 },
@@ -217,6 +223,8 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child: Container(
                               alignment: Alignment.center,
                               child: FlatButton(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onPressed: () {
                                   this._onItemTapped(3);
                                 },
@@ -264,42 +272,6 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            // bottomNavigationBar: BottomNavigationBar(
-            //   items: const <BottomNavigationBarItem>[
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.home),
-            //       title: Text(
-            //         'Home',
-            //         style: TextStyle(fontWeight: FontWeight.w300),
-            //       ),
-            //     ),
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.calendar_today),
-            //       title: Text(
-            //         'Calendar',
-            //         style: TextStyle(fontWeight: FontWeight.w300),
-            //       ),
-            //     ),
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.add),
-            //       title: Text(
-            //         'New Activity',
-            //         style: TextStyle(fontWeight: FontWeight.w300),
-            //       ),
-            //     ),
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.settings),
-            //       title: Text(
-            //         'Settings',
-            //         style: TextStyle(fontWeight: FontWeight.w300),
-            //       ),
-            //     ),
-            //   ],
-            //   currentIndex: _selectedIndex,
-            //   unselectedItemColor: Theme.of(context).primaryColorLight,
-            //   selectedItemColor: Theme.of(context).primaryColor,
-            //   onTap: this._onItemTapped,
-            // ),
             appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -345,7 +317,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ActivitiesCreateButtonWidget(
                   onPressed: () {
                     BlocProvider.of<ActivityBloc>(context).add(FetchActivity(
@@ -355,7 +327,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 16),
                 decoration: BoxDecoration(
                     // color: Colors.purple[200],
                     // borderRadius: BorderRadius.vertical(top: Radius.circular(20)),

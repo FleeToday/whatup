@@ -40,7 +40,7 @@ class RegisterFormWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 20, left: 16, right: 16),
+              margin: EdgeInsets.only(top: 20, left: 32, right: 32),
               padding: EdgeInsets.all(20),
               decoration: NeumorFlatDecoration(
                 // color: Colors.white,
