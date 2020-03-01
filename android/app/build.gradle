@@ -38,8 +38,9 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.whatup"
-        minSdkVersion 16
+        applicationId "com.cubecnelson.RoomMobile"
+        minSdkVersion 21
+        multiDexEnabled true
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

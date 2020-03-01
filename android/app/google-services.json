@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "308091676968",
+    "firebase_url": "https://room-77733.firebaseio.com",
+    "project_id": "room-77733",
+    "storage_bucket": "room-77733.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308091676968:android:3876d134f46c86c4",
+        "android_client_info": {
+          "package_name": "com.cubecnelson.RoomMobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308091676968-efphg7m1tv1h934tlcd6rjkc6bf0vgah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpxDiExQVksVECcE5Qx58bWN4iSNxBCsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308091676968-efphg7m1tv1h934tlcd6rjkc6bf0vgah.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "308091676968-a1eojb3h46e9ul84jl5jtu69v68qdlfk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cubecnelson.RoomMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
