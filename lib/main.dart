@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
           theme: new ThemeData(
             // fontFamily: 'ArialRoundedBold',
             // brightness: Brightness.light,
-            primaryColor: Colors.purple[600],
-            primaryColorLight: Colors.purple[200],
-            primaryColorDark: Colors.purple[900],
+            primaryColorLight: Color.fromRGBO(255, 153, 51, 1),
+            primaryColorDark: Color.fromRGBO(232, 67, 48, 1),
+            primaryColor: Color.fromRGBO(242, 105, 90, 1),
             //     // primaryColorLight: Colors.amber[300],
             //     // accentColor: Colors.purple[800],
             //     // backgroundColor: mainColor,
@@ -60,8 +60,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-MaterialColor mainColor =
-    MaterialColor(0xffb0d8f2, color); // 0xffc3d6f0 //0xffb0d8f2
+Color mainColor = Color.fromRGBO(255, 242, 230, 1);
 
 Map<int, Color> color = {
   50: Color.fromRGBO(4, 131, 184, .1),

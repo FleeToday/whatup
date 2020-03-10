@@ -16,8 +16,8 @@ Gradient getPrimaryGradient(BuildContext context) {
       1.0,
     ],
     colors: [
-      Theme.of(context).primaryColorDark,
       Theme.of(context).primaryColor,
+      Theme.of(context).primaryColorLight,
     ],
   );
 }

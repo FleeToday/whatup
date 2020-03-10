@@ -67,32 +67,52 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         value: menuController,
         child: Scaffold(
             extendBodyBehindAppBar: true,
-            bottomNavigationBar: NeumorConvexContainer(
-              // color: mainColor,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                color: mainColor,
-                child: Wrap(
-                  children: <Widget>[
-                    SafeArea(
-                      child: Row(
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: FlatButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onPressed: () {
-                                  this._onItemTapped(0);
-                                },
-                                child: Container(
-                                  height: 55,
-                                  width: 55,
-                                  child: this._selectedIndex != 0
-                                      ? NeumorFlatContainer(
-                                          child: NeumorConvexContainer(
+            bottomNavigationBar: NeumorFlatContainer(
+              child: NeumorConvexContainer(
+                // color: mainColor,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                  color: mainColor,
+                  child: Wrap(
+                    children: <Widget>[
+                      SafeArea(
+                        child: Row(
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: FlatButton(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onPressed: () {
+                                    this._onItemTapped(0);
+                                  },
+                                  child: Container(
+                                    height: 55,
+                                    width: 55,
+                                    child: this._selectedIndex != 0
+                                        ? NeumorFlatContainer(
+                                            child: NeumorConvexContainer(
+                                              child: Icon(
+                                                Icons.map,
+                                                color: Theme.of(context)
+                                                    .primaryColorDark,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          )
+                                        : NeumorConcaveContainer(
+                                            horizontalStops: [
+                                              0.0,
+                                              0.3,
+                                              0.8,
+                                              0.9,
+                                              1.0
+                                            ],
                                             child: Icon(
                                               Icons.map,
                                               color: Theme.of(context)
@@ -101,45 +121,45 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             borderRadius:
                                                 BorderRadius.circular(50),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        )
-                                      : NeumorConcaveContainer(
-                                          horizontalStops: [
-                                            0.0,
-                                            0.3,
-                                            0.8,
-                                            0.9,
-                                            1.0
-                                          ],
-                                          child: Icon(
-                                            Icons.map,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: FlatButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onPressed: () {
-                                  this._onItemTapped(1);
-                                },
-                                child: Container(
-                                  height: 55,
-                                  width: 55,
-                                  child: this._selectedIndex != 1
-                                      ? NeumorFlatContainer(
-                                          child: NeumorConvexContainer(
+                            Flexible(
+                              flex: 1,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: FlatButton(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onPressed: () {
+                                    this._onItemTapped(1);
+                                  },
+                                  child: Container(
+                                    height: 55,
+                                    width: 55,
+                                    child: this._selectedIndex != 1
+                                        ? NeumorFlatContainer(
+                                            child: NeumorConvexContainer(
+                                              child: Icon(
+                                                Icons.calendar_today,
+                                                color: Theme.of(context)
+                                                    .primaryColorDark,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          )
+                                        : NeumorConcaveContainer(
+                                            horizontalStops: [
+                                              0.0,
+                                              0.3,
+                                              0.8,
+                                              0.9,
+                                              1.0
+                                            ],
                                             child: Icon(
                                               Icons.calendar_today,
                                               color: Theme.of(context)
@@ -148,92 +168,92 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             borderRadius:
                                                 BorderRadius.circular(50),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        )
-                                      : NeumorConcaveContainer(
-                                          horizontalStops: [
-                                            0.0,
-                                            0.3,
-                                            0.8,
-                                            0.9,
-                                            1.0
-                                          ],
-                                          child: Icon(
-                                            Icons.calendar_today,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: FlatButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onPressed: () {
-                                  this._onItemTapped(2);
-                                },
-                                child: Container(
-                                  height: 55,
-                                  width: 55,
-                                  child: this._selectedIndex != 2
-                                      ? NeumorFlatContainer(
-                                          child: NeumorConvexContainer(
+                            Flexible(
+                              flex: 1,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: FlatButton(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onPressed: () {
+                                    this._onItemTapped(2);
+                                  },
+                                  child: Container(
+                                    height: 55,
+                                    width: 55,
+                                    child: this._selectedIndex != 2
+                                        ? NeumorFlatContainer(
+                                            child: NeumorConvexContainer(
+                                              child: Icon(
+                                                Icons.home,
+                                                color: Theme.of(context)
+                                                    .primaryColorDark,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          )
+                                        : NeumorConcaveContainer(
+                                            horizontalStops: [
+                                              0.0,
+                                              0.3,
+                                              0.8,
+                                              0.9,
+                                              1.0
+                                            ],
                                             child: Icon(
-                                              Icons.home,
+                                              Icons.calendar_today,
                                               color: Theme.of(context)
                                                   .primaryColor,
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(50),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        )
-                                      : NeumorConcaveContainer(
-                                          horizontalStops: [
-                                            0.0,
-                                            0.3,
-                                            0.8,
-                                            0.9,
-                                            1.0
-                                          ],
-                                          child: Icon(
-                                            Icons.calendar_today,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: FlatButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onPressed: () {
-                                  this._onItemTapped(3);
-                                },
-                                child: Container(
-                                  height: 55,
-                                  width: 55,
-                                  child: this._selectedIndex != 3
-                                      ? NeumorFlatContainer(
-                                          child: NeumorConvexContainer(
+                            Flexible(
+                              flex: 1,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: FlatButton(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onPressed: () {
+                                    this._onItemTapped(3);
+                                  },
+                                  child: Container(
+                                    height: 55,
+                                    width: 55,
+                                    child: this._selectedIndex != 3
+                                        ? NeumorFlatContainer(
+                                            child: NeumorConvexContainer(
+                                              child: Icon(
+                                                Icons.account_box,
+                                                color: Theme.of(context)
+                                                    .primaryColorDark,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          )
+                                        : NeumorConcaveContainer(
+                                            horizontalStops: [
+                                              0.0,
+                                              0.3,
+                                              0.8,
+                                              0.9,
+                                              1.0
+                                            ],
                                             child: Icon(
                                               Icons.account_box,
                                               color: Theme.of(context)
@@ -242,33 +262,15 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             borderRadius:
                                                 BorderRadius.circular(50),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        )
-                                      : NeumorConcaveContainer(
-                                          horizontalStops: [
-                                            0.0,
-                                            0.3,
-                                            0.8,
-                                            0.9,
-                                            1.0
-                                          ],
-                                          child: Icon(
-                                            Icons.account_box,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

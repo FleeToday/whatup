@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_maps_flutter: ^0.5.11
+  flutter_icons: ^1.0.0+1
   expanding_bottom_bar: ^0.1.2
   firebase_core: ^0.4.0+9
   firebase_auth: ^0.14.0+5
@@ -37,6 +38,7 @@ dependencies:
   geoflutterfire: ^2.0.3+1
   provider: ^3.0.0
   image: ^2.1.4
+  shadow: ^0.1.5
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +54,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
+
   assets:
     - assets/
   fonts:

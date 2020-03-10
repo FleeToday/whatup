@@ -42,13 +42,6 @@ class RegisterFormWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 20, left: 32, right: 32),
               padding: EdgeInsets.all(20),
-              decoration: NeumorFlatDecoration(
-                // color: Colors.white,
-                color: mainColor,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
               child: (_state is AuthLoading)
                   ? LoginLoadingView()
                   : Column(
@@ -156,21 +149,16 @@ class RegisterFormWidget extends StatelessWidget {
                               // color: Theme.of(context).primaryColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(28)),
-                              child: NeumorConvexContainer(
-                                // color: Theme.of(context).primaryColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(28)),
-                                child: Container(
-                                  decoration:
-                                      getPrimaryGradientBoxDecoration(context),
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: const Text('Sign Up',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w200)),
-                                  alignment: Alignment.center,
-                                ),
+                              child: Container(
+                                // decoration:
+                                //     getPrimaryGradientBoxDecoration(context),
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text('Sign Up',
+                                    style: TextStyle(
+                                        // color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w200)),
+                                alignment: Alignment.center,
                               ),
                             ),
                           ),

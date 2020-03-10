@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:whatup/components/NeumorConcaveContainer.dart';
 import 'package:whatup/components/NeumorConvexContainer.dart';
 import 'package:whatup/components/NeumorFlatContainer.dart';
@@ -39,13 +40,6 @@ class LoginFormWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 20, left: 32, right: 32),
               padding: EdgeInsets.all(20),
-              decoration: NeumorFlatDecoration(
-                // color: Colors.white,
-                color: mainColor,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
               child: (_state is AuthLoading)
                   ? LoginLoadingView()
                   : Column(
@@ -70,7 +64,7 @@ class LoginFormWidget extends StatelessWidget {
                                     controller: _emailController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      labelText: 'Username',
+                                      labelText: 'Phone No.',
                                     ),
                                   ),
                                 ),
@@ -91,17 +85,52 @@ class LoginFormWidget extends StatelessWidget {
                               child: NeumorConcaveContainer(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Container(
-                                  padding: EdgeInsets.only(
-                                    left: 20,
-                                    right: 20,
-                                  ),
-                                  child: TextFormField(
-                                    style: TextStyle(fontSize: 14),
-                                    controller: _passwordController,
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      labelText: 'Password',
-                                    ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 20.0),
+                                          child: TextFormField(
+                                            style: TextStyle(fontSize: 14),
+                                            controller: _passwordController,
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              labelText: 'Verification Code',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 12.0),
+                                        child: Container(
+                                          height: 40,
+                                          width: 40,
+                                          alignment: Alignment.center,
+                                          child: NeumorFlatContainer(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              child: Container(
+                                                padding: EdgeInsets.all(2),
+                                                child: NeumorConcaveContainer(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                  child: IconButton(
+                                                      icon: Icon(
+                                                          MaterialCommunityIcons
+                                                              .message,
+                                                          size: 20,
+                                                          color: Colors.white)),
+                                                ),
+                                              )),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -122,28 +151,57 @@ class LoginFormWidget extends StatelessWidget {
                             padding: const EdgeInsets.all(0.0),
                             color: Colors.transparent,
                             child: NeumorFlatContainer(
-                              // color: Theme.of(context).primaryColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(28)),
-                              child: NeumorConvexContainer(
-                                // color: Theme.of(context).primaryColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(28)),
-                                child: Container(
-                                  decoration:
-                                      getPrimaryGradientBoxDecoration(context),
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: const Text('Sign In',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w200)),
-                                  alignment: Alignment.center,
-                                ),
+                              child: Container(
+                                padding: const EdgeInsets.all(12.0),
+                                child: const Text('Sign In',
+                                    style: TextStyle(
+                                        // color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w200)),
+                                alignment: Alignment.center,
                               ),
+                              // ),
                             ),
                           ),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            NeumorFlatContainer(
+                                borderRadius: BorderRadius.circular(30),
+                                child: Container(
+                                  padding: EdgeInsets.all(2),
+                                  child: NeumorConcaveContainer(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: IconButton(
+                                        icon: Icon(
+                                            MaterialCommunityIcons.facebook,
+                                            size: 20,
+                                            color: Colors.white)),
+                                  ),
+                                )),
+                            Container(
+                              width: 20,
+                            ),
+                            NeumorFlatContainer(
+                                borderRadius: BorderRadius.circular(30),
+                                child: Container(
+                                  padding: EdgeInsets.all(2),
+                                  child: NeumorConcaveContainer(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: IconButton(
+                                        icon: Icon(
+                                            MaterialCommunityIcons.google,
+                                            size: 20,
+                                            color: Colors.white)),
+                                  ),
+                                )),
+                          ],
+                        )
                       ],
                     ),
             )

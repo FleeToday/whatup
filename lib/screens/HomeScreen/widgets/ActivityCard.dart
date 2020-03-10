@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatup/components/NeumorConcaveContainer.dart';
 import 'package:whatup/components/NeumorConvexContainer.dart';
+import 'package:whatup/components/NeumorFlatContainer.dart';
 import 'package:whatup/main.dart';
 import 'package:whatup/models/Activity.dart';
 import 'package:whatup/screens/HomeScreen/bloc/activity_bloc.dart';
@@ -63,20 +64,31 @@ class ActivityCard extends StatelessWidget {
                 child: Stack(alignment: Alignment.topRight, children: [
                   Visibility(
                     visible: isActivityJoinable,
-                    child: IconButton(
-                      onPressed: () {
-                        this.activity.members.add(
-                            (userProfileState as UserProfileRetrievalSuccess)
+                    child: NeumorFlatContainer(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(30)),
+                      child: NeumorConvexContainer(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(30)),
+                        child: IconButton(
+                          onPressed: () {
+                            this.activity.members.add((userProfileState
+                                    as UserProfileRetrievalSuccess)
                                 .currentUserProfile);
-                        BlocProvider.of<ActivityBloc>(context)
-                            .add(UpdateActivity(this.activity));
-                      },
-                      padding: EdgeInsets.all(0),
-                      icon: Icon(
-                        Icons.add_box,
-                        size: 25,
+                            BlocProvider.of<ActivityBloc>(context)
+                                .add(UpdateActivity(this.activity));
+                          },
+                          padding: EdgeInsets.only(left: 10, bottom: 10),
+                          icon: Icon(
+                            Icons.add,
+                            size: 30,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          color: Theme.of(context).accentColor,
+                        ),
                       ),
-                      color: Theme.of(context).accentColor,
                     ),
                   ),
                   Padding(
@@ -124,6 +136,8 @@ class ActivityCard extends StatelessWidget {
                                                 .textTheme
                                                 .subhead
                                                 .copyWith(
+                                                  color: Theme.of(context)
+                                                      .primaryColorDark,
                                                   fontWeight: FontWeight.w300,
                                                 ),
                                           ),
