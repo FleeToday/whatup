@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:whatup/components/NeumorConcaveContainer.dart';
 import 'package:whatup/components/NeumorConvexContainer.dart';
@@ -89,7 +90,7 @@ class LocationSearchInputWidget extends StatelessWidget {
                           border: InputBorder.none,
                           hintText: 'Search Location',
                           prefixIcon: Icon(
-                            Icons.pin_drop,
+                            MaterialCommunityIcons.map_marker_radius,
                             color: Theme.of(context).primaryColor,
                           ),
                         ),

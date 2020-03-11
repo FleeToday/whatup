@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:whatup/components/NeumorConcaveContainer.dart';
 import 'package:whatup/components/NeumorConvexContainer.dart';
@@ -7,7 +8,6 @@ import 'package:whatup/components/NeumorFlatContainer.dart';
 import 'package:whatup/components/ZoomScaffold.dart';
 import 'package:whatup/main.dart';
 import 'package:whatup/screens/ActivityCreateScreen/ActivityCreateScreen.dart';
-import 'package:whatup/screens/HomeScreen/AppBarDrawerWidget.dart';
 import 'package:whatup/screens/HomeScreen/AppBarMenuButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.dart';
 import 'package:whatup/screens/HomeScreen/widgets/ActivityReloadButtonWidget.dart';
@@ -17,6 +17,7 @@ import 'package:whatup/screens/HomeScreen/ActivitiesMapViewWidget.dart';
 import 'package:whatup/screens/LoginScreen/LoginScreen.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_bloc.dart';
 import 'package:whatup/screens/LoginScreen/bloc/auth_state.dart';
+import 'package:whatup/screens/SettingsScreen/SettingsScreen.dart';
 
 import 'bloc/activity_bloc.dart';
 import 'bloc/activity_event.dart';
@@ -95,9 +96,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         ? NeumorFlatContainer(
                                             child: NeumorConvexContainer(
                                               child: Icon(
-                                                Icons.map,
+                                                MaterialCommunityIcons
+                                                    .map_marker_path,
                                                 color: Theme.of(context)
-                                                    .primaryColorDark,
+                                                    .primaryColor,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(50),
@@ -114,56 +116,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               1.0
                                             ],
                                             child: Icon(
-                                              Icons.map,
+                                              MaterialCommunityIcons
+                                                  .map_marker_path,
                                               color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                          ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: FlatButton(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onPressed: () {
-                                    this._onItemTapped(1);
-                                  },
-                                  child: Container(
-                                    height: 55,
-                                    width: 55,
-                                    child: this._selectedIndex != 1
-                                        ? NeumorFlatContainer(
-                                            child: NeumorConvexContainer(
-                                              child: Icon(
-                                                Icons.calendar_today,
-                                                color: Theme.of(context)
-                                                    .primaryColorDark,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                          )
-                                        : NeumorConcaveContainer(
-                                            horizontalStops: [
-                                              0.0,
-                                              0.3,
-                                              0.8,
-                                              0.9,
-                                              1.0
-                                            ],
-                                            child: Icon(
-                                              Icons.calendar_today,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                                  .primaryColorLight,
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(50),
@@ -189,9 +145,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         ? NeumorFlatContainer(
                                             child: NeumorConvexContainer(
                                               child: Icon(
-                                                Icons.home,
+                                                MaterialCommunityIcons
+                                                    .plus_circle_outline,
                                                 color: Theme.of(context)
-                                                    .primaryColorDark,
+                                                    .primaryColor,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(50),
@@ -208,9 +165,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               1.0
                                             ],
                                             child: Icon(
-                                              Icons.calendar_today,
+                                              MaterialCommunityIcons
+                                                  .plus_circle_multiple_outline,
                                               color: Theme.of(context)
-                                                  .primaryColor,
+                                                  .primaryColorLight,
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(50),
@@ -236,9 +194,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         ? NeumorFlatContainer(
                                             child: NeumorConvexContainer(
                                               child: Icon(
-                                                Icons.account_box,
+                                                MaterialCommunityIcons
+                                                    .account_circle_outline,
                                                 color: Theme.of(context)
-                                                    .primaryColorDark,
+                                                    .primaryColor,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(50),
@@ -255,9 +214,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               1.0
                                             ],
                                             child: Icon(
-                                              Icons.account_box,
+                                              MaterialCommunityIcons
+                                                  .account_circle_outline,
                                               color: Theme.of(context)
-                                                  .primaryColor,
+                                                  .primaryColorLight,
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(50),
@@ -330,22 +290,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               Container(
                 padding: EdgeInsets.only(top: 16),
-                decoration: BoxDecoration(
-                    // color: Colors.purple[200],
-                    // borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                    // gradient: LinearGradient(
-                    //   begin: Alignment.topCenter,
-                    //   end: Alignment.bottomCenter,
-                    //   colors: [
-                    //     Colors.purple[200].withAlpha(0),
-                    //     Colors.purple[200].withAlpha(0),
-                    //     Colors.purple[200].withAlpha(100),
-                    //     Colors.purple[200].withAlpha(500),
-                    //     Colors.purple[200]
-                    //   ],
-                    //   stops: [0, 0.3, 0.5, 0.7, 1],
-                    // ),
-                    ),
+                decoration: BoxDecoration(),
                 child: ActivitiesListView(),
               )
             ],
@@ -356,6 +301,6 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget _getSettingsWidget() {
-    return AppBarDrawerWidget();
+    return SettingsScreen();
   }
 }

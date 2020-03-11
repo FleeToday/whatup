@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:whatup/components/NeumorConvexContainer.dart';
 
 class AppBarMenuButtonWidget extends StatelessWidget {
@@ -24,7 +25,7 @@ class AppBarMenuButtonWidget extends StatelessWidget {
           child: IconButton(
             padding: EdgeInsets.all(0),
             icon: Icon(
-              Icons.notifications,
+              MaterialCommunityIcons.bell_outline,
               size: 25,
             ),
             color: Theme.of(context).primaryColor,

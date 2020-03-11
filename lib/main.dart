@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           theme: new ThemeData(
             // fontFamily: 'ArialRoundedBold',
             // brightness: Brightness.light,
-            primaryColorLight: Color.fromRGBO(255, 153, 51, 1),
+            primaryColorLight: Color.fromRGBO(255, 191, 128, 1),
             primaryColorDark: Color.fromRGBO(232, 67, 48, 1),
             primaryColor: Color.fromRGBO(242, 105, 90, 1),
             //     // primaryColorLight: Colors.amber[300],

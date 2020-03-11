@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:whatup/components/NeumorConcaveContainer.dart';
 import 'package:whatup/components/NeumorConvexContainer.dart';
 import 'package:whatup/components/NeumorFlatContainer.dart';
@@ -11,6 +12,7 @@ import 'package:whatup/screens/HomeScreen/widgets/ActivitiesCreateButtonWidget.d
 import 'package:whatup/screens/HomeScreen/widgets/ActivityTime.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_bloc.dart';
 import 'package:whatup/screens/ProfileScreen/bloc/userProfile_state.dart';
+import 'package:whatup/utilities/PrimaryGradientDecoration.dart';
 
 import '../../../models/UserProfile.dart';
 
@@ -67,11 +69,11 @@ class ActivityCard extends StatelessWidget {
                     child: NeumorFlatContainer(
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(30)),
+                          bottomLeft: Radius.circular(50)),
                       child: NeumorConvexContainer(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(30)),
+                            bottomLeft: Radius.circular(50)),
                         child: IconButton(
                           onPressed: () {
                             this.activity.members.add((userProfileState
@@ -80,10 +82,10 @@ class ActivityCard extends StatelessWidget {
                             BlocProvider.of<ActivityBloc>(context)
                                 .add(UpdateActivity(this.activity));
                           },
-                          padding: EdgeInsets.only(left: 10, bottom: 10),
+                          padding: EdgeInsets.only(left: 5, bottom: 5),
                           icon: Icon(
-                            Icons.add,
-                            size: 30,
+                            MaterialCommunityIcons.account_plus_outline,
+                            size: 16,
                             color: Theme.of(context).primaryColor,
                           ),
                           color: Theme.of(context).accentColor,
@@ -120,7 +122,8 @@ class ActivityCard extends StatelessWidget {
                                   child: Row(
                                     children: <Widget>[
                                       Icon(
-                                        Icons.pin_drop,
+                                        MaterialCommunityIcons
+                                            .map_marker_radius,
                                         color: Theme.of(context).primaryColor,
                                         size: 15,
                                       ),
@@ -161,18 +164,7 @@ class ActivityCard extends StatelessWidget {
                                 width: 40,
                                 margin: EdgeInsets.only(right: 4),
                                 child: NeumorConcaveContainer(
-                                  gradient: LinearGradient(
-                                    end: Alignment.bottomRight,
-                                    begin: Alignment.bottomLeft,
-                                    stops: [
-                                      0.0,
-                                      8.0,
-                                    ],
-                                    colors: [
-                                      Theme.of(context).primaryColorDark,
-                                      Theme.of(context).primaryColor,
-                                    ],
-                                  ),
+                                  color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(20),
                                   child: Center(
                                     child: Text(

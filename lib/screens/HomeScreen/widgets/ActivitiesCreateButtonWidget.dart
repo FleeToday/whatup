@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:whatup/components/NeumorConvexContainer.dart';
 
 class ActivitiesCreateButtonWidget extends StatelessWidget {
@@ -24,7 +25,7 @@ class ActivitiesCreateButtonWidget extends StatelessWidget {
           child: IconButton(
             padding: EdgeInsets.all(0),
             icon: Icon(
-              Icons.refresh,
+              MaterialCommunityIcons.refresh,
               size: 25,
             ),
             color: Theme.of(context).primaryColor,
