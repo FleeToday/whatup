@@ -172,24 +172,39 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
               borderRadius: BorderRadius.circular(20),
               child: NeumorConvexContainer(
                 borderRadius: BorderRadius.circular(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                child: Stack(
+                  fit: StackFit.loose,
+                  alignment: Alignment.center,
                   children: <Widget>[
-                    Icon(
-                      activityType.iconData,
-                      size: 60,
-                      color: Theme.of(context).primaryColorDark,
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColorLight,
+                          borderRadius: BorderRadius.circular(50)),
+                      margin: EdgeInsets.only(top: 50, left: 50),
+                      height: 60,
+                      width: 60,
                     ),
-                    Padding(
-                      child: Text(
-                        activityType.title,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Theme.of(context).primaryColorDark),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                    )
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          activityType.iconData,
+                          size: 60,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        Padding(
+                          child: Text(
+                            activityType.title,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context).primaryColorDark),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 4),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),

@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 
 // const color = Color.fromRGBO(235, 235, 250, 1);
 
-const neumorBoxShadow = [
+const;
+
+class NeumorFlatDecoration extends BoxDecoration {
+  const NeumorFlatDecoration(
+      {BorderRadius borderRadius, Color color, bool convex})
+      : super(
+          borderRadius: borderRadius,
+          color: color,
+          boxShadow: const [
   BoxShadow(
     color: Colors.black26,
     blurRadius: 10.0,
@@ -21,14 +29,6 @@ const neumorBoxShadow = [
       -5.0,
     ),
   )
-];
-
-class NeumorFlatDecoration extends BoxDecoration {
-  const NeumorFlatDecoration(
-      {BorderRadius borderRadius, Color color, bool convex})
-      : super(
-          borderRadius: borderRadius,
-          color: color,
-          boxShadow: neumorBoxShadow,
+],
         );
 }
